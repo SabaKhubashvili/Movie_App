@@ -19,3 +19,14 @@ body{
 .swiper-button-prev{
     background-color: red;
 }
+
+.video-react{
+    padding: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+    background-color: transparent !important;
+}
+
+.video-react-video , .video-react-poster{
+    background-color: transparent !important;
+}
