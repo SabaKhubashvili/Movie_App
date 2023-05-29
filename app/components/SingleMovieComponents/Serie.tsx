@@ -23,7 +23,7 @@ export const Serie = ({onClick}:Props) => {
 
             <div className='absolute bottom-0 pb-[8px] z-[2] w-full flex justify-center flex-col px-[20px] 
             bg-gradient-to-b from-transparent to-[#000000] rounded-[16px]' >
-                <h3 className='font-bold text-[16px] leading-[24px] text-white'>Chapter 1</h3>
+                <h3 className='font-bold text-[16px] leading-[24px] text-white'>Chapter 2</h3>
                 <p className='text-[#78828A] text-[12px] leading-[20px]'>{serieDescription.slice(0,75)}...</p>
             </div>
     </div>
