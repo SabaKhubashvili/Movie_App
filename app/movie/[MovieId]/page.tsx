@@ -19,7 +19,7 @@ const page = ({params}:{params:IParams}) => {
   return (
     <React.Fragment>
       <section className='h-[810px]'>
-       <SingleMovieBanner/>
+       <SingleMovieBanner links/>
       </section>
       <MovieDescription/>
       <Series/>

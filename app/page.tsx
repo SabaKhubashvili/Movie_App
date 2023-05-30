@@ -4,7 +4,7 @@ import { PartnersSlider } from './components/Sliders/PartnersSlider'
 import { Container } from './Container'
 import { PopularMovies } from './components/sections/Popular/PopularMovies'
 import { LatestReleases } from './components/sections/latestReleases/LatestReleases'
-import { Watchlist } from './components/MovieComponent'
+import { Watchlist } from './components/sections/Watchlist'
 import { YourLikes } from './components/sections/yourLikes/YourLikes'
 import { SecondaryBanner } from './components/Banners/SecondaryBanner'
 
@@ -14,8 +14,8 @@ export default function Home() {
         <MainBanner/>
         <PartnersSlider/>
         <Container rightSpace >
-          <PopularMovies/>
           <LatestReleases/>
+          <PopularMovies/>
           <Watchlist/>
           <YourLikes/>
         </Container>

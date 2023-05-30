@@ -9,9 +9,9 @@ import { Container } from '@/app/Container'
 
 export const PopularMovies = () => {
   return (
-    <section className='w-full pt-[40px]'>
+    <section className='w-full pb-[40px]'>
 
-        <div className='pt-[24px] relative'>
+        <div className=' relative'>
 
           <h1 className='text-[24px] font-bold leading-[32px] pb-[24px] text-white '>Popular of the week</h1>
           <Swiper

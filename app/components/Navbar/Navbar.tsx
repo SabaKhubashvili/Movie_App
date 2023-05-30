@@ -9,6 +9,7 @@ import { largeScreens } from "../MediaQueries";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { SmallScreenNavLinks } from "./NavLinks/SmallScreenNavLinks";
 import { NavContact } from "../Contact/NavContact";
+import Link from "next/link";
 
 export const Navbar = () => {
   const isAboveLargeScrens = useMediaQuery(largeScreens);
@@ -44,9 +45,9 @@ export const Navbar = () => {
             <AiOutlineMenu size={32} />
           </div>
         ) : (
-          <div className="w-[153.62px] h-[32px]">
+          <Link href='/' className="w-[153.62px] h-[32px]">
             <Logo />
-          </div>
+          </Link>
         )}
         <NavLinks />
         <Menu />
@@ -62,9 +63,9 @@ export const Navbar = () => {
              bg-black text-white`}
              >
           <div className="flex justify-between">
-            <div className="w-40">
+            <Link href='/' className="w-40">
               <Logo />
-            </div>
+            </Link>
             <div
               className="ml-auto cursor-pointer"
               onClick={() => setMenuToggled(false)}

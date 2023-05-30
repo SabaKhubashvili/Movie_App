@@ -6,7 +6,11 @@ import { DownloadIcon, LikeIcon, ShareIcon } from '@/public/svg/icons/Icon'
 import { largeScreens } from '../MediaQueries'
 import useMediaQuery from '@/app/hooks/UseMediaQuery'
 
-export const SingleMovieBanner = () => {
+interface Props{
+    links?:boolean
+}
+
+export const SingleMovieBanner = ({links}:Props) => {
 
     const isAboveLargeScreens = useMediaQuery(largeScreens)
 
@@ -54,11 +58,14 @@ export const SingleMovieBanner = () => {
                         <AddWatchlist label="Add Watchlist"/>
                     }
                 </div>
+                { links &&
+
                 <div className='flex lg:gap-[24px] gap-[12px] items-center'>
                     <CustomIconButton label='Download' icon={<DownloadIcon/>} />
                     <CustomIconButton label='Share' icon={<ShareIcon/>} />
                     <CustomIconButton label='Like' icon={<LikeIcon/>} />
                 </div>
+                }
             </div>
         </div>
     </Container>

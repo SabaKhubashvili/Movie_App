@@ -9,7 +9,8 @@ import "swiper/css/free-mode";
 
 import { Navigation,FreeMode } from 'swiper';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon';
-import { MovieComponent } from '../watchlist/WatchlistComponent';
+import { MovieComponent } from '../../MovieComponent';
+
 
 export const YourLikes = () => {
   return (

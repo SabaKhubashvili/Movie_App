@@ -9,27 +9,34 @@ import "swiper/css/free-mode";
 
 import { Navigation,FreeMode } from 'swiper';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon';
-import { MovieComponent } from '../MovieComponent';
+import { MovieComponent } from '../../MovieComponent';
 
-
-export const SimilarMovies = () => {
+export const AllSeries = () => {
   return (
     <section className='w-full py-[40px]'>
-        <h1 className='text-white font-bold text-[24px] leading-[32px]'>Similar Movies for you</h1>
+        <h1 className='text-white font-bold text-[24px] leading-[32px]'>Series</h1>
         <div className='pt-[24px] relative'>
         
         <button 
-            className="custom_next_similarMovies absolute  right-6 
+            className="custom_next_watchlist absolute  right-6 
             lg:flex hidden items-center justify-center outline-none h-full cursor-pointer z-[10] ">
               <div className="  h-fit p-5 bg-[#28262D]  rounded-full ">
                 <ArrowRightIcon/>
               </div>
             </button>
+            <button 
+            className="custom_prev_watchlist absolute  left-6 
+            lg:flex hidden items-center justify-center h-full outline-none cursor-pointer z-[10] ">
+              <div className=" h-fit py-4 px-5 bg-[#28262D]  rounded-full ">
+                <ArrowLeftIcon/>
+              </div>
+        </button>
         <Swiper
             slidesPerView='auto'
             spaceBetween={16}
             navigation={{
-                nextEl:'.custom_next_similarMovies',
+                nextEl:'.custom_next_watchlist',
+                prevEl:'.custom_prev_watchlist',
             }}
             freeMode={true}
             modules={[Navigation,FreeMode]}
@@ -40,7 +47,7 @@ export const SimilarMovies = () => {
                     <MovieComponent/>
                 </SwiperSlide>
                 <SwiperSlide className='!w-[280px]'>
-                    <MovieComponent />
+                    <MovieComponent/>
                 </SwiperSlide>
                 <SwiperSlide className='!w-[280px]'>
                     <MovieComponent/>

@@ -20,6 +20,7 @@ body{
     background-color: red;
 }
 
+
 .video-react{
     
     height: 100% !important;
@@ -29,4 +30,11 @@ body{
 
 .video-react-video , .video-react-poster{
     background-color: transparent !important;
+}
+
+.video-react .video-react-slider{
+    background-color: #00925d4a !important;
+}
+.video-react .video-react-load-progress{
+    background-color: #00925D !important;
 }
