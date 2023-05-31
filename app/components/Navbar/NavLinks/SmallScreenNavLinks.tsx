@@ -7,8 +7,7 @@ export const SmallScreenNavLinks = () => {
         <NavLink smallScreen label='Home' to='/'/>
         <NavLink smallScreen label='Discover' to='/discover'/>
         <NavLink smallScreen label='Movie Release' to='/releases'/>
-        <NavLink smallScreen label='Forum' to='/forum'/>
-        <NavLink smallScreen label='About' to='/about'/>    
+        <NavLink smallScreen label='Forum' to='/forum'/>  
     </div>
   )
 }

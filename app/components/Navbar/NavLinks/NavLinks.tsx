@@ -8,7 +8,6 @@ export const NavLinks = () => {
         <NavLink label='Discover' to='/discover'/>
         <NavLink label='Movie Release' to='/releases'/>
         <NavLink label='Forum' to='/forum'/>
-        <NavLink label='About' to='/about'/>
     </div>
   )
 }

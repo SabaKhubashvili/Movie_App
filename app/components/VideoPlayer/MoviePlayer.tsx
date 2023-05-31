@@ -6,7 +6,7 @@ export const MoviePlayer = () => {
 
 
   return (
-    <div className='w-full h-full -mt-[10rem]'>
+    <div className='w-full h-full '>
     <Player
       playsInline
       poster="/Image/movies/topgun.webp"

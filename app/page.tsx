@@ -7,10 +7,22 @@ import { LatestReleases } from './components/sections/latestReleases/LatestRelea
 import { Watchlist } from './components/sections/Watchlist'
 import { YourLikes } from './components/sections/yourLikes/YourLikes'
 import { SecondaryBanner } from './components/Banners/SecondaryBanner'
+import Head from 'next/head'
+
+export const metadata = {
+  title: 'Home',
+  description: 'Free movie website',
+  Image:'/Image/main/Logo.webp'
+}
 
 export default function Home() {
   return (
     <React.Fragment>
+      <Head>
+        <title>{metadata.title}</title>
+        <meta property='og:title' content={metadata.title} />
+        <meta property='og:description' content={metadata.description} />
+      </Head>
         <MainBanner/>
         <PartnersSlider/>
         <Container rightSpace >

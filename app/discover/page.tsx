@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import { MainBanner } from '../components/Banners/MainBanner'
 import { Container } from '../Container'
@@ -11,7 +9,14 @@ import { Movies } from '../components/sections/Movies/Movies'
 import { AllSeries } from '../components/sections/Series/Series'
 import { SecondaryBanner } from '../components/Banners/SecondaryBanner'
 
-const page = () => {
+
+export const metadata = {
+  title: 'Discover',
+  description: 'Discover all free movies',
+  image: '/Image/main/Logo.webp'
+};
+
+const Page = () => {
   return (
     <React.Fragment>
       <MainBanner/>
@@ -31,4 +36,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

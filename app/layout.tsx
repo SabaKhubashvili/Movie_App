@@ -1,17 +1,17 @@
+'use client'
+
 import { Container } from './Container'
 import { ClientOnly } from './components/ClientOnly'
 import { Footer } from './components/Footer/Footer'
+import { LoginModal } from './components/Modals/LoginModal'
+import { RegisterModal } from './components/Modals/RegisterModal'
 import { Navbar } from './components/Navbar/Navbar'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'Home',
-  description: 'Free movie website',
-  Image:'/Image/main/Logo.webp'
-}
+
 
 export default function RootLayout({
   children,
@@ -22,6 +22,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ClientOnly>
+          <LoginModal/>
+          <RegisterModal/>
             <Navbar/>
             <div>
               {children}

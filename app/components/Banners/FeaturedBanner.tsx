@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef, useState } from "react";
 import { Swiper , SwiperRef, SwiperSlide } from "swiper/react";
 import  {FreeMode } from "swiper";
