@@ -14,3 +14,11 @@ export interface MovieInformationInterface{
     description:string,
     image:string
 }
+
+export interface smallMovieInterface{
+    title:string
+    imdbRating:number
+    reviews?:number
+    rating:number
+    img:string
+}

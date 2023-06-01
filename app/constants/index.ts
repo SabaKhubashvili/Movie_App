@@ -155,3 +155,105 @@ export const movieReleases = [
         ]
     }
 ];
+
+
+export const hotTopics = [
+    {
+      title: "Dungeons & Dragons: The Adventure Begins",
+      imdbRating: 6.8,
+      reviews: 1350,
+      rating: 7.4,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "The Dragon's Lair",
+      imdbRating: 7.2,
+      reviews: 1420,
+      rating: 7.8,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "Sorcerer's Quest",
+      imdbRating: 6.5,
+      reviews: 920,
+      rating: 6.9,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "The Dungeon Master",
+      imdbRating: 7.1,
+      reviews: 1100,
+      rating: 7.6,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "Realm of Dragons",
+      imdbRating: 6.7,
+      reviews: 980,
+      rating: 7.3,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "The Dragon's Crown",
+      imdbRating: 7.4,
+      reviews: 1250,
+      rating: 8.1,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "Tales from the Dungeon",
+      imdbRating: 6.9,
+      reviews: 1050,
+      rating: 7.2,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "The Dragon's Wrath",
+      imdbRating: 7.3,
+      reviews: 1160,
+      rating: 8.0,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "Wizard's Dominion",
+      imdbRating: 6.6,
+      reviews: 890,
+      rating: 6.8,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "The Dungeon Crawler",
+      imdbRating: 7.0,
+      reviews: 1010,
+      rating: 7.5,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "Dragons & Magic",
+      imdbRating: 6.4,
+      reviews: 840,
+      rating: 6.7,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "The Dragon's Prophecy",
+      imdbRating: 7.5,
+      reviews: 1310,
+      rating: 8.2,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "The Dungeon Chronicles",
+      imdbRating: 6.8,
+      reviews: 950,
+      rating: 7.1,
+      img: "dungeonsdragon"
+    },
+    {
+      title: "Dragon's Legacy",
+      imdbRating: 7.2,
+      reviews: 1200,
+      rating: 7.9,
+      img: "dungeonsdragon"
+    },
+]  

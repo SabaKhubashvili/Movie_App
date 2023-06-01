@@ -26,7 +26,10 @@ export const Modal = ({footer, header,isOpen, onClose, body,paddings,small,darkB
         
         const handleOutsideClick = (event: MouseEvent) => {
             if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-            onClose();
+              setShowModal(false)
+              setTimeout(() => {
+                onClose();
+              }, 300);
 
         }
         
@@ -48,7 +51,7 @@ export const Modal = ({footer, header,isOpen, onClose, body,paddings,small,darkB
 
   return (
     <div 
-    className={`h-full fixed inset-0 flex justify-center items-center  overflow-x-hidden overflow-y-auto z-[100] 
+    className={`h-full fixed inset-0 flex justify-center items-center  overflow-x-hidden overflow-y-hidden z-[100] 
     ${darkBg ? ' bg-neutral-950/95' : 'bg-neutral-800/70'}
     `}>
       <div ref={modalRef} 
