@@ -7,7 +7,7 @@ import{
 
 interface Props{
     id:string
-    label:string
+    label?:string
     placeholder:string
     type?:string
     required?:boolean
@@ -24,10 +24,10 @@ export const MainTextInput = ({
   type = 'text',
   register,
   errors,
-  required
+  required,
 }:Props) => {
   return (
-    <div className='relative w-full flex flex-col gap-[7px]'>
+    <div className={`relative w-full flex flex-col gap-[7px]`}>
         <label htmlFor={id} className={`${errors[id] ? ' text-rose-400' : 'text-white'} font-bold`}>
             {label}
         </label>

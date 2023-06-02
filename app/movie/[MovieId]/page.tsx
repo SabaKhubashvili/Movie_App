@@ -7,7 +7,7 @@ import { Series } from '@/app/components/SingleMovieComponents/Series'
 import { Container } from '@/app/Container'
 import { SimilarMovies } from '@/app/components/SingleMovieComponents/SimilarMovies'
 
-export interface IParams{
+interface IParams{
     MovieId:string
 }
 
