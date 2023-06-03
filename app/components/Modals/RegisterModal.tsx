@@ -12,10 +12,14 @@ import{
 } from 'react-hook-form'
 import { UseRegisterModal } from '@/app/hooks/UseRegisterModal'
 import { UseLoginModal } from '@/app/hooks/UseLoginModal'
+import axios from 'axios'
+import { MainDropdown } from '../Dropdown/MainDropdown'
+import toast from 'react-hot-toast'
+
 
 export const RegisterModal = () => {
 
-    const [isLoading,setIsLoading] = useState<boolean>()
+    const [isLoading,setIsLoading] = useState<boolean>(false)
 
     const registerModal = UseRegisterModal()
     const loginModal = UseLoginModal()
@@ -33,18 +37,49 @@ export const RegisterModal = () => {
         formState:{
             errors
         },
+        watch,
+        setValue
     } = useForm<FieldValues>({
         defaultValues:{
             username:'',
             email:'',
             password:'',
+            gender:''
         }
     })
+    const gender = watch('gender')
 
     const onSubmit:SubmitHandler<FieldValues> = (data) =>{
-        console.log(data);
-        
+        if(!isLoading){
+            
+            if(gender.length <= 0){
+              return  toast.error('Gender Is Required')
+            }
+            setIsLoading(true)
+            axios.post('/api/auth/register',data)
+            .then(res=>{
+                toast.success(res.data.message)
+                loginModal.onOpen()
+                registerModal.onClose()
+            })
+            .catch(error=>{
+                toast.error(error.response.data.message)
+            }).finally(()=>{
+                setIsLoading(false)
+            })
+        }
+            
     }
+
+    
+    const setCustomValue = (id: string, value: any) => {
+        setValue(id, value, {
+          shouldDirty: true,
+          shouldTouch: true,
+          shouldValidate: true,
+        });
+      };
+
 
 
     const header = (
@@ -69,6 +104,7 @@ export const RegisterModal = () => {
              required
              register={register} 
              errors={errors}
+             disabled={isLoading}
              />
             <MainTextInput 
              id='email' 
@@ -78,20 +114,30 @@ export const RegisterModal = () => {
              required
              register={register} 
              errors={errors}
+             disabled={isLoading}
              />
             <MainTextInput 
              id='password' 
              label='Password'
+             type='password'
              placeholder='Enter Password'
              required
              register={register} 
              errors={errors}
+             disabled={isLoading}
+             />
+             <MainDropdown
+                label={gender ? gender : 'Gender'}
+                data={['Male','Female']}
+                onClick={(value:string)=>{
+                    setCustomValue('gender',value)
+                }}
              />
         </div>
     )
     const footer = (
         <div className='flex flex-col gap-[10px] w-full'>
-            <CustomButton alternative label='Login' full onClick={handleSubmit(onSubmit)}/>
+            <CustomButton disabled={isLoading} alternative label='Login' full onClick={handleSubmit(onSubmit)}/>
             <p className='text-[#78828A] text-center'>Already have accaunt? <span className='text-white cursor-pointer' onClick={handleToLogin}>Log in</span></p>
         </div>
     )
@@ -105,6 +151,7 @@ export const RegisterModal = () => {
         paddings
         small
         darkBg
+        disabled={isLoading}
         
     />
   )

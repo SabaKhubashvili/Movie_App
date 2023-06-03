@@ -10,6 +10,7 @@ import { MainTextArea } from '../Inputs/MainTextarea'
 import { MainDropdown } from '../Dropdown/MainDropdown'
 import { CustomButton } from '../Buttons'
 
+
 export const Profile = () => {
 
     const dropdownData = [
@@ -46,7 +47,7 @@ export const Profile = () => {
       }
 
   return (
-    <div className='lg:w-[60%] h-full flex flex-col justify-center items-center gap-[40px] mx-auto pt-[150px]'>
+    <div className='lg:w-[60%] h-full flex flex-col justify-center items-center gap-[40px] mx-auto pt-[150px] relative'>
                 <div className='flex flex-col gap-[15px]'>
                     <h3 className='font-bold text-white text-center'>Upload Image</h3>
                     <div className='relative md:w-[8rem] md:h-[8rem] w-[6rem] h-[6rem]  p-1 border-[1px] border-[#dbd8d8] border-solid rounded-full cursor-pointer '>
@@ -90,6 +91,9 @@ export const Profile = () => {
                         full
                     />
                 </div>
+                <div className='absolute top-[10rem] sm:left-10 left-4'>
+                <CustomButton  label='Logout'/>
+              </div>
             </div>
   )
 }

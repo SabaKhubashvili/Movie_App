@@ -1,3 +1,4 @@
+'use client'
 
 import { UseLoginModal } from '@/app/hooks/UseLoginModal'
 import { CustomButton, CustomIconButton } from '../../Buttons'
@@ -5,18 +6,34 @@ import { UserPlaceholder } from '../../Images/UserPlaceholder'
 import {SearchIcon } from '@/public/svg/icons/Icon'
 import { UseRegisterModal } from '@/app/hooks/UseRegisterModal'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {AnimatePresence,motion} from 'framer-motion'
 import { MainTextInput } from '../../Inputs/MainTextInput'
 import { FieldValues, useForm } from 'react-hook-form'
 import useMediaQuery from '@/app/hooks/UseMediaQuery'
 import {smallScreens } from '../../MediaQueries'
+import { useSession } from 'next-auth/react'
 
 export const Menu = () => {
+  const user = useSession()
   const loginModal = UseLoginModal()
   const registerModal = UseRegisterModal()
   const [isSearchOpen,setIsSearchOpen] = useState<boolean>(false)  
   const isAboveLargeScreens = useMediaQuery(smallScreens)
+  const searchRef = useRef<HTMLDivElement>(null)
+
+  useEffect(()=>{
+    if(isSearchOpen){
+      const handleOutClick = (event:MouseEvent) =>{
+        if(searchRef.current && !searchRef.current.contains(event.target as Node)){
+          setIsSearchOpen(false)
+        }
+      }
+      window.addEventListener('click',handleOutClick)
+
+      return () => window.addEventListener('click',handleOutClick)
+    }
+  },[isSearchOpen])
 
   const{
     register,
@@ -29,12 +46,14 @@ export const Menu = () => {
       search:''
     }
   })
+  
+  
   return (
     <div className='flex gap-[23px] items-center justify-end outline-none'>  
-    <div className='xs:inline hidden relative '>
+    <div className='xs:inline hidden relative' ref={searchRef}>
       {
         isAboveLargeScreens ?
-      <div onClick={()=>setIsSearchOpen(prev=>!prev)} className='cursor-pointer'>
+      <div onClick={()=>setIsSearchOpen(prev=>!prev)} className='cursor-pointer' >
         <SearchIcon/>
       </div>
       :
@@ -63,7 +82,7 @@ export const Menu = () => {
       }
     </div>
         <div className='flex gap-[6px] items-center cursor-pointer'>
-          {false ?
+          {user.data ?
 
             <Link className='w-[32px]' href={'/profile'}>
                 <UserPlaceholder/>

@@ -12,10 +12,13 @@ import{
     FieldValues
 } from 'react-hook-form'
 import { UseRegisterModal } from '@/app/hooks/UseRegisterModal'
+import { signIn } from 'next-auth/react'
+import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 export const LoginModal = () => {
     const [isLoading,setIsLoading] = useState<boolean>(false)
-
+    const router = useRouter()
     const loginModal = UseLoginModal()
     const registerModal = UseRegisterModal()
 
@@ -39,8 +42,19 @@ export const LoginModal = () => {
     })
 
     const onSubmit:SubmitHandler<FieldValues> = (data) =>{
-        console.log(data);
-        
+        signIn('credentials',{
+            ...data,
+            redirect:false,
+        }).then(callback=>{
+            if (callback?.ok) {
+                toast.success('Logged in');
+                router.refresh();
+                loginModal.onClose();
+              }
+              else if(callback?.error){
+                toast.error(callback.error)
+              }
+        })
     }
 
 

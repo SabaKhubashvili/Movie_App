@@ -10,6 +10,7 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { SmallScreenNavLinks } from "./NavLinks/SmallScreenNavLinks";
 import { NavContact } from "../Contact/NavContact";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export const Navbar = () => {
   const isAboveLargeScrens = useMediaQuery(largeScreens);
@@ -29,6 +30,7 @@ export const Navbar = () => {
     return () => window.addEventListener('scroll',isScrolled)
   },[])
 
+  
   return (
     <React.Fragment>
       <div className={`${!isTopOfPage ? '!bg-[#121212]' : 'bg-transparent'} fixed left-0 right-0 z-[50] w-full h-fit  transition-colors duration-300`}>

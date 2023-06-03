@@ -15,7 +15,7 @@ const page = ({params}:{params:IParams}) => {
    
    
     
-    
+
   return (
     <React.Fragment>
       <section className='h-[810px]'>

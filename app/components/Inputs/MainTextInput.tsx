@@ -11,6 +11,7 @@ interface Props{
     placeholder:string
     type?:string
     required?:boolean
+    disabled?:boolean
 
     register:UseFormRegister<FieldValues>
     errors:FieldErrors
@@ -25,6 +26,7 @@ export const MainTextInput = ({
   register,
   errors,
   required,
+  disabled
 }:Props) => {
   return (
     <div className={`relative w-full flex flex-col gap-[7px]`}>
@@ -32,9 +34,11 @@ export const MainTextInput = ({
             {label}
         </label>
         <input type={type} placeholder={placeholder} id={id} 
+        disabled={disabled}
         className={`py-4 px-2 border-[1px]
          bg-neutral-950 rounded-xl outline-none text-white
          ${errors[id] ? ' border-rose-400 placeholder:text-rose-400' : 'border-[#FFFFFF1A] placeholder:text-[#FFFFFF1A]' }
+         disabled:cursor-not-allowed
          `}
          {...register(id,{
           required,

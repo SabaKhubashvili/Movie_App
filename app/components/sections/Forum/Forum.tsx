@@ -5,9 +5,11 @@ import { BsStar } from 'react-icons/bs'
 import { SmallForumComponents } from './SmallForumComponents'
 import { CustomButton } from '../../Buttons'
 import { UseLoginModal } from '@/app/hooks/UseLoginModal'
+import { useSession } from 'next-auth/react'
 
 export const Forum = () => {
   const loginModal = UseLoginModal()
+  const userData = useSession()
 
   return (
     <section className='w-full flex flex-col gap-[10px] pt-[40px]'>
@@ -20,10 +22,16 @@ export const Forum = () => {
               <SmallForumComponents/>
               <SmallForumComponents/>
           </div>
-          <div className='flex flex-col items-center justify-between text-wite pt-[30px] gap-[15px]'>
+          { !userData.data ?
+
+            <div className='flex flex-col items-center justify-between text-wite pt-[30px] gap-[15px]'>
             <h1 className='uppercase font-bold text-white lg:text-[35px] text-[20px] text-center'>Want to make a movie influence profile?</h1>
             <CustomButton label='Login' onClick={()=>loginModal.onOpen()}  />
           </div>
+          :
+          'Authorized' 
+          // Future Commment Post
+          }
     </section>
   )
 }

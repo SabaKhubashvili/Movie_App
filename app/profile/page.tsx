@@ -1,10 +1,20 @@
+
 import React from 'react'
 import { Container } from '../Container'
 import { Profile } from '../components/Profile/Profile'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/pages/api/auth/[...nextauth]'
 
-export const metadata = {
-    title:'Profile',
-    description:'Edit or create your profile to create topics and talk about movies'
+
+
+export async function generateMetadata(){
+  const currentUser =  await getServerSession(authOptions)
+
+  return {
+    title: `${currentUser?.user.name} Profile`,
+    description: `Here is your profile page, you can edit profile and change description, image, name and more`,
+    Image: `${currentUser?.user.image}`
+  };
 }
 
 const page = () => {

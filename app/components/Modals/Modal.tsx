@@ -11,9 +11,10 @@ interface Props {
   small?:boolean
   darkBg?:boolean
   disabled?:boolean
+  dropdownRef?:React.RefObject<HTMLDivElement>
 }
 
-export const Modal = ({footer, header,isOpen, onClose, body,paddings,small,darkBg,disabled}:Props) => {
+export const Modal = ({footer, header,isOpen, onClose, body,paddings,small,darkBg,disabled,dropdownRef}:Props) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -25,7 +26,7 @@ export const Modal = ({footer, header,isOpen, onClose, body,paddings,small,darkB
     if(showModal && !disabled){
         
         const handleOutsideClick = (event: MouseEvent) => {
-            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            if (modalRef.current && !modalRef.current.contains(event.target as Node) &&  !dropdownRef?.current?.contains(event.target as Node) ) {
               setShowModal(false)
               setTimeout(() => {
                 onClose();
@@ -53,6 +54,8 @@ export const Modal = ({footer, header,isOpen, onClose, body,paddings,small,darkB
     <div 
     className={`h-full fixed inset-0 flex justify-center items-center  overflow-x-hidden overflow-y-hidden z-[100] 
     ${darkBg ? ' bg-neutral-950/95' : 'bg-neutral-800/70'}
+    ${disabled && 'opacity-90'}
+    transition-all duration-300
     `}>
       <div ref={modalRef} 
       className={`${small ? 'relative w-full md:w-4/6 lg:w-3/6 xl:w-2/6  mx-auto h-full md:h-auto' : 'sm:w-5/6 w-full h-[40rem]'}`}>

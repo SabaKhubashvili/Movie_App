@@ -62,7 +62,7 @@ export const MainDropdown = ({
                             {
                                 data.map((singleData:string)=>(
                                     <div key={singleData} className='cursor-pointer' onClick={()=>{
-                                        setIsOpen(false) 
+                                        
                                         onClick(singleData)
                                     }}>
                                         {singleData}
