@@ -31,6 +31,11 @@ export const MainDropdown = ({
                 return () => window.addEventListener('click',handleOutsideClick)
         }
     },[isOpen])
+    const handleToggleVisibility = (event: React.MouseEvent,value:string) => {
+        event.stopPropagation();
+        setIsOpen(false)
+        onClick(value)
+      };
 
   return (
     <div className='w-full relative' ref={dropdownRef}>
@@ -61,10 +66,7 @@ export const MainDropdown = ({
                         >
                             {
                                 data.map((singleData:string)=>(
-                                    <div key={singleData} className='cursor-pointer' onClick={()=>{
-                                        
-                                        onClick(singleData)
-                                    }}>
+                                    <div key={singleData} className='cursor-pointer' onClick={(event: React.MouseEvent<Element, MouseEvent>)=>handleToggleVisibility(event,singleData)}>
                                         {singleData}
                                     </div>
                                 ))

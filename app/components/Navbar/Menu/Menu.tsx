@@ -34,7 +34,8 @@ export const Menu = () => {
       return () => window.addEventListener('click',handleOutClick)
     }
   },[isSearchOpen])
-
+  console.log(user);
+  
   const{
     register,
     formState:{
@@ -46,7 +47,7 @@ export const Menu = () => {
       search:''
     }
   })
-  
+
   
   return (
     <div className='flex gap-[23px] items-center justify-end outline-none'>  
@@ -82,9 +83,11 @@ export const Menu = () => {
       }
     </div>
         <div className='flex gap-[6px] items-center cursor-pointer'>
-          {user.data ?
+          { user.status !== 'loading' ?
 
-            <Link className='w-[32px]' href={'/profile'}>
+            user.data ?
+              
+              <Link className='w-[32px]' href={'/profile'}>
                 <UserPlaceholder/>
             </Link>
             :
@@ -92,7 +95,10 @@ export const Menu = () => {
               <CustomIconButton onClick={()=>registerModal.onOpen()} label='Sign up' transparent showAll/>
               <CustomButton onClick={()=>loginModal.onOpen()} label='Login' />
             </div>
-            }
+            
+            :
+            ''
+          }
         </div>
     </div>
   )

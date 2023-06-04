@@ -4,11 +4,16 @@ import { Container } from '../Container'
 import { Profile } from '../components/Profile/Profile'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
+import { redirect } from 'next/navigation'
 
 
 
 export async function generateMetadata(){
   const currentUser =  await getServerSession(authOptions)
+
+  if(!currentUser){
+    redirect('/')
+  }
 
   return {
     title: `${currentUser?.user.name} Profile`,

@@ -42,19 +42,24 @@ export const LoginModal = () => {
     })
 
     const onSubmit:SubmitHandler<FieldValues> = (data) =>{
-        signIn('credentials',{
-            ...data,
-            redirect:false,
+        if(!isLoading){
+            setIsLoading(true)
+            signIn('credentials',{
+                ...data,
+                redirect:false,
         }).then(callback=>{
             if (callback?.ok) {
                 toast.success('Logged in');
                 router.refresh();
                 loginModal.onClose();
-              }
-              else if(callback?.error){
+            }
+            else if(callback?.error){
                 toast.error(callback.error)
-              }
+            }
+        }).finally(()=>{
+            setIsLoading(false)
         })
+    }
     }
 
 
@@ -87,6 +92,7 @@ export const LoginModal = () => {
              label='Password'
              placeholder='Enter Password'
              required
+             type='password'
              register={register} 
              errors={errors}
              />

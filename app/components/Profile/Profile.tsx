@@ -9,10 +9,13 @@ import { MainTextInput } from '../Inputs/MainTextInput'
 import { MainTextArea } from '../Inputs/MainTextarea'
 import { MainDropdown } from '../Dropdown/MainDropdown'
 import { CustomButton } from '../Buttons'
+import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 
 export const Profile = () => {
-
+    const router = useRouter()
+    
     const dropdownData = [
         'Man',
         'Woman'
@@ -92,7 +95,10 @@ export const Profile = () => {
                     />
                 </div>
                 <div className='absolute top-[10rem] sm:left-10 left-4'>
-                <CustomButton  label='Logout'/>
+                <CustomButton  label='Logout' onClick={()=>{
+                    signOut()
+                    router.push('/')
+                    }}/>
               </div>
             </div>
   )
