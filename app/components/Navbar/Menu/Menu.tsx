@@ -34,7 +34,7 @@ export const Menu = () => {
       return () => window.addEventListener('click',handleOutClick)
     }
   },[isSearchOpen])
-  console.log(user);
+
   
   const{
     register,
@@ -54,7 +54,7 @@ export const Menu = () => {
     <div className='xs:inline hidden relative' ref={searchRef}>
       {
         isAboveLargeScreens ?
-      <div onClick={()=>setIsSearchOpen(prev=>!prev)} className='cursor-pointer' >
+      <div onClick={()=>setIsSearchOpen(prev=>!prev)} className='cursor-pointer ' >
         <SearchIcon/>
       </div>
       :
@@ -66,11 +66,11 @@ export const Menu = () => {
         isSearchOpen && isAboveLargeScreens &&
           <AnimatePresence>
           <motion.div
-          initial={{y:'-100%',opacity:0}}
-          animate={{y:'0',opacity:100}}
-          exit={{y:'-100%',opacity:0}}
+          initial={{y:'-100%',x:'-100%',opacity:0}}
+          animate={{y:'0',x:'0',opacity:100}}
+          exit={{y:'-100%',x:'0',opacity:0}}
           transition={{duration:0.2}}
-          className='absolute right-0'>
+          className='absolute right-0 w-[12rem]'>
               <MainTextInput
                 id='search'
                 placeholder='Search'
@@ -87,7 +87,7 @@ export const Menu = () => {
 
             user.data ?
               
-              <Link className='w-[32px]' href={'/profile'}>
+              <Link className='w-[32px] select-none' href={'/profile'} >
                 <UserPlaceholder/>
             </Link>
             :

@@ -1,3 +1,5 @@
+
+
 import React from 'react'
 import { MainBanner } from './components/Banners/MainBanner'
 import { PartnersSlider } from './components/Sliders/PartnersSlider'
@@ -7,7 +9,7 @@ import { LatestReleases } from './components/sections/latestReleases/LatestRelea
 import { Watchlist } from './components/sections/Watchlist/Watchlist'
 import { YourLikes } from './components/sections/yourLikes/YourLikes'
 import { SecondaryBanner } from './components/Banners/SecondaryBanner'
-
+import { getLatestMovies } from './actions/getLatestMovies'
 
 export const metadata = {
   title: 'Home',
@@ -15,8 +17,9 @@ export const metadata = {
   Image:'/Image/main/Logo.webp'
 }
 
-export default function Home() {
-
+export default async function Home() {
+  const latestMovies =  await getLatestMovies()
+  
   return (
     <React.Fragment>
 
@@ -24,7 +27,7 @@ export default function Home() {
         <MainBanner/>
         <PartnersSlider/>
         <Container rightSpace >
-          <LatestReleases/>
+          <LatestReleases movies={latestMovies}/>
           <PopularMovies/>
           <Watchlist/>
           <YourLikes/>

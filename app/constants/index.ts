@@ -257,3 +257,15 @@ export const hotTopics = [
       img: "dungeonsdragon"
     },
 ]  
+export const movieTags = [
+  "Horror",
+  "Animation",
+  "Action",
+  "Comedy",
+  "Thriller",
+  "Sci-Fi",
+  "Drama",
+  "Adventure",
+  "Fantasy",
+  "Romance"
+];

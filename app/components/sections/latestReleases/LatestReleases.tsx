@@ -11,8 +11,17 @@ import { Navigation,FreeMode } from 'swiper';
 import { LatestReleaseComponent } from './LatestReleaseComponent';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon';
 import Link from 'next/link';
+import { movie } from '@prisma/client';
 
-export const LatestReleases = () => {
+interface Props{
+    movies:movie[]
+}
+
+export  const LatestReleases = ({movies}:Props) => {
+
+  
+    
+
   return (
     <Link href={'/movie/23dasda32das'} className='flex flex-col gap-[24px] pt-[20px] pb-[40px] text-white cursor-pointer '>
         <h1 className='text-[24px] font-bold leading-[32px]'>
@@ -48,31 +57,14 @@ export const LatestReleases = () => {
             modules={[Navigation,FreeMode]}
             className='w-full'  
             >
-                <SwiperSlide className='text-white !w-[280px]'>
-                    <LatestReleaseComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='text-white !w-[280px]'>
-                    <LatestReleaseComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='text-white !w-[280px]'>
-                    <LatestReleaseComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='text-white !w-[280px]'>
-                    <LatestReleaseComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='text-white !w-[280px]'>
-                    <LatestReleaseComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='text-white !w-[280px]'>
-                    <LatestReleaseComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='text-white !w-[280px]'>
-                    <LatestReleaseComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='text-white !w-[280px]'>
-                    <LatestReleaseComponent/>
-                </SwiperSlide>
+                {movies.map(movie=>(
 
+                    <SwiperSlide className='text-white !w-[280px]' key={movie.id}>
+                        <LatestReleaseComponent {...movie}/>
+                    </SwiperSlide>
+                    
+                    ))
+                }
                
 
             </Swiper>

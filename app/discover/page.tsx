@@ -8,6 +8,7 @@ import { PopularMovies } from '../components/sections/Popular/PopularMovies'
 import { Movies } from '../components/sections/Movies/Movies'
 import { AllSeries } from '../components/sections/Series/Series'
 import { SecondaryBanner } from '../components/Banners/SecondaryBanner'
+import { getLatestMovies } from '../actions/getLatestMovies'
 
 
 export const metadata = {
@@ -16,14 +17,17 @@ export const metadata = {
   image: '/Image/main/Logo.webp'
 };
 
-const Page = () => {
+const Page = async() => {
+
+  const latestMovies = await getLatestMovies()
+
   return (
     <React.Fragment>
       <MainBanner/>
       
       <Container rightSpace>
         <PartnersSlider/>
-        <LatestReleases/>
+        <LatestReleases movies={latestMovies}/>
       </Container>
       <FeaturedBanner/>
       <Container rightSpace >

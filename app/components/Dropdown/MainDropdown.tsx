@@ -35,7 +35,7 @@ export const MainDropdown = ({
         event.stopPropagation();
         setIsOpen(false)
         onClick(value)
-      };
+    };
 
   return (
     <div className='w-full relative' ref={dropdownRef}>

@@ -71,14 +71,6 @@ export const RegisterModal = () => {
             
     }
 
-    
-    const setCustomValue = (id: string, value: any) => {
-        setValue(id, value, {
-          shouldDirty: true,
-          shouldTouch: true,
-          shouldValidate: true,
-        });
-      };
 
 
 
