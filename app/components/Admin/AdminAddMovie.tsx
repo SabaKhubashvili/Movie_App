@@ -1,17 +1,24 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { MainTextInput } from '../Inputs/MainTextInput'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { ImageUpload } from '../Upload/ImageUpload'
 import { MainTextArea } from '../Inputs/MainTextarea'
 import { CheckBoxDropdown } from '../Dropdown/CheckBoxDropdown'
 import { toast } from 'react-hot-toast'
-import { movieTags } from '@/app/constants'
 import { CustomButton } from '../Buttons'
+import axios from 'axios'
+import { tag } from '@prisma/client'
 
-export const AdminAddMovie = () => {
+interface Props{
+    tags:tag[]
+}
 
+export const AdminAddMovie = ({tags}:Props) => {
+
+    
+    const [isLoading,setIsLoading] = useState<boolean>(false)
     const {
         register,
         formState:{
@@ -19,19 +26,21 @@ export const AdminAddMovie = () => {
         },
         handleSubmit,
         setValue,
-        watch
+        watch,
+        reset
     } = useForm<FieldValues>({
         defaultValues:{
             title:'',
             description:'',
             duration:'',
             movieLink:'',
-            tags:[],
-            movieBanner:''
+            movieBanner:'',
+            imbdRating:0,   
+            tags:[]
         }
     })
     const image = watch('movieBanner')
-    const tags = watch('tags')
+    const formtags = watch('tags')
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -40,15 +49,15 @@ export const AdminAddMovie = () => {
           shouldValidate: true,
         });
       };
+
     
     const addToTags = (tag:string) =>{
         
-        if(tags.includes(tag)){
-           setCustomValue('tags',tags.filter((singleTag:string) => singleTag !== tag ))
+        if(formtags.includes(tag)){
+           setCustomValue('tags',formtags.filter((singleTag:string) => singleTag !== tag ))
         }else{
-            if(tags.length <  5 ){
-
-                setCustomValue('tags',[...tags,tag])
+            if(formtags.length <  5 ){
+                setCustomValue('tags',[...formtags,tag])
             }else{
                 toast.error('Cant attach more than 5 tags')
             }
@@ -56,14 +65,28 @@ export const AdminAddMovie = () => {
     }
 
     const onSubmit:SubmitHandler<FieldValues> = (data) =>{
-        if(tags.length == 0){
-            return toast.error('At least one tag is required')
+        if(!isLoading){
+            if(formtags.length == 0){
+                return toast.error('At least one tag is required')
+            }
+            if(image.length <= 0){
+                return toast.error('Banner is required')
+            }
+            
+            
+            setIsLoading(true)
+            axios.post('/api/movie/addMovie',data)
+            .then(res=>{
+                toast.success(res.data.message)
+                reset()
+            })
+            .catch(error=>{
+                toast.error(error.response.data.message)
+            }).finally(()=>{
+                setIsLoading(false)
+            })
+            
         }
-        if(image.length <= 0){
-            return toast.error('Banner is required')
-        }
-        console.log(data);
-        
     }
     
 
@@ -78,7 +101,8 @@ export const AdminAddMovie = () => {
                 placeholder='title'
                 register={register}
                 errors={errors}
-                required
+                required 
+                disabled={isLoading}
             />
             <MainTextInput
                 id='duration'
@@ -86,26 +110,42 @@ export const AdminAddMovie = () => {
                 placeholder='duration'
                 register={register}
                 errors={errors}
-                required
+                required 
+                disabled={isLoading}
             />
         </div>
 
         <div className='w-full flex flex-col gap-[30px]'>
+            <div className='flex justify-between gap-x-[50px] gap-y-[30px] sm:flex-nowrap flex-wrap'>
+
             <MainTextInput
                     id='movieLink'
                     label='Movie link'
                     placeholder='link'
                     register={register}
                     errors={errors}
-                    required
-            />
+                    required 
+                    disabled={isLoading}
+                    />
+            <MainTextInput
+                    id='imbdRating'
+                    label='Imbd Rating'
+                    type='number'
+                    placeholder='Rating'
+                    register={register}
+                    errors={errors}
+                    required 
+                    disabled={isLoading}
+                    />
+            </div>
             <MainTextArea 
                 id='description'
                 label='Description'
                 placeholder='description'
                 errors={errors}
                 register={register}
-                required
+                required 
+                disabled={isLoading}
                 />
         </div>
         <div className='flex gap-x-[80px] gap-y-[20px] sm:flex-nowrap flex-wrap'>
@@ -113,11 +153,11 @@ export const AdminAddMovie = () => {
                 <ImageUpload onChange={(image)=>setCustomValue('movieBanner',image)} value={image}/>
             </div>
             <div className='w-[15rem]'>
-                <CheckBoxDropdown submitedTags={tags} data={movieTags} onClick={(tag)=>addToTags(tag)} label='Choose tags'/>
+                <CheckBoxDropdown submitedTags={formtags} data={tags} onClick={(tag)=>addToTags(tag)} label='Choose tags'/>
             </div>
         </div>
         <div className='sm:w-[10rem] w-[5rem] mx-auto'>
-            <CustomButton full label='Create' onClick={handleSubmit(onSubmit)}/>
+            <CustomButton full label='Create' onClick={handleSubmit(onSubmit)} disabled={isLoading}/>
         </div>
     </section>
   )

@@ -55,11 +55,11 @@ export  const LatestReleases = ({movies}:Props) => {
         
             freeMode={true}
             modules={[Navigation,FreeMode]}
-            className='w-full'  
+            className='w-full h-[412px]'  
             >
                 {movies.map(movie=>(
 
-                    <SwiperSlide className='text-white !w-[280px]' key={movie.id}>
+                    <SwiperSlide className='text-white !w-[280px] !h-full' key={movie.id}>
                         <LatestReleaseComponent {...movie}/>
                     </SwiperSlide>
                     

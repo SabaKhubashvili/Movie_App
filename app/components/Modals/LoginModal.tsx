@@ -72,7 +72,7 @@ export const LoginModal = () => {
                 <p className='text-[#78828A] sm:text-[17px] text-[12px]'>Login to your accaunt</p>
             </div>
             <div className='max-w-[5rem]'>
-                <CustomIconButton label='Close' showAll transparent onClick={()=>loginModal.onClose()} />
+                <CustomIconButton label='Close' showAll transparent onClick={()=>!isLoading && loginModal.onClose()} />
             </div>
         </div>
     )
@@ -115,7 +115,7 @@ export const LoginModal = () => {
         paddings
         small
         darkBg
-        
+        disabled={isLoading}
     />
   )
 }

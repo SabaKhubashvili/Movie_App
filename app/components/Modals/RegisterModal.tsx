@@ -70,7 +70,15 @@ export const RegisterModal = () => {
         }
             
     }
-
+    
+    const setCustomValue = (id: string, value: any) => {
+        setValue(id, value, {
+          shouldDirty: true,
+          shouldTouch: true,
+          shouldValidate: true,
+        });
+      };
+    
 
 
 
@@ -83,7 +91,7 @@ export const RegisterModal = () => {
                 <p className='text-[#78828A] sm:text-[17px] text-[12px]'>Create new Accaunt</p>
             </div>
             <div className='max-w-[5rem]'>
-                <CustomIconButton label='Close' showAll transparent onClick={()=>registerModal.onClose()} />
+                <CustomIconButton label='Close' showAll transparent onClick={()=>isLoading && registerModal.onClose()} />
             </div>
         </div>
     )
