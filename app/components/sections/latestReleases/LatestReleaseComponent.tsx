@@ -1,5 +1,5 @@
+import { safeMovie } from '@/app/types'
 import { StarIcon } from '@/public/svg/icons/Icon'
-import { movie } from '@prisma/client'
 import Image from 'next/image'
 import React from 'react'
 
@@ -8,7 +8,7 @@ export const LatestReleaseComponent = ({
     title,
     movieBanner,
     movieTags
-}:movie) => {
+}:safeMovie) => {
     return (
     <div className='h-full w-full relative rounded-xl'>
         <Image

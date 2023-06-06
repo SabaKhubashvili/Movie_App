@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
+
 import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon'
 import { hotTopics } from '@/app/constants';
 import { smallMovieInterface } from '@/app/types';

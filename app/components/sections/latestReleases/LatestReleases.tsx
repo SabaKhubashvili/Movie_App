@@ -11,10 +11,10 @@ import { Navigation,FreeMode } from 'swiper';
 import { LatestReleaseComponent } from './LatestReleaseComponent';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon';
 import Link from 'next/link';
-import { movie } from '@prisma/client';
+import { safeMovie } from '@/app/types';
 
 interface Props{
-    movies:movie[]
+    movies:safeMovie[]
 }
 
 export  const LatestReleases = ({movies}:Props) => {
@@ -23,7 +23,7 @@ export  const LatestReleases = ({movies}:Props) => {
     
 
   return (
-    <Link href={'/movie/23dasda32das'} className='flex flex-col gap-[24px] pt-[20px] pb-[40px] text-white cursor-pointer '>
+    <Link href={'/movie/23dasda32das'} className='flex flex-col gap-[24px] mt-[20px] mb-[40px] text-white cursor-pointer '>
         <h1 className='text-[24px] font-bold leading-[32px]'>
             Just Released
         </h1>

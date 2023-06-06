@@ -1,12 +1,19 @@
+'use client'
 import { StarIcon } from '@/public/svg/icons/Icon'
+
 import Image from 'next/image'
 import React from 'react'
+import { safeMovie } from '../types'
 
-export const MovieComponent = () => {
+export const MovieComponent = ({
+  movieBanner,
+  imbdRating,
+  movieTags
+}:safeMovie) => {
   return (
     <div className='w-full h-fit flex flex-col gap-[12px]'>
         <Image
-        src={'/Image/movies/topgun.webp'}
+        src={movieBanner}
         alt='movie'
         width={300}
         height={300}
@@ -17,9 +24,11 @@ export const MovieComponent = () => {
                 <h5 className='text-[14px] font-semibold leading-[20px] text-white'>
                     4.3
                 </h5>
-                <p className='font-medium text-[12px] leading-[20px] text-[#78828A]'>
-                    | Mystery • Movie
-                </p>
+                <div className='font-medium text-[12px] leading-[20px] text-[#78828A]'>
+                    | {movieTags.map((singleTag:any)=>(
+                      <span key={singleTag.tag.id}>{singleTag.tag.name} • </span>
+                    ))}
+                </div>
             </div>
     </div>
   )

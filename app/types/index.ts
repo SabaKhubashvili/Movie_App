@@ -1,3 +1,4 @@
+import { movieTags } from "@prisma/client";
 import { DefaultSession } from "next-auth";
 
 
@@ -33,4 +34,18 @@ export interface smallMovieInterface{
     reviews?:number
     rating:number
     img:string
+}
+
+export interface safeMovie{
+    id: string
+    title: string | null
+    duration: string
+    description: string
+    movieBanner: string
+    movieLink: string
+    imbdRating: number
+    createdAt: Date
+    updatedAt: Date
+
+    movieTags:any
 }

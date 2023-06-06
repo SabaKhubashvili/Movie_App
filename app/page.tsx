@@ -1,15 +1,15 @@
-
-
 import React from 'react'
 import { MainBanner } from './components/Banners/MainBanner'
 import { PartnersSlider } from './components/Sliders/PartnersSlider'
 import { Container } from './Container'
 import { PopularMovies } from './components/sections/Popular/PopularMovies'
 import { LatestReleases } from './components/sections/latestReleases/LatestReleases'
-import { Watchlist } from './components/sections/Watchlist/Watchlist'
-import { YourLikes } from './components/sections/yourLikes/YourLikes'
 import { SecondaryBanner } from './components/Banners/SecondaryBanner'
+import { FeaturedBanner } from './components/Banners/FeaturedBanner'
+import { MoviesbyTag } from './components/sections/MoviesByTag/MoviesByTag'
 import { getLatestMovies } from './actions/getLatestMovies'
+import { getMovieByTag } from './actions/getMovieByTag'
+import { getRandomMovies } from './actions/getRandomMovies'
 
 export const metadata = {
   title: 'Home',
@@ -17,9 +17,11 @@ export const metadata = {
   Image:'/Image/main/Logo.webp'
 }
 
-export default async function Home() {
-  const latestMovies =  await getLatestMovies()
-  
+const Page = async() => {
+  const latestMovies = await getLatestMovies()
+  const movies = await getRandomMovies()
+  const moviesByTag = await getMovieByTag('Animation')
+
   return (
     <React.Fragment>
 
@@ -29,11 +31,16 @@ export default async function Home() {
         <Container rightSpace >
           <LatestReleases movies={latestMovies}/>
           <PopularMovies/>
-          <Watchlist/>
-          <YourLikes/>
         </Container>
-        
+          <FeaturedBanner/>
+        <Container rightSpace>
+          <MoviesbyTag data={movies} label='Movies'/>
+          <MoviesbyTag data={[]} label='Series'/>
+          <MoviesbyTag data={moviesByTag} label='Animation'/>
+        </Container>        
         <SecondaryBanner/>
     </React.Fragment>
   )
 }
+
+export default Page

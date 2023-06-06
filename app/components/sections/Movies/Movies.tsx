@@ -18,25 +18,19 @@ export const Movies = () => {
         <div className='pt-[24px] relative'>
         
         <button 
-            className="custom_next_watchlist absolute  right-6 
+            className="custom_next_allmovies absolute  right-6 
             lg:flex hidden items-center justify-center outline-none h-full cursor-pointer z-[10] ">
               <div className="  h-fit p-5 bg-[#28262D]  rounded-full ">
                 <ArrowRightIcon/>
               </div>
             </button>
-            <button 
-            className="custom_prev_watchlist absolute  left-6 
-            lg:flex hidden items-center justify-center h-full outline-none cursor-pointer z-[10] ">
-              <div className=" h-fit py-4 px-5 bg-[#28262D]  rounded-full ">
-                <ArrowLeftIcon/>
-              </div>
-        </button>
+
         <Swiper
             slidesPerView='auto'
             spaceBetween={16}
             navigation={{
-                nextEl:'.custom_next_watchlist',
-                prevEl:'.custom_prev_watchlist',
+                nextEl:'.custom_next_allmovies',
+
             }}
             freeMode={true}
             modules={[Navigation,FreeMode]}

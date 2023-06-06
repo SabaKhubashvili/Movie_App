@@ -24,13 +24,6 @@ export  function PartnersSlider() {
                 <ArrowRightIcon/>
               </div>
             </button>
-            <button 
-            className="custom_prev absolute  left-6 
-            lg:flex hidden items-center justify-center h-full cursor-pointer z-[10] ">
-              <div className="h-fit py-4 px-5 bg-[#28262D]  rounded-full ">
-                <ArrowLeftIcon/>
-              </div>
-            </button>
      <Container>
 
       <Swiper
@@ -39,7 +32,6 @@ export  function PartnersSlider() {
         slidesPerView='auto'
         navigation={{
             nextEl: ".custom_next",
-            prevEl: ".custom_prev"
         }}
         modules={[Navigation,FreeMode]}
         className="mySwiper w-full !py-[20px] h-[100px]"

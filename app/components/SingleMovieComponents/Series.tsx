@@ -1,3 +1,4 @@
+'use client'
 import { Container } from '@/app/Container'
 import React, { useState } from 'react'
 import { FreeMode, Navigation } from 'swiper'
@@ -89,7 +90,6 @@ export const Series = () => {
         <Modal
             isOpen={openSerieData.isOpen}
             onClose={()=>setOpenSerieData(prev=>({...prev,isOpen:false}))}     
-            link=''
             body={bodyContent}
         />
     </React.Fragment>

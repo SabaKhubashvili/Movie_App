@@ -1,25 +1,23 @@
 import React from 'react'
-import { checkIfIsAdmin } from '../actions/checkIfIsAdmin'
-import { redirect } from 'next/navigation'
 import { Container } from '../Container'
-import { AdminAddMovie } from '../components/Admin/AdminAddMovie'
-import { getMovieTags } from '../actions/getMovieTags'
+import Link from 'next/link'
 
 export const metadata = {
-  title:'Admin'
+    title:'Admin Control Panel'
 }
 
-const Page = async() => {
-  const isAdmin = await checkIfIsAdmin()
-  if(!isAdmin){
-    redirect('/404')
-  }
-  const tags = await getMovieTags()
+const page = () => {
   return (
-    <Container>
-      <AdminAddMovie tags={tags}/>
-    </Container>
+    <React.Fragment>
+        <Container>
+            <div className='w-full flex pt-[150px]'>
+                <Link href={'admin/addMovie'} className='bg-[#00925D] rounded-xl text-[20px] font-bold text-white px-4 py-2'>
+                    Add movie
+                </Link>
+            </div>
+        </Container>
+    </React.Fragment>
   )
 }
 
-export default Page
+export default page

@@ -6,9 +6,12 @@ import { LatestReleases } from '../components/sections/latestReleases/LatestRele
 import { FeaturedBanner } from '../components/Banners/FeaturedBanner'
 import { PopularMovies } from '../components/sections/Popular/PopularMovies'
 import { Movies } from '../components/sections/Movies/Movies'
-import { AllSeries } from '../components/sections/Series/Series'
+import { AllSeries } from '../components/sections/Series/AllSeries'
 import { SecondaryBanner } from '../components/Banners/SecondaryBanner'
 import { getLatestMovies } from '../actions/getLatestMovies'
+import { AwardsBanner } from '../components/sections/AwardsBanner/AwardsBanner'
+import { MoviesbyTag } from '../components/sections/MoviesByTag/MoviesByTag'
+import { getRandomMovies } from '../actions/getRandomMovies'
 
 
 export const metadata = {
@@ -20,22 +23,26 @@ export const metadata = {
 const Page = async() => {
 
   const latestMovies = await getLatestMovies()
-
+  const allMovies = await getRandomMovies()
   return (
     <React.Fragment>
       <MainBanner/>
       
-      <Container rightSpace>
         <PartnersSlider/>
+      <Container rightSpace>
         <LatestReleases movies={latestMovies}/>
       </Container>
       <FeaturedBanner/>
       <Container rightSpace >
         <PopularMovies/>
-        <Movies/>
-        <AllSeries/>
+        <MoviesbyTag label='Movies' data={allMovies}/>
+        <MoviesbyTag label='Series' data={[]}/>
       </Container>
       <SecondaryBanner/>
+
+      <Container>
+        <AwardsBanner/>
+      </Container>
     </React.Fragment>
   )
 }
