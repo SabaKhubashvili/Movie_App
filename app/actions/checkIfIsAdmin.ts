@@ -1,6 +1,7 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import prisma from '@/app/Libs/prismadb'
+
 export async function checkIfIsAdmin(){
     const currentUser = await getServerSession(authOptions)
     if(!currentUser?.user.email){

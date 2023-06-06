@@ -38,7 +38,7 @@ export const AwardsBanner = () => {
             nextEl:'.custom_next_awards',
             prevEl:'.custom_prev_awards'
           }}
-          className='mySwiper'
+          className='mySwiper !w-full'
           slidesPerView={1}
           spaceBetween={50}
         >

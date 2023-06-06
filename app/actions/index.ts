@@ -1,0 +1,6 @@
+export {checkIfIsAdmin} from './checkIfIsAdmin'
+export {getLatestMovies} from './getLatestMovies'
+export {getMovieByTag} from './getMovieByTag'
+export {getMovieTags} from './getMovieTags'
+export {getRandomMovies} from './getRandomMovies'
+export {getAllMovies} from './getAllMovies'

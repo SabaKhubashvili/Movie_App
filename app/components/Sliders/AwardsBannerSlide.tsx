@@ -49,7 +49,7 @@ export const AwardsBannerSlide = () => {
               
           }
         </div>
-        <div className='flex gap-[10px]'>
+        <div className='flex gap-[10px] lg:flex-row flex-col'>
             <PlayButton label='Play Now'/>
             <AddWatchlist label='Add  Watchlist'/>
         </div>

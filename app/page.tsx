@@ -1,15 +1,15 @@
 import React from 'react'
+import { Container } from './Container'
+
 import { MainBanner } from './components/Banners/MainBanner'
 import { PartnersSlider } from './components/Sliders/PartnersSlider'
-import { Container } from './Container'
 import { PopularMovies } from './components/sections/Popular/PopularMovies'
 import { LatestReleases } from './components/sections/latestReleases/LatestReleases'
 import { SecondaryBanner } from './components/Banners/SecondaryBanner'
 import { FeaturedBanner } from './components/Banners/FeaturedBanner'
 import { MoviesbyTag } from './components/sections/MoviesByTag/MoviesByTag'
-import { getLatestMovies } from './actions/getLatestMovies'
-import { getMovieByTag } from './actions/getMovieByTag'
-import { getRandomMovies } from './actions/getRandomMovies'
+
+import { getLatestMovies, getMovieByTag, getRandomMovies } from './actions'
 
 export const metadata = {
   title: 'Home',
