@@ -10,10 +10,7 @@ export const metadata = {
 }
 
 const Page = async() => {
-  const isAdmin = await checkIfIsAdmin()
-  if(!isAdmin){
-    redirect('/404')
-  }
+ 
   const tags = await getMovieTags()
   return (
     <Container>

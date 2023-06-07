@@ -1,18 +1,20 @@
 import { safeMovie } from '@/app/types'
 import { StarIcon } from '@/public/svg/icons/Icon'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 
 export const LatestReleaseComponent = ({
+    id,
     title,
-    movieBanner,
+    movieBannerSmall,
     movieTags
 }:safeMovie) => {
     return (
-    <div className='h-full w-full relative rounded-xl'>
+    <Link href={`/movie/${id}`} className='h-full w-full relative rounded-xl'>
         <Image
-        src={movieBanner}
+        src={movieBannerSmall}
         alt='Movie'
         width={300}
         height={400}
@@ -34,6 +36,6 @@ export const LatestReleaseComponent = ({
                 </div>
             </div>
         </div>
-    </div>
+    </Link>
   )
 }

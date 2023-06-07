@@ -13,6 +13,7 @@ interface Props{
     value:string,
     isAboveSmallScreens?:boolean
     disabled?:boolean,
+    label:string
 }
 
 export const ImageUpload = ({
@@ -20,6 +21,7 @@ export const ImageUpload = ({
     value,
     isAboveSmallScreens,
     disabled,
+    label
 }:Props) => {
     const handleUpload = useCallback((result:any)=>{
         onChange(result.info.secure_url)
@@ -48,8 +50,8 @@ export const ImageUpload = ({
         ${value && 'dark:bg-[#54ffbd2c] bg-[#ecebeb]'}
         `}>
             <TbPhotoPlus color='#FFF'/>
-            <div className='dark:text-white text-[#24B47E] font-medium text-[12px]'>
-                Banner
+            <div className='dark:text-white text-[#24B47E] font-medium text-[14px] whitespace-nowrap'>
+                {label}
             </div>
         </div>
       </div>

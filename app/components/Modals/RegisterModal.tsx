@@ -56,7 +56,7 @@ export const RegisterModal = () => {
               return  toast.error('Gender Is Required')
             }
             setIsLoading(true)
-            axios.post('/api/auth/register',data)
+            axios.post('/api/register',data)
             .then(res=>{
                 toast.success(res.data.message)
                 loginModal.onOpen()
@@ -137,7 +137,7 @@ export const RegisterModal = () => {
     )
     const footer = (
         <div className='flex flex-col gap-[10px] w-full'>
-            <CustomButton disabled={isLoading} alternative label='Login' full onClick={handleSubmit(onSubmit)}/>
+            <CustomButton disabled={isLoading} alternative label='Register' full onClick={handleSubmit(onSubmit)}/>
             <p className='text-[#78828A] text-center'>Already have accaunt? <span className='text-white cursor-pointer' onClick={handleToLogin}>Log in</span></p>
         </div>
     )

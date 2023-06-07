@@ -7,6 +7,7 @@ export const metadata = {
 }
 
 const page = () => {
+        
   return (
     <React.Fragment>
         <Container>

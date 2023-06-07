@@ -41,5 +41,8 @@
     "@types/bcrypt": "^5.0.0",
     "@types/video-react": "^0.15.1",
     "prisma": "^4.15.0"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/TagSeeder.ts"
   }
 }

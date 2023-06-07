@@ -34,12 +34,14 @@ export const AdminAddMovie = ({tags}:Props) => {
             description:'',
             duration:'',
             movieLink:'',
-            movieBanner:'',
+            movieBannerBig:'',
+            movieBannerSmall:'',
             imbdRating:0,   
             tags:[]
         }
     })
-    const image = watch('movieBanner')
+    const imageBig = watch('movieBannerBig')
+    const imageSmall = watch('movieBannerSmall')
     const formtags = watch('tags')
 
     const setCustomValue = (id: string, value: any) => {
@@ -69,8 +71,11 @@ export const AdminAddMovie = ({tags}:Props) => {
             if(formtags.length == 0){
                 return toast.error('At least one tag is required')
             }
-            if(image.length <= 0){
-                return toast.error('Banner is required')
+            if(imageBig.length <= 0){
+                return toast.error('Big Banner is required')
+            }
+            if(imageSmall.length <= 0){
+                return toast.error('Small Banner is required')
             }
             
             
@@ -148,9 +153,10 @@ export const AdminAddMovie = ({tags}:Props) => {
                 disabled={isLoading}
                 />
         </div>
-        <div className='flex gap-x-[80px] gap-y-[20px] sm:flex-nowrap flex-wrap'>
-            <div className='w-[5rem]'>
-                <ImageUpload onChange={(image)=>setCustomValue('movieBanner',image)} value={image}/>
+        <div className='flex gap-x-[280px] gap-y-[20px] sm:flex-nowrap flex-wrap'>
+            <div className='w-[5rem] flex gap-[20px]'>
+                <ImageUpload label='Big banner' onChange={(image)=>setCustomValue('movieBannerBig',image)} value={imageBig}/>
+                <ImageUpload label='Big small' onChange={(image)=>setCustomValue('movieBannerSmall',image)} value={imageSmall}/>
             </div>
             <div className='w-[15rem]'>
                 <CheckBoxDropdown submitedTags={formtags} data={tags} onClick={(tag)=>addToTags(tag)} label='Choose tags'/>

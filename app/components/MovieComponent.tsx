@@ -4,16 +4,18 @@ import { StarIcon } from '@/public/svg/icons/Icon'
 import Image from 'next/image'
 import React from 'react'
 import { safeMovie } from '../types'
+import Link from 'next/link'
 
 export const MovieComponent = ({
-  movieBanner,
+  id,
+  movieBannerSmall,
   imbdRating,
   movieTags
 }:safeMovie) => {
   return (
-    <div className='w-full h-fit flex flex-col gap-[12px]'>
+    <Link href={`/movie/${id}`} className='w-full h-fit flex flex-col gap-[12px]'>
         <Image
-        src={movieBanner}
+        src={movieBannerSmall}
         alt='movie'
         width={300}
         height={300}
@@ -26,10 +28,10 @@ export const MovieComponent = ({
                 </h5>
                 <div className='font-medium text-[12px] leading-[20px] text-[#78828A]'>
                     | {movieTags.map((singleTag:any)=>(
-                      <span key={singleTag.tag.id}>{singleTag.tag.name} • </span>
+                      <span key={singleTag.tag.id}>{singleTag.tag.name} {movieTags[movieTags.length -1].tag.id !== singleTag.tag.id && '•' }  </span>
                     ))}
                 </div>
             </div>
-    </div>
+    </Link>
   )
 }

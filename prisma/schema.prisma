@@ -29,7 +29,8 @@ model movie {
   title       String?
   duration    String
   description String
-  movieBanner String
+  movieBannerSmall String
+  movieBannerBig   String
   movieLink   String
   imbdRating  Int
 

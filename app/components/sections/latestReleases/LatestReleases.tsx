@@ -9,8 +9,7 @@ import "swiper/css/free-mode";
 
 import { Navigation,FreeMode } from 'swiper';
 import { LatestReleaseComponent } from './LatestReleaseComponent';
-import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon';
-import Link from 'next/link';
+import { ArrowRightIcon } from '@/public/svg/icons/Icon';
 import { safeMovie } from '@/app/types';
 
 interface Props{
@@ -19,11 +18,10 @@ interface Props{
 
 export  const LatestReleases = ({movies}:Props) => {
 
-  
-    
+      
 
   return (
-    <Link href={'/movie/23dasda32das'} className='flex flex-col gap-[24px] mt-[20px] mb-[40px] text-white cursor-pointer '>
+    <section className='flex flex-col gap-[24px] mt-[20px] mb-[40px] text-white  '>
         <h1 className='text-[24px] font-bold leading-[32px]'>
             Just Released
         </h1>
@@ -63,6 +61,6 @@ export  const LatestReleases = ({movies}:Props) => {
 
             <div className='sm:w-[167px] w-[40px] h-full absolute top-0 right-0 z-[8]  bg-gradient-to-r from-transparent to-[#0D0C0F]'/>
         </div>
-    </Link>
+    </section>
   )
 }

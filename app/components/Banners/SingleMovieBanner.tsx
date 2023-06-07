@@ -1,3 +1,5 @@
+'use client'
+
 import { Container } from '@/app/Container'
 import Image from 'next/image'
 import React from 'react'
@@ -5,19 +7,22 @@ import { AddWatchlist, CustomIconButton, PlayButton } from '../Buttons'
 import { DownloadIcon, LikeIcon, ShareIcon } from '@/public/svg/icons/Icon'
 import { largeScreens } from '../MediaQueries'
 import useMediaQuery from '@/app/hooks/UseMediaQuery'
-
+import { safeMovie } from '@/app/types'
 interface Props{
     links?:boolean
+    movie:safeMovie
 }
 
-export const SingleMovieBanner = ({links}:Props) => {
+export const SingleMovieBanner = ({links,movie}:Props) => {
 
     const isAboveLargeScreens = useMediaQuery(largeScreens)
+
+    
 
   return (
     <div className=" w-full h-full relative select-none">
     <Image
-    src={'/Image/movies/Mandalorian.webp'}
+    src={movie.movieBannerBig}
     alt="SwiperSlide"
     width={1700}
     height={1700}
@@ -43,16 +48,19 @@ export const SingleMovieBanner = ({links}:Props) => {
             <div className="flex flex-col gap-[8px] w-full sm:w-[506px]">
             <h2 className="font-bold text-[32px] leading-[40px]">
                 {/* Title */}
-                The Last Of Us
+               {movie.title}
             </h2>
             <p className="text-[#9CA4AB] text-[14px]">
                 {/* Description */}
-                2h40m • 2022 • Fantasy • Actions
+                {movie.duration}  
+                {movie.movieTags.map((singleTag:any)=>(
+                    <span key={singleTag.tag.id}> • {singleTag.tag.name}</span>
+                ))}
             </p>
             </div>
             <div className='flex justify-between items-center w-full gap-5 sm:flex-nowrap flex-wrap'>
                 <div className="flex gap-[24px] w-fit g:justify-normal justify-between items-center lg:grow-0 flex-grow">
-                    <PlayButton  label="Continue Watching"/>
+                    <PlayButton  label="Play Now"/>
                     {isAboveLargeScreens &&
 
                         <AddWatchlist label="Add Watchlist"/>

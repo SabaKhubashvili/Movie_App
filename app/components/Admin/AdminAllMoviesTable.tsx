@@ -63,7 +63,7 @@ export const AdminAllMoviesTable = ({movies}:Props) => {
                     </td>
                     <td className='whitespace-nowrap px-6 py-4 '>{movie.movieLink}</td>
                     <td onClick={()=>onDelete(movie.id)} 
-                    className={`whitespace-nowrap px-6 py-4 text-rose-500 cursor-pointer ${isLoading && 'cursor-not-allowed'}`}>
+                    className={`whitespace-nowrap px-6 py-4 text-rose-500 cursor-pointer ${isLoading && 'cursor-not-allowed '}`}>
                         Delete
                     </td>
                   </tr>
