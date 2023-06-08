@@ -2,21 +2,26 @@
 
 import { Container } from '@/app/Container'
 import Image from 'next/image'
-import React from 'react'
+import React,{useState} from 'react'
 import { AddWatchlist, CustomIconButton, PlayButton } from '../Buttons'
 import { DownloadIcon, LikeIcon, ShareIcon } from '@/public/svg/icons/Icon'
 import { largeScreens } from '../MediaQueries'
 import useMediaQuery from '@/app/hooks/UseMediaQuery'
 import { safeMovie } from '@/app/types'
+import { MoviePlayerModal } from '../VideoPlayer/MoviePlayerModal'
 interface Props{
     links?:boolean
     movie:safeMovie
+    movieLink:string
 }
 
-export const SingleMovieBanner = ({links,movie}:Props) => {
+export const SingleMovieBanner = ({links,movie,movieLink}:Props) => {
 
     const isAboveLargeScreens = useMediaQuery(largeScreens)
-
+    const [openSerieData,setOpenSerieData] = useState({
+        isOpen:false,
+        movieLink:movieLink
+    })
     
 
   return (
@@ -60,7 +65,7 @@ export const SingleMovieBanner = ({links,movie}:Props) => {
             </div>
             <div className='flex justify-between items-center w-full gap-5 sm:flex-nowrap flex-wrap'>
                 <div className="flex gap-[24px] w-fit g:justify-normal justify-between items-center lg:grow-0 flex-grow">
-                    <PlayButton  label="Play Now"/>
+                    <PlayButton  label="Play Now" onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
                     {isAboveLargeScreens &&
 
                         <AddWatchlist label="Add Watchlist"/>
@@ -77,6 +82,10 @@ export const SingleMovieBanner = ({links,movie}:Props) => {
             </div>
         </div>
     </Container>
+    <MoviePlayerModal movieLink={openSerieData.movieLink} onClose={()=>setOpenSerieData(prev=>({...prev,isOpen:false}))}
+    isOpen={openSerieData.isOpen}
+    />
+      
 </div>
   )
 }

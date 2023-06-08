@@ -15,7 +15,7 @@ export const Series = () => {
         serieLink:''
     })
     let bodyContent = (
-        <MoviePlayer/>
+        <MoviePlayer link=''/>
     )
   return (
     <React.Fragment>

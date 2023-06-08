@@ -10,12 +10,13 @@ import { toast } from 'react-hot-toast'
 import { CustomButton } from '../Buttons'
 import axios from 'axios'
 import { tag } from '@prisma/client'
+import { MainFileUploadInput } from '../Inputs/MainFileUploadInput'
 
 interface Props{
     tags:tag[]
 }
 
-export const AdminAddMovie = ({tags}:Props) => {
+export const AdminAddSerial = ({tags}:Props) => {
 
     
     const [isLoading,setIsLoading] = useState<boolean>(false)
@@ -32,12 +33,11 @@ export const AdminAddMovie = ({tags}:Props) => {
         defaultValues:{
             title:'',
             description:'',
-            duration:'',
-            movieLink:'',
-            movieBannerBig:'',
-            movieBannerSmall:'',
+            serialBannerBig:'',
+            serialBannerSmall:'',
             imbdRating:0,   
-            tags:[]
+            tags:[],
+            serie:''
         }
     })
     const imageBig = watch('movieBannerBig')
@@ -67,6 +67,7 @@ export const AdminAddMovie = ({tags}:Props) => {
     }
 
     const onSubmit:SubmitHandler<FieldValues> = (data) =>{
+      
         if(!isLoading){
             if(formtags.length == 0){
                 return toast.error('At least one tag is required')
@@ -80,7 +81,7 @@ export const AdminAddMovie = ({tags}:Props) => {
             
             
             setIsLoading(true)
-            axios.post('/api/movie/addMovie',data)
+            axios.post('/api/Serial/addSerial',data)
             .then(res=>{
                 toast.success(res.data.message)
                 reset()
@@ -98,7 +99,7 @@ export const AdminAddMovie = ({tags}:Props) => {
 
   return (
     <section className='w-full pt-[150px] flex flex-col gap-[30px]'>
-        <h1 className='font-bold md:text-[30px] text-[24px] text-white'>Add a movie</h1>
+        <h1 className='font-bold md:text-[30px] text-[24px] text-white'>Add a Serial</h1>
         <div className='flex justify-between gap-x-[50px] gap-y-[30px] sm:flex-nowrap flex-wrap'>
             <MainTextInput
                 id='title'
@@ -109,29 +110,10 @@ export const AdminAddMovie = ({tags}:Props) => {
                 required 
                 disabled={isLoading}
             />
-            <MainTextInput
-                id='duration'
-                label='Duration'
-                placeholder='duration'
-                register={register}
-                errors={errors}
-                required 
-                disabled={isLoading}
-            />
         </div>
 
         <div className='w-full flex flex-col gap-[30px]'>
             <div className='flex justify-between gap-x-[50px] gap-y-[30px] sm:flex-nowrap flex-wrap'>
-
-            <MainTextInput
-                    id='movieLink'
-                    label='Movie link'
-                    placeholder='link'
-                    register={register}
-                    errors={errors}
-                    required 
-                    disabled={isLoading}
-                    />
             <MainTextInput
                     id='imbdRating'
                     label='Imbd Rating'
@@ -153,13 +135,23 @@ export const AdminAddMovie = ({tags}:Props) => {
                 disabled={isLoading}
                 />
         </div>
-        <div className='flex gap-x-[280px] gap-y-[20px] sm:flex-nowrap flex-wrap'>
-            <div className='w-[5rem] flex gap-[20px]'>
+        <div className='flex gap-x-[30px] gap-y-[20px] md:flex-nowrap flex-wrap items-center'>
+            <div className=' flex gap-[20px]'>
                 <ImageUpload label='Big banner' onChange={(image)=>setCustomValue('movieBannerBig',image)} value={imageBig}/>
-                <ImageUpload label='Small banner' onChange={(image)=>setCustomValue('movieBannerSmall',image)} value={imageSmall}/>
+                <ImageUpload label='small banner' onChange={(image)=>setCustomValue('movieBannerSmall',image)} value={imageSmall}/>
             </div>
             <div className='w-[15rem]'>
                 <CheckBoxDropdown submitedTags={formtags} data={tags} onClick={(tag)=>addToTags(tag)} label='Choose tags'/>
+            </div>
+            <div>
+            <MainFileUploadInput
+                id='serie'
+                placeholder='Video'
+                register={register}
+                errors={errors}
+                required 
+                disabled={isLoading}
+            />
             </div>
         </div>
         <div className='sm:w-[10rem] w-[5rem] mx-auto'>

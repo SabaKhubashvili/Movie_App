@@ -55,6 +55,39 @@ model moviecast {
   updatedAt DateTime @updatedAt
 }
 
+model serials{
+  id    String @id @default(cuid())
+
+  title       String?
+  description String
+  serialBannerSmall String
+  serialBannerBig   String
+  imbdRating  Int
+
+
+  series  series[]
+}
+
+model series{
+  id      String @default(cuid()) @id
+
+  serialId  String
+  serial serials @relation(fields: [serialId],references: [id],onDelete: Cascade)
+
+  serieId   String 
+  serie   serie @relation(fields: [serieId],references: [id],onDelete: Cascade)
+} 
+
+model serie{
+  id    String @id @default(cuid())
+
+  title   String
+  description String?
+
+  serieLink  String
+  series series[]
+}
+
 model actor {
   id String @id @default(cuid())
 

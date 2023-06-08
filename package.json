@@ -15,6 +15,7 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
+    "aws-sdk": "^2.1393.0",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "eslint": "8.41.0",

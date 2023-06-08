@@ -3,7 +3,6 @@ import React from 'react'
 import { SingleMovieBanner } from '@/app/components/Banners/SingleMovieBanner'
 import { MovieDescription } from '@/app/components/SingleMovieComponents/MovieDescription'
 import { Container } from '@/app/Container'
-import { SimilarMovies } from '@/app/components/SingleMovieComponents/SimilarMovies'
 import { getMovieById } from '@/app/actions/getMovieById'
 import prisma from '@/app/Libs/prismadb'
 import { EmptyClient } from '@/app/components/EmptyClient'
@@ -42,18 +41,17 @@ const page = async({params}:{params:IParams}) => {
     const movie = await getMovieById(params.MovieId) as safeMovie
     const similarMovies = await getSimilarMovies(movie.movieTags,movie.id) as safeMovie[]
 
-
     if(!movie){
       return <EmptyClient
         title='Movie not found'
         description='Error code 404'
       />
     }
-
+    
   return (
     <React.Fragment>
       <section className='h-[810px]'>
-       <SingleMovieBanner links movie={movie} />
+       <SingleMovieBanner links movie={movie} movieLink="https://d3igsqksnsspxm.cloudfront.net/video" />
       </section>
       
       <MovieDescription description={movie.description} cast={[]}/>
@@ -63,6 +61,8 @@ const page = async({params}:{params:IParams}) => {
         <MoviesbyTag data={similarMovies} label='Similar movies' />
       </Container>
       <div className='w-full bg-[#FFFFFF1A] h-[1px]' />
+      
+
     </React.Fragment>
   )
 }

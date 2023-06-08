@@ -1,6 +1,4 @@
 import React from 'react'
-import { checkIfIsAdmin } from '../../actions/checkIfIsAdmin'
-import { redirect } from 'next/navigation'
 import { Container } from '../../Container'
 import { AdminAddMovie } from '../../components/Admin/AdminAddMovie'
 import { getMovieTags } from '../../actions/getMovieTags'
