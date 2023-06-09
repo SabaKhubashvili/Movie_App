@@ -26,18 +26,16 @@ model User {
 model movie {
   id String @id @default(cuid())
 
-  title       String?
-  duration    String
-  description String
+  title            String?
+  duration         String
+  description      String
   movieBannerSmall String
   movieBannerBig   String
-  movieLink   String
-  imbdRating  Int
+  imbdRating       Int
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  
   MovieCast moviecast[]
   movieTags movieTags[]
 }
@@ -55,37 +53,36 @@ model moviecast {
   updatedAt DateTime @updatedAt
 }
 
-model serials{
-  id    String @id @default(cuid())
+model serials {
+  id String @id @default(cuid())
 
-  title       String?
-  description String
+  title             String
+  description       String
   serialBannerSmall String
   serialBannerBig   String
-  imbdRating  Int
+  imbdRating        Int
 
-
-  series  series[]
+  series    series[]
+  serieTags serieTags[]
 }
 
-model series{
-  id      String @default(cuid()) @id
+model series {
+  id String @id @default(cuid())
 
-  serialId  String
-  serial serials @relation(fields: [serialId],references: [id],onDelete: Cascade)
+  serialId String
+  serial   serials @relation(fields: [serialId], references: [id], onDelete: Cascade)
 
-  serieId   String 
-  serie   serie @relation(fields: [serieId],references: [id],onDelete: Cascade)
-} 
+  serieId String
+  serie   serie  @relation(fields: [serieId], references: [id], onDelete: Cascade)
+}
 
-model serie{
-  id    String @id @default(cuid())
+model serie {
+  id String @id @default(cuid())
 
-  title   String
+  title       String
   description String?
 
-  serieLink  String
-  series series[]
+  series    series[]
 }
 
 model actor {
@@ -108,16 +105,30 @@ model tag {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   movieTags movieTags[]
+  serieTags serieTags[]
+}
+
+model serieTags {
+  id String @id @default(cuid())
+
+  serialId String
+  serial   serials @relation(fields: [serialId], references: [id], onDelete: Cascade)
+
+  tagId String
+  tag   tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model movieTags {
   id String @id @default(cuid())
 
   movieId String
-  movie   movie  @relation(fields: [movieId], references: [id],onDelete: Cascade)
+  movie   movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
 
   tagId String
-  tag   tag    @relation(fields: [tagId], references: [id],onDelete: Cascade)
+  tag   tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

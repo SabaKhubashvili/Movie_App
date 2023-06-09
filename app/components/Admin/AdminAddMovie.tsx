@@ -10,15 +10,24 @@ import { toast } from 'react-hot-toast'
 import { CustomButton } from '../Buttons'
 import axios from 'axios'
 import { tag } from '@prisma/client'
+import { MainFileUploadInput } from '../Inputs/MainFileUploadInput'
+import { S3 } from 'aws-sdk'
+import { s3 } from './AdminAddSerial'
+import { useMotionValue } from 'framer-motion'
+import { ProgressBar } from '../ProgressBar/ProgressBar'
 
 interface Props{
     tags:tag[]
 }
 
+
 export const AdminAddMovie = ({tags}:Props) => {
 
     
     const [isLoading,setIsLoading] = useState<boolean>(false)
+    const progress = useMotionValue(0);
+    const [upload, setUpload] = useState<S3.ManagedUpload | null>(null);
+
     const {
         register,
         formState:{
@@ -33,11 +42,11 @@ export const AdminAddMovie = ({tags}:Props) => {
             title:'',
             description:'',
             duration:'',
-            movieLink:'',
             movieBannerBig:'',
             movieBannerSmall:'',
             imbdRating:0,   
-            tags:[]
+            tags:[],
+            movieUpload:null
         }
     })
     const imageBig = watch('movieBannerBig')
@@ -81,9 +90,31 @@ export const AdminAddMovie = ({tags}:Props) => {
             
             setIsLoading(true)
             axios.post('/api/movie/addMovie',data)
-            .then(res=>{
-                toast.success(res.data.message)
-                reset()
+            .then(async(res)=>{
+  
+                const params = {
+                        Bucket:'saintstreammovies',
+                        Key:`movies/${res.data.id}.mp4`,
+                        Body:data.movieUpload[0],
+                        ContentType:'video/mp4'
+                }
+                try{
+                        const upload = s3.upload(params)
+                        setUpload(upload)
+                        upload.on('httpUploadProgress',(p)=>{
+                                progress.set(p.loaded / p.total)
+                                if(p.loaded === p.total){
+                                        setUpload(null)
+                                      }
+                                })
+                                await upload.promise();
+                                toast.success(res.data.message)
+                                reset()
+                            
+                            }catch(error:any){
+                                    toast.error('Something went wrong while uploading') 
+                                }
+                                
             })
             .catch(error=>{
                 toast.error(error.response.data.message)
@@ -122,16 +153,6 @@ export const AdminAddMovie = ({tags}:Props) => {
 
         <div className='w-full flex flex-col gap-[30px]'>
             <div className='flex justify-between gap-x-[50px] gap-y-[30px] sm:flex-nowrap flex-wrap'>
-
-            <MainTextInput
-                    id='movieLink'
-                    label='Movie link'
-                    placeholder='link'
-                    register={register}
-                    errors={errors}
-                    required 
-                    disabled={isLoading}
-                    />
             <MainTextInput
                     id='imbdRating'
                     label='Imbd Rating'
@@ -153,18 +174,34 @@ export const AdminAddMovie = ({tags}:Props) => {
                 disabled={isLoading}
                 />
         </div>
-        <div className='flex gap-x-[280px] gap-y-[20px] sm:flex-nowrap flex-wrap'>
-            <div className='w-[5rem] flex gap-[20px]'>
+        <div className='flex gap-x-[30px] gap-y-[20px] md:flex-nowrap flex-wrap items-center'>
+            <div className='flex gap-[20px]'>
                 <ImageUpload label='Big banner' onChange={(image)=>setCustomValue('movieBannerBig',image)} value={imageBig}/>
                 <ImageUpload label='Small banner' onChange={(image)=>setCustomValue('movieBannerSmall',image)} value={imageSmall}/>
             </div>
             <div className='w-[15rem]'>
                 <CheckBoxDropdown submitedTags={formtags} data={tags} onClick={(tag)=>addToTags(tag)} label='Choose tags'/>
             </div>
+
+            <div>
+                <MainFileUploadInput
+                    id='movieUpload'
+                    placeholder='Video'
+                    register={register}
+                    errors={errors}
+                    required 
+                    disabled={isLoading}
+                    />
+            </div>
         </div>
         <div className='sm:w-[10rem] w-[5rem] mx-auto'>
             <CustomButton full label='Create' onClick={handleSubmit(onSubmit)} disabled={isLoading}/>
         </div>
+
+        {upload &&
+
+            <ProgressBar value={progress}/>
+        }
     </section>
   )
 }

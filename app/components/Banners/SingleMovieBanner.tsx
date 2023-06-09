@@ -82,7 +82,9 @@ export const SingleMovieBanner = ({links,movie,movieLink}:Props) => {
             </div>
         </div>
     </Container>
-    <MoviePlayerModal movieLink={openSerieData.movieLink} onClose={()=>setOpenSerieData(prev=>({...prev,isOpen:false}))}
+    <MoviePlayerModal 
+    movieLink={openSerieData.movieLink} 
+    onClose={()=>setOpenSerieData(prev=>({...prev,isOpen:false}))}
     isOpen={openSerieData.isOpen}
     />
       

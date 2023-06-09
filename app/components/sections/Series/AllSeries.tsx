@@ -36,7 +36,7 @@ export const AllSeries = () => {
             className='w-full'  
             >
            
-                <SwiperSlide className='!w-[280px]'>
+                {/* <SwiperSlide className='!w-[280px]'>
                     <MovieComponent/>
                 </SwiperSlide>
                 <SwiperSlide className='!w-[280px]'>
@@ -57,7 +57,7 @@ export const AllSeries = () => {
                 <SwiperSlide className='!w-[280px]'>
                     <MovieComponent/>
                 </SwiperSlide>
-               
+                */}
 
             </Swiper>
             <div className='sm:w-[167px] w-[40px]  h-full absolute top-0 right-0 z-[8]  bg-gradient-to-r from-transparent to-[#0D0C0F]'/>

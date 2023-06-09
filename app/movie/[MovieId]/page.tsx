@@ -39,8 +39,6 @@ export async function generateMetadata({ params }:{params:IParams}) {
 const page = async({params}:{params:IParams}) => {
   
     const movie = await getMovieById(params.MovieId) as safeMovie
-    const similarMovies = await getSimilarMovies(movie.movieTags,movie.id) as safeMovie[]
-
     if(!movie){
       return <EmptyClient
         title='Movie not found'
@@ -48,10 +46,12 @@ const page = async({params}:{params:IParams}) => {
       />
     }
     
+    const similarMovies = await getSimilarMovies(movie.movieTags,movie.id) as safeMovie[]
+
   return (
     <React.Fragment>
       <section className='h-[810px]'>
-       <SingleMovieBanner links movie={movie} movieLink="https://d3igsqksnsspxm.cloudfront.net/video" />
+       <SingleMovieBanner links movie={movie} movieLink={`${process.env.AWS_Cloudfront_Link}movies/${movie.id}.mp4`} />
       </section>
       
       <MovieDescription description={movie.description} cast={[]}/>

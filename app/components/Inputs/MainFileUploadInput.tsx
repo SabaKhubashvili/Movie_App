@@ -37,6 +37,7 @@ export const MainFileUploadInput = ({
       <div className="relative w-full h-full">
         <input
           type="file"
+          accept='video/mp4,video/x-m4v,video/*'
           placeholder={placeholder}
           id={id}
           disabled={disabled}
