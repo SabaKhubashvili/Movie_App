@@ -8,13 +8,18 @@ import "swiper/css";
 import "swiper/css/free-mode";
 
 import { Navigation,FreeMode } from 'swiper';
-import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon';
-import { MovieComponent } from '../../MovieComponent';
+import { ArrowRightIcon } from '@/public/svg/icons/Icon';
+import { safeSerial } from '@/app/types';
+import { SerialComponent } from '../../SerialComponent';
 
-export const AllSeries = () => {
+interface Props{
+    data:safeSerial[]
+}
+
+export const AllSeries = ({data}:Props) => {
   return (
     <section className='w-full py-[40px]'>
-        <h1 className='text-white font-bold text-[24px] leading-[32px]'>Series</h1>
+        <h1 className='text-white font-bold text-[24px] leading-[32px]'>Serials</h1>
         <div className='pt-[24px] relative'>
         
         <button 
@@ -35,29 +40,16 @@ export const AllSeries = () => {
             modules={[Navigation,FreeMode]}
             className='w-full'  
             >
-           
-                {/* <SwiperSlide className='!w-[280px]'>
-                    <MovieComponent/>
+        {
+            data.map(singleSerial=>(
+
+                
+                <SwiperSlide key={singleSerial.id} className='!w-[280px]'>
+                    <SerialComponent {...singleSerial}/>
                 </SwiperSlide>
-                <SwiperSlide className='!w-[280px]'>
-                    <MovieComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='!w-[280px]'>
-                    <MovieComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='!w-[280px]'>
-                    <MovieComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='!w-[280px]'>
-                    <MovieComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='!w-[280px]'>
-                    <MovieComponent/>
-                </SwiperSlide>
-                <SwiperSlide className='!w-[280px]'>
-                    <MovieComponent/>
-                </SwiperSlide>
-                */}
+                ))
+
+            }
 
             </Swiper>
             <div className='sm:w-[167px] w-[40px]  h-full absolute top-0 right-0 z-[8]  bg-gradient-to-r from-transparent to-[#0D0C0F]'/>

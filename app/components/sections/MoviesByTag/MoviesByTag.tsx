@@ -18,7 +18,7 @@ interface Props{
 }
 export const MoviesbyTag = ({label,data}:Props) => {
 
-  
+
   return (
     <section className='w-full py-[40px]'>
         <h1 className='text-white font-bold text-[24px] leading-[32px]'>{label}</h1>

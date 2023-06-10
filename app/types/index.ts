@@ -1,4 +1,4 @@
-import { movie, movieTags } from "@prisma/client";
+import { movie, movieTags, serials, series } from "@prisma/client";
 import { DefaultSession } from "next-auth";
 
 
@@ -38,4 +38,12 @@ export interface smallMovieInterface{
 
 export interface safeMovie extends movie{
     movieTags:any
+}
+
+export interface safeSerial extends serials{
+  serieTags:any
+}
+
+export interface safeSerialSinglePage extends safeSerial{
+  series:any
 }

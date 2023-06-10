@@ -8,23 +8,29 @@ import {ArrowRightIcon } from '@/public/svg/icons/Icon'
 import { Modal } from '../Modals/Modal'
 import { MoviePlayer } from '../VideoPlayer/MoviePlayer'
 
-export const Series = () => {
-    
+
+interface Props{
+    series:any
+}
+
+export const Series = ({series}:Props) => {
+
     const [openSerieData,setOpenSerieData] = useState({
         isOpen:false,
         serieLink:''
     })
     let bodyContent = (
-        <MoviePlayer link=''/>
+        <MoviePlayer link={openSerieData.serieLink}/>
     )
+
   return (
     <React.Fragment>
-        <section className='py-[40px]'>
+        <section className='py-[40px]' id='series'>
             <Container>
 
                 <div className='flex justify-between'>
-                    <h1 className='font-bold text-[24px] leading-[32px] flex-grow text-white'>1-9 Episode</h1>
-                    <p className='text-white'>Season 3</p>
+                    <h1 className='font-bold text-[24px] leading-[32px] flex-grow text-white'>1- {series.length} Episode</h1>
+                    <p className='text-white'>Season 1</p>
                 </div>
             </Container>
         <div className='relative w-full'>
@@ -48,39 +54,21 @@ export const Series = () => {
                 spaceBetween={16}
                 className='!pt-[24px] !w-full'
                 >
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-[301px] !h-[197px]'>
-                        <Serie onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
-                    </SwiperSlide>
+                    {
+                        series.map((serial:any)=>
+                            
+                            (
+                            <SwiperSlide key={serial.serie.id} className='!w-[301px] !h-[197px]'>
+                            <Serie {...serial.serie} 
+                            onClick={(link:string)=>{
+                                setOpenSerieData(prev=>({...prev,isOpen:true,serieLink:link}))
+                                console.log(link);
+                            }}/>
+                        </SwiperSlide>
+                        )
+                    )
+                    }
+                    
                 </Swiper>
             </Container>
                 <div className='w-[167px] sm:inline hidden h-full absolute top-0 right-0 z-[8]  bg-gradient-to-r from-transparent to-[#0D0C0F]'/>   

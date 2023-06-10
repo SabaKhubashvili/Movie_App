@@ -1,9 +1,9 @@
 import prisma from '@/app/Libs/prismadb'
 
-export async function getSimilarMovies(tags:any[],id:string){
-    const movies = await prisma.movie.findMany({
+export async function getSimilarSerials(tags:any[],id:string){
+    const serials = await prisma.serials.findMany({
         where:{
-            movieTags:{
+            serieTags:{
                 some:{
                     tag:{
                         name:{
@@ -17,7 +17,7 @@ export async function getSimilarMovies(tags:any[],id:string){
             }
         },
         include:{
-            movieTags:{
+            serieTags:{
                 select:{
                     tag:{
                         select:{
@@ -30,13 +30,13 @@ export async function getSimilarMovies(tags:any[],id:string){
         }
     })
 
-    if(movies.length < 8){
-        const alreadyRetrievedMovieIds = movies.map((movie) => movie.id);
-        const anotherLayer = await prisma.movie.findMany({
+    if(serials.length < 8){
+        const alreadyRetrievedSerialIds = serials.map((serial) => serial.id);
+        const anotherLayer = await prisma.serials.findMany({
             where:{
                     NOT:{
                     id:{
-                        in:[...alreadyRetrievedMovieIds, id],
+                        in:[...alreadyRetrievedSerialIds, id],
                     }
                 }
             },
@@ -44,7 +44,7 @@ export async function getSimilarMovies(tags:any[],id:string){
                 title:'desc'
             },
             include:{
-                movieTags:{
+                serieTags:{
                     select:{
                         tag:{
                             select:{
@@ -56,8 +56,8 @@ export async function getSimilarMovies(tags:any[],id:string){
                 }
             }
         })
-        movies.push(...anotherLayer)
+        serials.push(...anotherLayer)
     }
 
-    return movies
+    return serials
 }

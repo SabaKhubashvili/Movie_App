@@ -54,14 +54,19 @@ export const AdminAllMoviesTable = ({movies}:Props) => {
                     <td className='whitespace-nowrap px-6 py-4 '>{movie.imbdRating}</td>
                     <td className='whitespace-nowrap px-6 py-4 '>
                       <Image
-                        src={movie.movieBanner}
+                        src={movie.movieBannerSmall}
                         alt='movie'
                         width={200}
                         height={200}
                         className='max-w-[4rem] max-h-[4rem] object-cover rounded-xl'
                       />
                     </td>
-                    <td className='whitespace-nowrap px-6 py-4 '>{movie.movieLink}</td>
+                    <td className='whitespace-nowrap px-6 py-4 '>
+
+                    <a target='_blank' className='hover:underline hover:text-blue-200' href={`${process.env.AWS_Cloudfront_Link}movies/${movie.id}.mp4`} >
+                      {`${process.env.AWS_Cloudfront_Link}movies/${movie.id}.mp4`.slice(0,20)}....
+                      </a>
+                    </td>
                     <td onClick={()=>onDelete(movie.id)} 
                     className={`whitespace-nowrap px-6 py-4 text-rose-500 cursor-pointer ${isLoading && 'cursor-not-allowed '}`}>
                         Delete

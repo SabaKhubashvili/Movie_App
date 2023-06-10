@@ -10,6 +10,8 @@ import { FeaturedBanner } from './components/Banners/FeaturedBanner'
 import { MoviesbyTag } from './components/sections/MoviesByTag/MoviesByTag'
 
 import { getLatestMovies, getMovieByTag, getRandomMovies } from './actions'
+import { AllSeries } from './components/sections/Series/AllSeries'
+import { getAllSerials } from './actions/getAllSerials'
 
 export const metadata = {
   title: 'Home',
@@ -21,7 +23,7 @@ const Page = async() => {
   const latestMovies = await getLatestMovies()
   const movies = await getRandomMovies()
   const moviesByTag = await getMovieByTag('Animation')
-
+  const serials = await getAllSerials()
   return (
     <React.Fragment>
 
@@ -35,7 +37,7 @@ const Page = async() => {
           <FeaturedBanner/>
         <Container rightSpace>
           <MoviesbyTag data={movies} label='Movies'/>
-          <MoviesbyTag data={[]} label='Series'/>
+          <AllSeries data={serials}/>
           <MoviesbyTag data={moviesByTag} label='Animation'/>
         </Container>        
         <SecondaryBanner/>

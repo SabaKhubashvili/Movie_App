@@ -5,7 +5,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 export async function POST(request:Request) {
   try {
-    const { title, description, serialBannerBig, serialBannerSmall, imbdRating, tags } = await request.json()
+    const { title, description, serialBannerBig, serialBannerSmall, imbdRating, tags,serieTitle, serieDescription } = await request.json()
 
     const currentUser = await getServerSession(authOptions)
     
@@ -40,12 +40,12 @@ export async function POST(request:Request) {
 
     const newSerie = await prisma.serie.create({
       data: {
-        title,
-        description,
+        title:serieTitle,
+        description:serieDescription,
       },
     });
     const tagsData = tags.map((tag: string) => ({
-      movieId: newSerial.id,
+      serialId: newSerial.id,
       tagId: tag
     }))
 
@@ -62,6 +62,6 @@ export async function POST(request:Request) {
     return NextResponse.json({ id: newSerie.id, message: 'Successfully created serial' },{status:201});
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ title: 'Error' },{status:500});
+    return NextResponse.json({ message: 'Something wrong happened' },{status:500});
   }
 }
