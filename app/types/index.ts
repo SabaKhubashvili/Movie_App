@@ -47,3 +47,11 @@ export interface safeSerial extends serials{
 export interface safeSerialSinglePage extends safeSerial{
   series:any
 }
+
+export interface ImbdCast{
+  role:string,
+  actor:{
+    imdb_id:string,
+    name:string
+  }
+}

@@ -32,6 +32,7 @@ model movie {
   movieBannerSmall String
   movieBannerBig   String
   imbdRating       Int
+  imbdId           String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -61,7 +62,8 @@ model serials {
   serialBannerSmall String
   serialBannerBig   String
   imbdRating        Int
-
+  imbdId           String
+  
   series    series[]
   serieTags serieTags[]
 

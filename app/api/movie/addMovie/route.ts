@@ -13,9 +13,10 @@ export  async function POST(request:Request){
         movieBannerBig,
         movieBannerSmall,
         tags,
-        imbdRating
+        imbdRating,
+        imbdId
     } = data
-    if(!title || !description  || !duration  || !movieBannerSmall || !movieBannerBig || !tags || !imbdRating){
+    if(!title || !description  || !duration  || !movieBannerSmall || !movieBannerBig || !tags || !imbdRating || !imbdId){
         return NextResponse.json({message:'All fields are required'},{status:404})
     }
     
@@ -46,7 +47,8 @@ export  async function POST(request:Request){
                 duration,
                 movieBannerSmall,
                 movieBannerBig,
-                imbdRating:parseInt(imbdRating)
+                imbdRating:parseInt(imbdRating),
+                imbdId
             }
         })
         

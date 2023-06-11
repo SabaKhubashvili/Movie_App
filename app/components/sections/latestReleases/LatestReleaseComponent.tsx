@@ -9,7 +9,8 @@ export const LatestReleaseComponent = ({
     id,
     title,
     movieBannerSmall,
-    movieTags
+    movieTags,
+    imbdRating
 }:safeMovie) => {
     return (
     <Link href={`/movie/${id}`} className='h-full w-full relative rounded-xl'>
@@ -25,7 +26,7 @@ export const LatestReleaseComponent = ({
             <div className='flex gap-[3px]'>
                 <StarIcon/>
                 <h5 className='text-[14px] font-semibold leading-[20px] text-white'>
-                    4.3
+                    {imbdRating}
                 </h5>
                 <div className='font-medium text-[12px] leading-[20px] text-[#78828A] flex flex-wrap gap-[2px]'>
                     | {

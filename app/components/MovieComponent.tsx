@@ -24,7 +24,7 @@ export const MovieComponent = ({
           <div className='flex gap-[3px]'>
                 <StarIcon/>
                 <h5 className='text-[14px] font-semibold leading-[20px] text-white'>
-                    4.3
+                    {imbdRating}
                 </h5>
                 <div className='font-medium text-[12px] leading-[20px] text-[#78828A]'>
                     | {movieTags.map((singleTag:any)=>(

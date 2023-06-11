@@ -4,7 +4,8 @@ require('dotenv').config();
 const nextConfig = {
     images:{
         domains:[
-            'res.cloudinary.com'
+            'res.cloudinary.com',
+            'm.media-amazon.com'
         ]
     },
     env:{

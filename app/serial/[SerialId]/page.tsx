@@ -8,7 +8,6 @@ import { getSerialById } from '@/app/actions/getSerialById'
 import { SingleSerialBanner } from '@/app/components/Banners/SingleSerialBanner'
 import { Series } from '@/app/components/SingleMovieComponents/Series'
 import { getSimilarSerials } from '@/app/actions/getSimilarSerials'
-import { MoviesbyTag } from '@/app/components/sections/MoviesByTag/MoviesByTag'
 import { Container } from '@/app/Container'
 import { AllSeries } from '@/app/components/sections/Series/AllSeries'
 
@@ -18,21 +17,21 @@ interface IParams{
 
 
 export async function generateMetadata({ params }:{params:IParams}) {
-  const movie = await prisma.serials.findUnique({
+  const serial = await prisma.serials.findUnique({
     where:{
       id:params.SerialId
     }
   })
-  if(movie){
+  if(serial){
     return {
-      title:`${movie.title} | Movie`,
-      description:movie.description,
-      image:movie.serialBannerBig
+      title:`${serial.title} | Movie`,
+      description:serial.description,
+      image:serial.serialBannerBig
     }
   }
 
   return{
-    title:'Movie not found',
+    title:'Serial not found',
     description:'404 Movie not found'
   }
 
@@ -53,10 +52,10 @@ const Page = async({params}:{params:IParams}) => {
   return (
     <React.Fragment>
       <section className='h-[810px]'>
-       <SingleSerialBanner links serial={serial} movieLink={`${process.env.AWS_Cloudfront_Link}movies/${serial.id}.mp4`} />
+       <SingleSerialBanner links serial={serial} />
       </section>
       
-      <MovieDescription description={serial.description} cast={[]}/>
+      <MovieDescription description={serial.description} imbdId={serial.imbdId} isSeries />
       <Series series={serial.series} />
       <div className='w-full bg-[#FFFFFF1A] h-[1px]' />
       <Container rightSpace>

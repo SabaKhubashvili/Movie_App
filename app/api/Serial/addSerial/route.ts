@@ -5,7 +5,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 export async function POST(request:Request) {
   try {
-    const { title, description, serialBannerBig, serialBannerSmall, imbdRating, tags,serieTitle, serieDescription } = await request.json()
+    const { title, description, serialBannerBig, serialBannerSmall, imbdRating, tags,serieTitle, serieDescription, imbdId } = await request.json()
 
     const currentUser = await getServerSession(authOptions)
     
@@ -33,7 +33,8 @@ export async function POST(request:Request) {
         description,
         serialBannerBig,
         serialBannerSmall,
-        imbdRating:parseInt(imbdRating)
+        imbdRating:parseInt(imbdRating),
+        imbdId
       }
     })
  

@@ -46,7 +46,8 @@ export const AdminAddMovie = ({tags}:Props) => {
             movieBannerSmall:'',
             imbdRating:0,   
             tags:[],
-            movieUpload:null
+            movieUpload:null,
+            imbdId:''
         }
     })
     const imageBig = watch('movieBannerBig')
@@ -153,16 +154,25 @@ export const AdminAddMovie = ({tags}:Props) => {
 
         <div className='w-full flex flex-col gap-[30px]'>
             <div className='flex justify-between gap-x-[50px] gap-y-[30px] sm:flex-nowrap flex-wrap'>
-            <MainTextInput
-                    id='imbdRating'
-                    label='Imbd Rating'
-                    type='number'
-                    placeholder='Rating'
-                    register={register}
-                    errors={errors}
-                    required 
-                    disabled={isLoading}
-                    />
+                <MainTextInput
+                        id='imbdRating'
+                        label='Imbd Rating'
+                        type='number'
+                        placeholder='Rating'
+                        register={register}
+                        errors={errors}
+                        required 
+                        disabled={isLoading}
+                        />
+                <MainTextInput
+                        id='imbdId'
+                        label='Imbd Id'
+                        placeholder='imbdId'
+                        register={register}
+                        errors={errors}
+                        required 
+                        disabled={isLoading}
+                        />
             </div>
             <MainTextArea 
                 id='description'
@@ -174,7 +184,7 @@ export const AdminAddMovie = ({tags}:Props) => {
                 disabled={isLoading}
                 />
         </div>
-        <div className='flex gap-x-[30px] gap-y-[20px] md:flex-nowrap flex-wrap items-center'>
+        <div className='flex gap-x-[30px] gap-y-[20px] md:flex-nowrap flex-wrap items-center    '>
             <div className='flex gap-[20px]'>
                 <ImageUpload label='Big banner' onChange={(image)=>setCustomValue('movieBannerBig',image)} value={imageBig}/>
                 <ImageUpload label='Small banner' onChange={(image)=>setCustomValue('movieBannerSmall',image)} value={imageSmall}/>

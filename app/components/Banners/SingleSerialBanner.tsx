@@ -12,10 +12,9 @@ import { safeSerial } from '@/app/types'
 interface Props{
     links?:boolean
     serial:safeSerial
-    movieLink:string
 }
 
-export const SingleSerialBanner = ({links,serial,movieLink}:Props) => {
+export const SingleSerialBanner = ({links,serial}:Props) => {
 
     const isAboveLargeScreens = useMediaQuery(largeScreens)
   return (

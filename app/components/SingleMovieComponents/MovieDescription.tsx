@@ -1,18 +1,36 @@
 'use client'
 
 import { Container } from '@/app/Container'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CastSlider } from './CastSlider'
-import { actor } from '@prisma/client'
+import axios from 'axios'
+import { toast } from 'react-hot-toast'
+import { ImbdCast } from '@/app/types'
 
 interface Props{
     description:string
-    cast:actor[]
+    imbdId:string
+    isSeries?:boolean
 }
 
-export const MovieDescription = ({description,cast}:Props) => {
+export const MovieDescription = ({description,imbdId,isSeries}:Props) => {
     const [showFullDesc,setShowFullDesc] = useState<boolean>(description.length <= 700)
-  
+    const [cast,setCast] = useState<ImbdCast[]>()
+
+    useEffect(()=>{
+        axios.get(`https://moviesminidatabase.p.rapidapi.com/${isSeries ? 'series'  : 'movies'}/id/${imbdId}/cast/`,{
+          headers:{
+            'X-RapidAPI-Key': 'c2cfc8e7a5msh5b9279984adefe3p1f2178jsn2149674d6173',
+            'X-RapidAPI-Host': 'moviesminidatabase.p.rapidapi.com'
+          }
+        }).then(res=>{
+          setCast(res.data.results.roles);
+          
+        }).catch(error=>{
+          toast.error('Something wrong happened with cast')
+        })
+      },[])
+
     return (
     <section className='flex flex-col gap-[24px] pt-[20px] pb-[40px]'>
         <Container>
@@ -33,9 +51,12 @@ export const MovieDescription = ({description,cast}:Props) => {
                     </p>
             </div>
         </Container>
-        <Container rightSpace>
-            <CastSlider/>
-        </Container>
+        { cast &&
+
+            <Container rightSpace>
+                <CastSlider cast={cast} />
+            </Container>
+        }
     </section>
   )
 }

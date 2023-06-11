@@ -48,7 +48,8 @@ export const AdminAddSerial = ({ tags }: Props) => {
       tags: [],
       serieTitle:'',
       serieDescription:'',
-      serie:''
+      serie:'',
+      imbdId:''
     },
   });
   const imageBig = watch("serialBannerBig");
@@ -166,6 +167,15 @@ export const AdminAddSerial = ({ tags }: Props) => {
               required
               disabled={isLoading}
             />
+             <MainTextInput
+                        id='imbdId'
+                        label='Imbd Id'
+                        placeholder='imbdId'
+                        register={register}
+                        errors={errors}
+                        required 
+                        disabled={isLoading}
+              />
           </div>
           <MainTextArea
             id="description"
