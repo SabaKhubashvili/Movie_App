@@ -33,6 +33,7 @@ model movie {
   movieBannerBig   String
   imbdRating       Int
   imbdId           String
+  clickCount       Int @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -63,6 +64,7 @@ model serials {
   serialBannerBig   String
   imbdRating        Int
   imbdId           String
+  clickCount       Int @default(0)
   
   series    series[]
   serieTags serieTags[]

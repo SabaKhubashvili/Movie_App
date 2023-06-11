@@ -18,7 +18,7 @@ export const MovieDescription = ({description,imbdId,isSeries}:Props) => {
     const [cast,setCast] = useState<ImbdCast[]>()
 
     useEffect(()=>{
-        axios.get(`https://moviesminidatabase.p.rapidapi.com/${isSeries ? 'series'  : 'movies'}/id/${imbdId}/cast/`,{
+        axios.get(`https://moviesminidatabase.p.rapidapi.com/${isSeries ? 'series'  : 'movie'}/id/${imbdId}/cast/`,{
           headers:{
             'X-RapidAPI-Key': 'c2cfc8e7a5msh5b9279984adefe3p1f2178jsn2149674d6173',
             'X-RapidAPI-Host': 'moviesminidatabase.p.rapidapi.com'
@@ -30,7 +30,8 @@ export const MovieDescription = ({description,imbdId,isSeries}:Props) => {
           toast.error('Something wrong happened with cast')
         })
       },[])
-
+      console.log('rerendered');
+      
     return (
     <section className='flex flex-col gap-[24px] pt-[20px] pb-[40px]'>
         <Container>
@@ -50,6 +51,7 @@ export const MovieDescription = ({description,imbdId,isSeries}:Props) => {
                     }
                     </p>
             </div>
+
         </Container>
         { cast &&
 

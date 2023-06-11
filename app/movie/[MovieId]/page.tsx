@@ -39,15 +39,22 @@ export async function generateMetadata({ params }:{params:IParams}) {
 const page = async({params}:{params:IParams}) => {
   
     const movie = await getMovieById(params.MovieId) as safeMovie
-
     if(!movie){
       return <EmptyClient
-        title='Movie not found'
-        description='Error code 404'
+      title='Movie not found'
+      description='Error code 404'
       />
     }    
     const similarMovies = await getSimilarMovies(movie.movieTags,movie.id) as safeMovie[]
-
+    
+    await prisma.movie.update({
+      where:{
+        id:movie.id
+      },
+      data:{
+          clickCount: movie.clickCount + 1
+      }
+    })
  
 
   return (

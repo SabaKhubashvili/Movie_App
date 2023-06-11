@@ -1,13 +1,17 @@
 'use client'
 
-import { ArrowLeftIcon, ArrowRightIcon} from '@/public/svg/icons/Icon'
 import React from 'react'
 import { PopularMovieComponent } from './PopularMovieComponent'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { FreeMode, Navigation } from 'swiper'
-import { Container } from '@/app/Container'
+import { FreeMode } from 'swiper'
+import { safeMovie } from '@/app/types'
 
-export const PopularMovies = () => {
+
+interface Props{
+    movies:any[]
+}
+
+export const PopularMovies = ({movies}:Props) => {
   return (
     <section className='w-full pb-[40px]'>
 
@@ -21,25 +25,14 @@ export const PopularMovies = () => {
                 modules={[FreeMode]}
                 className='w-full h-[260px]'  
                 >
-            
-                  <SwiperSlide className='!w-[340px]'>
-                      <PopularMovieComponent isFirst/>
+                { movies.map((movie,index)=>(
+
+                    
+                  <SwiperSlide className='!w-fit' key={movie.id}>
+                      <PopularMovieComponent index={index} movie={movie} isFirst={movie === movies[0]}/>
                   </SwiperSlide>
-                  <SwiperSlide className='!w-[340px]'>
-                      <PopularMovieComponent />
-                  </SwiperSlide>
-                  <SwiperSlide className='!w-[340px]'>
-                      <PopularMovieComponent />
-                  </SwiperSlide>
-                  <SwiperSlide className='!w-[340px]'>
-                      <PopularMovieComponent />
-                  </SwiperSlide>
-                  <SwiperSlide className='!w-[340px]'>
-                      <PopularMovieComponent />
-                  </SwiperSlide>
-                  <SwiperSlide className='!w-[340px]'>
-                      <PopularMovieComponent />
-                  </SwiperSlide>
+                    ))
+                }
                 
 
               </Swiper>

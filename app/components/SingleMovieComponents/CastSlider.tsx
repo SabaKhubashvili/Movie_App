@@ -16,7 +16,7 @@ interface Props{
 export const CastSlider = ({cast}:Props) => {
   return (
     <div className='w-full  flex-col gap-[16px]'>
-        <h2 className='font-bold text-[18px] leading-[26px] text-white'>Top Cast</h2>
+        <h2 className='font-bold text-[18px] leading-[26px] text-white'>Cast</h2>
 
        <Swiper
        modules={[FreeMode]}
