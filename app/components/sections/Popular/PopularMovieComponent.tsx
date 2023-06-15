@@ -1,4 +1,3 @@
-import { safeMovie } from "@/app/types";
 import { MovieIcon, StarIcon } from "@/public/svg/icons/Icon";
 import Image from "next/image";
 import React from "react";

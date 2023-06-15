@@ -17,7 +17,9 @@ const Page = async() => {
     <section className='pt-[150px]'>
 
       <Container>
-        <AdminAllMoviesTable movies={movies}/>
+        <div className='overflow-x-auto'>
+          <AdminAllMoviesTable movies={movies}/>
+        </div>
       </Container>
     </section>
   )

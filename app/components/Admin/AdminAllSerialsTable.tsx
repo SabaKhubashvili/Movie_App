@@ -1,27 +1,29 @@
 'use client'
 
-import { movie } from '@prisma/client'
+import { serials } from '@prisma/client'
 import axios from 'axios'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { AiFillEdit } from 'react-icons/ai'
 
 interface Props{
-    movies:movie[]
+    serials:serials[]
 }
 
-export const AdminAllMoviesTable = ({movies}:Props) => {
-    const [movieList, setMovieList] = useState<movie[]>(movies);
+export const AdminAllSerialsTable = ({serials}:Props) => {
+    const [serialList, setSerialList] = useState<serials[]>(serials);
     const [isLoading,setIsLoading] = useState<boolean>(false)
 
     const onDelete = (id:string) =>{
       if(!isLoading){
         setIsLoading(true)
 
-        axios.delete(`/api/movie/deleteMovie/${id}`)
+        axios.delete(`/api/movie/deleteSerial/${id}`)
         .then(res=>{
           toast.success(res.data.message)
-          setMovieList(movieList.filter(movie=>movie.id !== id))
+          setSerialList(serialList.filter(movie=>movie.id !== id))
         }).catch(error=>{
           console.log(error)
         }).finally(()=>{
@@ -39,35 +41,37 @@ export const AdminAllMoviesTable = ({movies}:Props) => {
                 <th className='whitespace-nowrap px-6 py-4 text-start'>Description</th>
                 <th className='whitespace-nowrap px-6 py-4 text-start'>imbdRating</th>
                 <th className='whitespace-nowrap px-6 py-4 text-start'>Banner</th>
-                <th className='whitespace-nowrap px-6 py-4 text-start'>Movie Link</th>
+                <th className='whitespace-nowrap px-6 py-4 text-start'>Edit</th>
                 <th className='whitespace-nowrap px-6 py-4 text-start'>Delete</th>
               </tr>
             </thead>
             <tbody className='mt-[10rem] w-full'>
-              { movieList.map((movie)=>(
+              { serialList.map((serial)=>(
 
                 
-                <tr className='text-white w-full' key={movie.id}>
-                    <td className='whitespace-nowrap px-6 py-4 '>{movie.id}</td>
-                    <td className='whitespace-nowrap px-6 py-4 '>{movie.title}</td>
-                    <td className=' px-6 py-4 !min-w-[20rem] '>{movie.description.slice(0,400)}</td>
-                    <td className='whitespace-nowrap px-6 py-4 '>{movie.imbdRating}</td>
+                <tr className='text-white w-full' key={serial.id}>
+                    <td className='whitespace-nowrap px-6 py-4 '>{serial.id}</td>
+                    <td className='whitespace-nowrap px-6 py-4 '>{serial.title}</td>
+                    <td className=' px-6 py-4 !min-w-[20rem] '>{serial.description.slice(0,400)}</td>
+                    <td className='whitespace-nowrap px-6 py-4 '>{serial.imbdRating}</td>
                     <td className='whitespace-nowrap px-6 py-4 '>
                       <Image
-                        src={movie.movieBannerSmall}
+                        src={serial.serialBannerSmall}
                         alt='movie'
                         width={200}
                         height={200}
                         className='max-w-[4rem] max-h-[4rem] object-cover rounded-xl'
                       />
                     </td>
-                    <td className='whitespace-nowrap px-6 py-4 '>
-
-                    <a target='_blank' className='hover:underline hover:text-blue-200' href={`${process.env.AWS_Cloudfront_Link}movies/${movie.id}.mp4`} >
-                      {`${process.env.AWS_Cloudfront_Link}movies/${movie.id}.mp4`.slice(0,20)}....
-                      </a>
+                    <td>
+                      <Link 
+                      href={`/admin/editSerial/${serial.id}`}
+                      className={`whitespace-nowrap px-6 py-[3rem]  cursor-pointer w-full h-full flex justify-center items-center
+                      ${isLoading && 'cursor-not-allowed '}`}>
+                          <AiFillEdit size={27} color='#0492C2'/>
+                      </Link>
                     </td>
-                    <td onClick={()=>onDelete(movie.id)} 
+                    <td onClick={()=>onDelete(serial.id)} 
                     className={`whitespace-nowrap px-6 py-4 text-rose-500 cursor-pointer ${isLoading && 'cursor-not-allowed '}`}>
                         Delete
                     </td>

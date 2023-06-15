@@ -9,15 +9,17 @@ import { CheckBoxDropdown } from "../Dropdown/CheckBoxDropdown";
 import { toast } from "react-hot-toast";
 import { CustomButton } from "../Buttons";
 import axios from "axios";
-import { tag } from "@prisma/client";
+import { serials, tag } from "@prisma/client";
 import { MainFileUploadInput } from "../Inputs/MainFileUploadInput";
 import { S3 } from "aws-sdk";
 import { ProgressBar } from "../ProgressBar/ProgressBar";
 import { useMotionValue } from "framer-motion";
 import "dotenv/config";
+import { safeSerial } from "@/app/types";
 
 interface Props {
   tags: tag[];
+  serial:safeSerial
 }
 
 export const s3 = new S3({
@@ -26,7 +28,7 @@ export const s3 = new S3({
   region: process.env.AWS_Region,
 });
 
-export const AdminAddSerial = ({ tags }: Props) => {
+export const AdminEditSerial = ({ tags,serial }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const progress = useMotionValue(0);
   const [upload, setUpload] = useState<S3.ManagedUpload | null>(null);
@@ -40,22 +42,24 @@ export const AdminAddSerial = ({ tags }: Props) => {
     reset,
   } = useForm<FieldValues>({
     defaultValues: {
-      title: "",
-      description: "",
-      serialBannerBig: "",
-      serialBannerSmall: "",
-      imbdRating: 0,
-      tags: [],
+      title: serial.title,
+      description: serial.description,
+      serialBannerBig: serial.serialBannerBig,
+      serialBannerSmall: serial.serialBannerSmall,
+      imbdRating: serial.imbdRating,
+      tags: serial.serieTags.map((tag:any)=>tag.tag.id),
+      imbdId:serial.imbdId,
+
       serieTitle:'',
       serieDescription:'',
       serie:'',
-      imbdId:''
     },
   });
   const imageBig = watch("serialBannerBig");
   const imageSmall = watch("serialBannerSmall");
   const formtags = watch("tags");
 
+  
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
       shouldDirty: true,
@@ -83,6 +87,7 @@ export const AdminAddSerial = ({ tags }: Props) => {
   };
 
   const onSubmit = async (data: FieldValues) => {
+
     if (!isLoading) {
       if (formtags.length === 0) {
         return toast.error("At least one tag is required");
@@ -100,11 +105,11 @@ export const AdminAddSerial = ({ tags }: Props) => {
 
       axios
         .post(
-          "/api/Serial/addSerial",
+          "/api/Serial/updateSerial",
           {
             ...data,
+            id:serial.id
           },
-          {}
         )
         .then(async (res) => {
           const params = {
@@ -144,7 +149,7 @@ export const AdminAddSerial = ({ tags }: Props) => {
     <section className="w-full pt-[150px] flex flex-col gap-[60px]">
       <section className="w-full flex flex-col gap-[30px]">
         <h1 className="font-bold md:text-[30px] text-[24px] text-white">
-          Add a Serial
+          Edit  a Serial
         </h1>
         <div className="flex justify-between gap-x-[50px] gap-y-[30px] sm:flex-nowrap flex-wrap">
           <MainTextInput
@@ -219,7 +224,7 @@ export const AdminAddSerial = ({ tags }: Props) => {
       <div className='w-full bg-[#FFFFFF1A] h-[1px]' />
       <section className="flex flex-col gap-[30px]">
         <h1 className="font-bold md:text-[30px] text-[24px] text-white">
-            Upload first serie
+            Add a serie
         </h1>
         <div className="flex justify-between gap-x-[50px] gap-y-[30px] flex-col">
             <MainTextInput

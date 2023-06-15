@@ -13,6 +13,7 @@ interface Props{
 export const CheckBoxDropdown = ({label,data,onClick,submitedTags}:Props) => {
     const [isOpen,setIsOpen] = useState<boolean>()
     const dropdownRef = useRef<HTMLDivElement>(null)
+
     
     useEffect(()=>{
         if(isOpen){

@@ -61,7 +61,7 @@ export const AdminAddMovie = ({tags}:Props) => {
           shouldValidate: true,
         });
       };
-
+      
     
     const addToTags = (tag:string) =>{
         

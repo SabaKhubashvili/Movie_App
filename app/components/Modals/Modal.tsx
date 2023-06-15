@@ -26,11 +26,12 @@ export const Modal = ({footer, header,isOpen, onClose, body,paddings,small,darkB
     if(showModal && !disabled){
         
         const handleOutsideClick = (event: MouseEvent) => {
+
             if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-              setShowModal(false)
-              setTimeout(() => {
-                onClose();
-              }, 300);
+                setShowModal(false)
+                setTimeout(() => {
+                  onClose();
+                }, 300);
 
         }
         
