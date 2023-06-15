@@ -1,5 +1,6 @@
 import { MovieIcon, StarIcon } from "@/public/svg/icons/Icon";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -9,8 +10,11 @@ interface Props {
 }
 
 export const PopularMovieComponent = ({ isFirst, movie, index }: Props) => {
+
+  
   return (
-    <div
+    <Link
+      href={`/${movie.movieBannerBig ? 'movie' : 'serial'}/${movie.id}`}
       className={`${
         isFirst ? "h-full" : "h-2/3"
       } w-fit flex gap-[16px]  cursor-pointer`}
@@ -72,6 +76,6 @@ export const PopularMovieComponent = ({ isFirst, movie, index }: Props) => {
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

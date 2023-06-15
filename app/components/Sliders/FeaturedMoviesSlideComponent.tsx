@@ -1,19 +1,20 @@
-import { MovieInformationInterface } from '@/app/types'
+import { safeMovie } from '@/app/types'
 import { StarIcon } from '@/public/svg/icons/Icon'
 import Image from 'next/image'
 import React from 'react'
 
-interface Props extends MovieInformationInterface{
+interface Props extends safeMovie{
     isActive?:boolean
-    onClick:(id:number)=>void
+    onClick:(id:string)=>void,
+
 }
 
-export const FeaturedMoviesSlideComponent = ({id,isActive,onClick,title,imdbRating,image}:Props) => {
+export const FeaturedMoviesSlideComponent = ({id,isActive,onClick,imbdRating,movieBannerSmall}:Props) => {
   return (
     <div className={`h-full w-full relative rounded-xl cursor-pointer ${isActive && 'border-[1px] border-[#00925D]'}`} 
     onClick={()=>onClick(id)}>
     <Image
-    src={`/Image/movies/${image}.webp`}
+    src={movieBannerSmall}
     alt='Movie'
     width={400}
     height={400}
@@ -24,7 +25,7 @@ export const FeaturedMoviesSlideComponent = ({id,isActive,onClick,title,imdbRati
         <div className='flex gap-[3px]'>
             <StarIcon/>
             <h5 className='text-[14px] font-semibold leading-[20px] text-white'>
-                {imdbRating}
+                {imbdRating}
             </h5>
             <p className='font-medium text-[12px] leading-[20px] text-[#78828A]'>
                 | Mystery • Movie

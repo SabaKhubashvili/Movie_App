@@ -1,4 +1,4 @@
-import { MovieInformationInterface, SecondaryBannerTagsInterface } from "../types"
+import { MovieInformationInterface } from "../types"
 
 
 export const Parnters:string[] =  [
@@ -15,39 +15,42 @@ export const Parnters:string[] =  [
     'paramount'
 ]
 
-export const secondaryBannerTags:SecondaryBannerTagsInterface[] = [
-    {
-        id:0,
-        image:'superhero',
-        label:'Superhero'
-    },
-    {
-        id:1,
-        image:'drama',
-        label:'Drama'
-    },
-    {
-        id:2,
-        image:'sitcom',
-        label:'Sitcom'
-    },
-    {
-        id:3,
-        image:'thriller',
-        label:'Thriller'
-    },
-    {
-        id:4,
-        image:'comedy',
-        label:'Comedy'
-    },
-    {
-        id:5,
-        image:'fantasy',
-        label:'Fantasy'
-    },
+export const differentMoviesTags = ['Action','Fantasy','Horror','Romance','Comedy']
+
+
+// export const secondaryBannerTags:SecondaryBannerTagsInterface[] = [
+//     {
+//         id:0,
+//         image:'superhero',
+//         label:'Superhero'
+//     },
+//     {
+//         id:1,
+//         image:'drama',
+//         label:'Drama'
+//     },
+//     {
+//         id:2,
+//         image:'sitcom',
+//         label:'Sitcom'
+//     },
+//     {
+//         id:3,
+//         image:'thriller',
+//         label:'Thriller'
+//     },
+//     {
+//         id:4,
+//         image:'comedy',
+//         label:'Comedy'
+//     },
+//     {
+//         id:5,
+//         image:'fantasy',
+//         label:'Fantasy'
+//     },
     
-]
+// ]
 
 
 export const moviesAndSeries:MovieInformationInterface[] = [

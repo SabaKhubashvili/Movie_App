@@ -3,26 +3,26 @@ import { StarIcon } from '@/public/svg/icons/Icon'
 import Image from 'next/image'
 import React from 'react'
 import { AddWatchlist, PlayButton } from '../Buttons'
-import { MovieInformationInterface } from '@/app/types'
+import { safeMovie } from '@/app/types'
 import useMediaQuery from '@/app/hooks/UseMediaQuery'
 import { largeScreens } from '../MediaQueries'
-
+import Link from 'next/link'
 
 export const FeaturedMoviesSlide = ({
+    id,
     title,
-    imdbRating,
-    image,
+    imbdRating,
+    movieBannerBig,
     duration,
-    year,
-    tags,
+    movieTags,
     description
-}:MovieInformationInterface) => {
+}:safeMovie) => {
     
     const isAboveLargeScreens = useMediaQuery(largeScreens)
   return (
     <div className='w-full h-full relative basis-1/2'>
         <Image
-            src={`/Image/movies/${image}.webp`}
+            src={movieBannerBig}
             alt='slide'
             width={1600}
             height={1600}
@@ -55,15 +55,21 @@ export const FeaturedMoviesSlide = ({
                         <div className="flex gap-[3px]">
                             <StarIcon />
                             <h5 className="text-[14px] font-semibold leading-[20px] text-white">
-                                {imdbRating}
+                                {imbdRating}
                             </h5>
                             <p className="font-medium text-[12px] leading-[20px] text-[#78828A]">
-                                | {duration} • {year} • Superhero • Actions
+                                | {duration} • {
+                                    movieTags.map((tag:any)=>(
+                                        <span key={tag.tag.id}>{tag.tag.name} {movieTags[movieTags.length - 1].tag.name !== tag.tag.name ? '•' : ''} </span>
+                                    ))
+                                    }
                             </p>
                         </div>
                         <p className='text-[#9CA4AB] text-[16px] font-medium leading-[24px]'>{description}.</p>
                         <div className='flex gap-[20px]'>
-                            <PlayButton label='Play now'/>
+                            <Link href={`/movie/${id}`}>
+                                <PlayButton label='Play now'/>
+                            </Link>
                             <AddWatchlist label='Add Watchlist'/>
                         </div>
                     </div>

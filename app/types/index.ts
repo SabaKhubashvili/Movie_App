@@ -11,11 +11,11 @@ declare module 'next-auth' {
   }
 
   
-export interface SecondaryBannerTagsInterface{
-    id:number
-    image:string,
-    label:string,
-}
+// export interface SecondaryBannerTagsInterface{
+//     id:number
+//     image:string,
+//     label:string,
+// }
 
 export interface MovieInformationInterface{
     id:number

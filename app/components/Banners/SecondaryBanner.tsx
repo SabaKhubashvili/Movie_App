@@ -1,105 +1,106 @@
 'use client'
 
-import React, { useState,useRef } from 'react'
-import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper'
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
-import { SecondaryBannerComponent } from '../Sliders/SecondaryBannerComponent'
-import { secondaryBannerTags } from '@/app/constants'
-import { SecondaryBannerTag } from '../Sliders/SecondaryBannerTag'
-import { Container } from '@/app/Container'
-import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon'
+import React, { useState, useRef, useEffect } from 'react';
+import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
+import { SecondaryBannerComponent } from '../Sliders/SecondaryBannerComponent';
+import { SecondaryBannerTag } from '../Sliders/SecondaryBannerTag';
+import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon';
+import { safeMovie } from '@/app/types';
 
-export const SecondaryBanner = () => {
-    const SwiperRef = useRef<SwiperRef>(null);   
-    const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
+interface Props {
+  movies: safeMovie[];
+  tags: string[];
+}
 
-    const handleClick = (tagName:string) => {
-      const index = secondaryBannerTags.findIndex((tag) => tag.label === tagName);
-      if (index >= 0) {
-        setActiveSlideIndex(index);
-        SwiperRef.current?.swiper.slideTo(index, 300);
-      }
-    };
+export const SecondaryBanner = ({ movies, tags }: Props) => {
+  const swiperRef = useRef<SwiperRef>(null);
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
+  const [filteredTags,setFilteredTags] = useState<string[]>([])
+  const seenMovies = new Set();
+  const seenTags = new Set();
 
-    const handleSlide = () =>{
-        if(SwiperRef.current){
-            setActiveSlideIndex(SwiperRef.current.swiper.activeIndex)
+  useEffect(()=>{
+    movies.forEach(movie => {
+      movie.movieTags.map((singleTag:any) => {
+        const tagName = singleTag.tag.name;
+        if (tags.includes(tagName) && !seenMovies.has(movie.id) && !seenTags.has(tagName)) {
+          setFilteredTags(prev => [...prev, tagName]);
+          seenTags.add(tagName)
+          if(seenTags.has(tagName)){
+            seenMovies.add(movie.id);
+          }
         }
+      });
+    });
+  },[])
+
+  
+  const handleClick = (index: number) => {
+    setActiveSlideIndex(index);
+    swiperRef.current?.swiper.slideTo(index);
+  };
+
+  const handleSlide = () => {
+    if (swiperRef.current) {
+      setActiveSlideIndex(swiperRef.current.swiper.activeIndex);
     }
+  };
 
   return (
-   <section className='w-full relative'>
-        <Swiper
-        ref={SwiperRef}
+    <section className="w-full relative">
+      <Swiper
+        ref={swiperRef}
         autoplay={{
-            delay:5000,
-            disableOnInteraction:true
+          delay: 5000,
+          disableOnInteraction: true,
         }}
         pagination={{
-            clickable:true
+          clickable: true,
         }}
         navigation={{
-            nextEl:'.custom_next_SecondaryBanner',
-            prevEl:'.custom_prev_SecondaryBanner'
+          nextEl: '.custom_next_SecondaryBanner',
+          prevEl: '.custom_prev_SecondaryBanner',
         }}
-        modules={[Navigation,Pagination,Autoplay]}
+        modules={[Navigation, Pagination, Autoplay]}
         onSlideChange={handleSlide}
-        className='h-[700px] mySwiper'
-        >
-            <SwiperSlide className='h-full'>
-                <SecondaryBannerComponent handleClick={(value:string)=>handleClick(value)}/>
-            </SwiperSlide>
-            <SwiperSlide className='h-full'>
-                <SecondaryBannerComponent   handleClick={(value:string)=>handleClick(value)}/>
-            </SwiperSlide>
-            <SwiperSlide className='h-full'>
-                <SecondaryBannerComponent  handleClick={(value:string)=>handleClick(value)}/>
-            </SwiperSlide>
-            <SwiperSlide className='h-full'>
-                <SecondaryBannerComponent   handleClick={(value:string)=>handleClick(value)}/>
-            </SwiperSlide>
-            <SwiperSlide className='h-full'>
-                <SecondaryBannerComponent   handleClick={(value:string)=>handleClick(value)}/>
-            </SwiperSlide>
-            <SwiperSlide className='h-full'>
-                <SecondaryBannerComponent  handleClick={(value:string)=>handleClick(value)}/>
-            </SwiperSlide>
-        </Swiper>
-        <div className="pt-[48px] absolute z-[8] flex gap-[24px] bottom-[10rem] lg:!left-14 !left-6">
-            <button
-              className="custom_prev_SecondaryBanner 
-                 cursor-pointer  "
-            >
-              <div className="h-fit py-4 px-5 bg-[#28262D]  rounded-full ">
-                <ArrowLeftIcon />
-              </div>
-            </button>
-            <button
-              className="custom_next_SecondaryBanner  
-                cursor-pointer  "
-            >
-              <div className="h-fit p-[0.8rem] bg-[#28262D]  rounded-full ">
-                <ArrowRightIcon />
-              </div>
-            </button>
+        className="h-[700px] mySwiper"
+      >
+        {movies.map((movie) => (
+          <SwiperSlide className="h-full" key={movie.id}>
+            <SecondaryBannerComponent {...movie} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <div className="pt-[48px] absolute z-[8] flex gap-[24px] bottom-[10rem] lg:!left-14 !left-6">
+        <button className="custom_prev_SecondaryBanner cursor-pointer">
+          <div className="h-fit py-4 px-5 bg-[#28262D] rounded-full">
+            <ArrowLeftIcon />
           </div>
-            <Swiper
-                modules={[FreeMode]}
-                slidesPerView="auto"
-                freeMode={true}
-                spaceBetween={30}
-                className="flex  !absolute !bottom-4 z-[16] lg:!left-14 !left-6 w-[80%]"
-                >
-                {secondaryBannerTags.map((tag) => (
-                    <SwiperSlide key={tag.label} className=" !w-[210px] !h-[99px]">
-                        <SecondaryBannerTag
-                            onClick={() => handleClick(tag.label)}
-                            isActive={tag.id === activeSlideIndex}
-                            {...tag}
-                            />
-                    </SwiperSlide>
-                ))}
-                </Swiper>
-   </section>
-  )
-}
+        </button>
+        <button className="custom_next_SecondaryBanner cursor-pointer">
+          <div className="h-fit p-[0.8rem] bg-[#28262D] rounded-full">
+            <ArrowRightIcon />
+          </div>
+        </button>
+      </div>
+      <Swiper
+        modules={[FreeMode]}
+        slidesPerView="auto"
+        freeMode={true}
+        spaceBetween={30}
+        className="flex !absolute !bottom-4 z-[16] lg:!left-14 !left-6 w-[80%]"
+      >
+        {filteredTags?.map((tag, index) => (
+          <SwiperSlide key={tag} className="!w-[210px] !h-[99px]">
+            <SecondaryBannerTag
+              onClick={() => handleClick(index)}
+              isActive={index === activeSlideIndex}
+              label={tag}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </section>
+  );
+};

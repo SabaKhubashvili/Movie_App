@@ -13,6 +13,8 @@ import { getLatestMovies, getMovieByTag, getRandomMovies } from './actions'
 import { AllSeries } from './components/sections/Series/AllSeries'
 import { getAllSerials } from './actions/getAllSerials'
 import { getPopularMovies } from './actions/getPopularMovies'
+import { getDifferentTagMovies } from './actions/getDifferentTagMovies'
+import { differentMoviesTags } from './constants'
 
 export const metadata = {
   title: 'Home',
@@ -21,12 +23,14 @@ export const metadata = {
 }
 
 const Page = async() => {
+
   const latestMovies = await getLatestMovies()
   const movies = await getRandomMovies()
   const moviesByTag = await getMovieByTag('Animation')
+  const differentTagsMovies = await getDifferentTagMovies(differentMoviesTags)
   const serials = await getAllSerials()
   const popularMovies = await getPopularMovies()
-  
+
   return (
     <React.Fragment>
 
@@ -37,13 +41,13 @@ const Page = async() => {
           <LatestReleases movies={latestMovies}/>
           <PopularMovies movies={popularMovies}/>
         </Container>
-          <FeaturedBanner/>
+          <FeaturedBanner movies={latestMovies.slice(0,5)} />
         <Container rightSpace>
           <MoviesbyTag data={movies} label='Movies'/>
           <AllSeries data={serials}/>
           <MoviesbyTag data={moviesByTag} label='Animation'/>
         </Container>        
-        <SecondaryBanner/>
+        <SecondaryBanner movies={differentTagsMovies} tags={differentMoviesTags} />
     </React.Fragment>
   )
 }

@@ -1,18 +1,18 @@
-import { SecondaryBannerTagsInterface } from "@/app/types"
 import Image from "next/image"
 
- interface Props extends SecondaryBannerTagsInterface{
+ interface Props {
+    label:string,
     isActive?:boolean,
-    onClick:()=>void
+    onClick:()=>void,
 }
 
-export const SecondaryBannerTag = ({image,label,isActive,onClick}:Props) => {
+export const SecondaryBannerTag = ({label,isActive,onClick}:Props) => {
   return (
     <div className={`relative w-[210px] h-[99px] rounded-[12px] cursor-pointer ${isActive && 'border-[1px] border-[#00925D]'}`}
     onClick={onClick}
     >
         <Image
-            src={`/Image/movies/${image}.webp`}
+            src={`/Image/tags/${label.toLowerCase()}.webp`}
             alt="Tag"
             width={210}
             height={99}

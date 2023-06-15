@@ -8,15 +8,19 @@ import { moviesAndSeries } from "@/app/constants";
 import { FeaturedMoviesSlideComponent } from "../Sliders/FeaturedMoviesSlideComponent";
 import useMediaQuery from "@/app/hooks/UseMediaQuery";
 import { largeScreens } from "../MediaQueries";
+import { safeMovie } from "@/app/types";
 
+interface Props{
+  movies:safeMovie[]
+}
 
-export const FeaturedBanner = () => {
+export const FeaturedBanner = ({movies}:Props) => {
   const mainSwiperRef = useRef<SwiperRef>(null)
-  const [activeSlide,setActiveSlide] = useState<number>(0)
+  const [activeSlide,setActiveSlide] = useState<string>(movies[0].id)
   const isAboveLargeScreens = useMediaQuery(largeScreens)
 
-  const handleSlide = (id:number) =>{
-    const index = moviesAndSeries.findIndex(comp=> comp.id === id)
+  const handleSlide = (id:string) =>{
+    const index = movies.findIndex(comp=> comp.id === id)
     if(index >= 0){
       mainSwiperRef.current?.swiper.slideTo(index,500)
       setActiveSlide(id)
@@ -25,7 +29,9 @@ export const FeaturedBanner = () => {
   const handleSlideChange = () => {
     if (mainSwiperRef.current) {
       const activeSlideIndex = mainSwiperRef.current.swiper.activeIndex;
-      setActiveSlide(activeSlideIndex)
+      const id = movies[activeSlideIndex].id;
+      
+      setActiveSlide(id)
     }
   };
 
@@ -38,9 +44,9 @@ export const FeaturedBanner = () => {
       
       >
         {
-            moviesAndSeries.map(component=>(
+            movies.map(component=>(
 
-                <SwiperSlide key={component.title} className="!w-full !h-[700px]">
+                <SwiperSlide key={component.id} className="!w-full !h-[700px]">
                     <FeaturedMoviesSlide  {...component}/>
                 </SwiperSlide>
             ))
@@ -57,11 +63,11 @@ export const FeaturedBanner = () => {
               freeMode={true}
               className='!rounded-xl xl:w-[70%] !w-[100%] !m-0'
               >
-              { moviesAndSeries.map(movie=>(
+              { movies.map(movie=>(
                 
                 
-                <SwiperSlide key={movie.title} className='!w-[280px] !h-[20rem]'>
-                  <FeaturedMoviesSlideComponent {...movie} isActive={movie.id === activeSlide} onClick={(id:number)=>{handleSlide(id)}} />
+                <SwiperSlide key={movie.id} className='!w-[280px] !h-[20rem]'>
+                  <FeaturedMoviesSlideComponent {...movie} isActive={movie.id === activeSlide} onClick={(id:string)=>{handleSlide(id)}} />
               </SwiperSlide>
               ))
             }
