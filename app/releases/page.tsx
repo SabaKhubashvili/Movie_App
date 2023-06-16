@@ -9,6 +9,7 @@ export const metadata = {
   image: '/Image/main/Logo.webp'
 }
 const page = () => {
+
   return (
     <React.Fragment>
         <NormalBanner

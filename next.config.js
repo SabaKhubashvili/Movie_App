@@ -5,7 +5,8 @@ const nextConfig = {
     images:{
         domains:[
             'res.cloudinary.com',
-            'm.media-amazon.com'
+            'm.media-amazon.com',
+            'image.tmdb.org'
         ]
     },
     env:{

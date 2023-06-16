@@ -55,3 +55,8 @@ export interface ImbdCast{
     name:string
   }
 }
+
+export interface MoviesByMonth{
+  month:string,
+  movies:any
+}

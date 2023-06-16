@@ -13,7 +13,7 @@ export const MovieComponent = ({
   movieTags
 }:safeMovie) => {
   return (
-    <Link href={`/movie/${id}`} className='w-full h-fit flex flex-col gap-[12px]'>
+    <Link href={`/movie/${id}`} className='w-full h-full flex flex-col gap-[12px]'>
         <Image
         src={movieBannerSmall}
         alt='movie'

@@ -6,8 +6,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination,Autoplay } from "swiper";
 import { CustomSwiperSlide } from "../Sliders/CustomSwiperSlide";
+import { safeMovie } from "@/app/types";
 
-export  function MainBanner() {
+interface Props{
+  movies:safeMovie[]
+}
+
+export  function MainBanner({movies}:Props) {
   return (
     <>
       <Swiper pagination={{
@@ -19,27 +24,13 @@ export  function MainBanner() {
         disableOnInteraction:true
       }}      
       className="mySwiper w-full h-[810px] max-w-full">
-        <SwiperSlide>
-          <CustomSwiperSlide/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CustomSwiperSlide/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CustomSwiperSlide/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CustomSwiperSlide/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CustomSwiperSlide/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CustomSwiperSlide/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CustomSwiperSlide/>
-        </SwiperSlide>
+        {movies.map(movie=>(          
+          <SwiperSlide>
+            <CustomSwiperSlide {...movie} />
+          </SwiperSlide>
+            ))
+        }
+
       </Swiper>
     </>
 

@@ -26,9 +26,7 @@ export const MovieDescription = ({description,imbdId,isSeries}:Props) => {
         }).then(res=>{
           setCast(res.data.results.roles);
           
-        }).catch(error=>{
-          toast.error('Something wrong happened with cast')
-        })
+        }).catch(error=>{})
       },[])
       console.log('rerendered');
       

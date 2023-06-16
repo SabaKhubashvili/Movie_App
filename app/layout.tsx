@@ -9,9 +9,9 @@ import { Navbar } from './components/Navbar/Navbar'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { NextAuthProvider } from './providers/NextAuthSessionProvier'
+import { ReactQueryProvider } from './providers/ReactQueryProvider'
 
 const inter = Inter({ subsets: ['latin'] })
-
 
 
 export default function RootLayout({
@@ -23,20 +23,22 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider>
+          <ReactQueryProvider >
 
-            <ClientOnly>
-              <Toaster/>
-              <LoginModal/>
-              <RegisterModal/>
-                <Navbar/>
-                <div>
-                  {children}
-                </div>
-                <Container>
-                  <Footer/>
-                </Container>
-            </ClientOnly>
-        </NextAuthProvider>
+              <ClientOnly>
+                <Toaster/>
+                <LoginModal/>
+                <RegisterModal/>
+                  <Navbar/>
+                  <div>
+                    {children}
+                  </div>
+                  <Container>
+                    <Footer/>
+                  </Container>
+              </ClientOnly>
+          </ReactQueryProvider>
+          </NextAuthProvider>
       </body>
     </html>
   )

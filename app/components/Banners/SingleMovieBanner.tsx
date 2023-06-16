@@ -74,7 +74,9 @@ export const SingleMovieBanner = ({links,movie,movieLink}:Props) => {
                 { links &&
 
                 <div className='flex lg:gap-[24px] gap-[12px] items-center'>
-                    <CustomIconButton label='Download' icon={<DownloadIcon/>} />
+                    <a href={`${process.env.AWS_Cloudfront_Link}movies/${movie.id}.mp4`} target='_blank'>
+                     <CustomIconButton label='Download' icon={<DownloadIcon/>} />
+                    </a>
                     <CustomIconButton label='Share' icon={<ShareIcon/>} />
                     <CustomIconButton label='Like' icon={<LikeIcon/>} />
                 </div>

@@ -5,7 +5,6 @@ import { PartnersSlider } from '../components/Sliders/PartnersSlider'
 import { LatestReleases } from '../components/sections/latestReleases/LatestReleases'
 import { FeaturedBanner } from '../components/Banners/FeaturedBanner'
 import { PopularMovies } from '../components/sections/Popular/PopularMovies'
-import { Movies } from '../components/sections/Movies/Movies'
 import { AllSeries } from '../components/sections/Series/AllSeries'
 import { SecondaryBanner } from '../components/Banners/SecondaryBanner'
 import { getLatestMovies } from '../actions/getLatestMovies'
@@ -16,6 +15,7 @@ import { getAllSerials } from '../actions/getAllSerials'
 import { getPopularMovies } from '../actions/getPopularMovies'
 import { differentMoviesTags } from '../constants'
 import { getDifferentTagMovies } from '../actions/getDifferentTagMovies'
+import { getMainBannerContent } from '../actions/getMainBannerContent'
 
 
 export const metadata = {
@@ -25,15 +25,16 @@ export const metadata = {
 };
 
 const Page = async() => {
-
+  const mainBannerMovies = await getMainBannerContent()
   const latestMovies = await getLatestMovies()
   const allMovies = await getRandomMovies()
   const serials = await getAllSerials()
   const popularMovies = await getPopularMovies()
-  const differentTagsMovies = await getDifferentTagMovies(differentMoviesTags)
+  const differentTagsMovies = await getDifferentTagMovies()
+
   return (
     <React.Fragment>
-      <MainBanner/>
+      <MainBanner movies={mainBannerMovies}/>
       
         <PartnersSlider/>
       <Container rightSpace>

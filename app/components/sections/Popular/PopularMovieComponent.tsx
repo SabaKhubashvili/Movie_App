@@ -28,7 +28,7 @@ export const PopularMovieComponent = ({ isFirst, movie, index }: Props) => {
           alt="movie"
           width={400}
           height={400}
-          className=" h-full select-none rounded-xl w-fit"
+          className={`h-full select-none rounded-xl w-fit ${!isFirst ? ' max-w-[140px] object-cover' : 'max-w-[250px] object-cover'}`}
         />
       </div>
       <div className="flex flex-col gap-[12px] max-w-[17rem]">

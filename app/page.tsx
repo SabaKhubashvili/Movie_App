@@ -15,6 +15,7 @@ import { getAllSerials } from './actions/getAllSerials'
 import { getPopularMovies } from './actions/getPopularMovies'
 import { getDifferentTagMovies } from './actions/getDifferentTagMovies'
 import { differentMoviesTags } from './constants'
+import { getMainBannerContent } from './actions/getMainBannerContent'
 
 export const metadata = {
   title: 'Home',
@@ -23,19 +24,20 @@ export const metadata = {
 }
 
 const Page = async() => {
-
+  
+  const mainBannerMovies = await getMainBannerContent()
   const latestMovies = await getLatestMovies()
   const movies = await getRandomMovies()
   const moviesByTag = await getMovieByTag('Animation')
-  const differentTagsMovies = await getDifferentTagMovies(differentMoviesTags)
+  const differentTagsMovies = await getDifferentTagMovies()
   const serials = await getAllSerials()
   const popularMovies = await getPopularMovies()
-
+  
   return (
     <React.Fragment>
 
 
-        <MainBanner/>
+        <MainBanner movies={mainBannerMovies}/>
         <PartnersSlider/>
         <Container rightSpace >
           <LatestReleases movies={latestMovies}/>

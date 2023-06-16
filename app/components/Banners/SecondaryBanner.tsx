@@ -20,6 +20,8 @@ export const SecondaryBanner = ({ movies, tags }: Props) => {
   const seenMovies = new Set();
   const seenTags = new Set();
 
+  
+  
   useEffect(()=>{
     movies.forEach(movie => {
       movie.movieTags.map((singleTag:any) => {

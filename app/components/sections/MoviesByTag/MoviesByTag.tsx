@@ -39,12 +39,12 @@ export const MoviesbyTag = ({label,data}:Props) => {
          }}
             freeMode={true}
             modules={[Navigation,FreeMode]}
-            className='w-full'  
+            className='w-full h-full'  
             >
                 {data.map(movie=>(
 
                     
-                        <SwiperSlide key={movie.id} className='!w-[280px]'>
+                        <SwiperSlide key={movie.id} className='!w-[280px] !h-[220px]'>
                             <MovieComponent {...movie} />
                         </SwiperSlide>
                     ))

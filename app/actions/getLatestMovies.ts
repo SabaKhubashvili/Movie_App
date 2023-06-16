@@ -16,7 +16,8 @@ export async function getLatestMovies() {
                     }
                 }
             }
-        }
+        },
+        take:25
     })
 
     return movies
