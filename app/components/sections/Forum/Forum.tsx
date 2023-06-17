@@ -2,12 +2,12 @@
 
 import React from 'react'
 import { BsStar } from 'react-icons/bs'
-import { SmallForumComponents } from './SmallForumComponents'
 import { CustomButton } from '../../Buttons'
 import { UseLoginModal } from '@/app/hooks/UseLoginModal'
 import { useSession } from 'next-auth/react'
 import { AddCommentComponent } from '../../Comment/AddComment'    
 import { safeTopic } from '@/app/types'
+import { SingleForumComponent } from './SingleForumComponent'
 
 interface Props{
   topics:safeTopic[]
@@ -23,9 +23,9 @@ export const Forum = ({topics}:Props) => {
 
           <div className='w-full'>
             {topics.map(topic=>(
-              <SmallForumComponents key={topic.id} {...topic}/>
+              <SingleForumComponent key={topic.id} {...topic}/>
               ))
-}
+          }
             
           </div>
           { !userData.data ?

@@ -1,4 +1,4 @@
-  import React from 'react'
+import React from 'react'
 import { NormalBanner } from '../components/Banners/NormalBanner'
 import { Forum } from '../components/sections/Forum/Forum'
 import { HotMovieTopics } from '../components/sections/Forum/HotMovieTopics'

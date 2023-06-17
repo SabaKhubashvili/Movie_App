@@ -25,6 +25,7 @@ model User {
   Topics     Topic[]
   likedTopics TopicLikes[]
   dislikedTopics TopicDislikes[]
+  comments      Comment[]
 }
 
 model movie {
@@ -160,6 +161,7 @@ model Topic {
 
   dislikes  TopicDislikes[]
   likes  TopicLikes[]
+  comments Comment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -186,6 +188,21 @@ model TopicDislikes{
 
   topicId   String 
   topic     Topic @relation(fields: [topicId],references: [id],onDelete: Cascade) 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Comment{
+  id  String @id @default(cuid())
+
+  title String
+  description   String
+
+  authorId    String
+  user      User @relation(fields: [authorId],references: [id],onDelete: Cascade)
+
+  topicId   String
+  topic     Topic @relation(fields: [topicId],references: [id],onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

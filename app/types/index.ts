@@ -1,4 +1,4 @@
-import { Topic, movie, movieTags, serials, series } from "@prisma/client";
+import { Comment, Topic, User, movie, movieTags, serials, series } from "@prisma/client";
 import { DefaultSession } from "next-auth";
 
 
@@ -71,5 +71,9 @@ export interface safeTopic extends Topic{
   publisher:{
     id:string,
     name:string
-  }
+  },
+  comments?:safeComments[]
+}
+export interface safeComments extends Comment{
+  user:User
 }

@@ -9,7 +9,12 @@ import { ImageUpload } from '../Upload/ImageUpload'
 import { toast } from 'react-hot-toast'
 import axios from 'axios'
 
-export const AddCommentComponent = () => {
+interface Props{
+    isComment?:boolean
+    topicId?:string
+}
+
+export const AddCommentComponent = ({isComment,topicId}:Props) => {
     const [isLoading,setIsLoading] = useState<boolean>(false)
 
     const{
@@ -40,11 +45,11 @@ export const AddCommentComponent = () => {
       
       const onSubmit:SubmitHandler<FieldValues> = (data) =>{
         if(!isLoading){
-            if(imageValue.length < 1){
+            if(!isComment && imageValue.length < 1){
                 return toast.error('Image is Required')
             }
             setIsLoading(true)            
-            axios.post('/api/forum/createForumTopic',data)
+            axios.post(`/api/forum/${isComment ? 'addTopicComment' : 'createForumTopic'}`,{...data,topicId})
             .then(res=>{
                 reset()
                 toast.success(res.data.message)
@@ -88,12 +93,15 @@ export const AddCommentComponent = () => {
             register={register}
             errors={errors}
             />
-        <ImageUpload
-            label='Upload Image'
-            onChange={(value:string)=>setCustomValue('image',value)}
-            value={imageValue}
-            disabled={isLoading}
-        />
+            { !isComment &&
+
+                <ImageUpload
+                label='Upload Image'
+                onChange={(value:string)=>setCustomValue('image',value)}
+                value={imageValue}
+                disabled={isLoading}
+                />
+            }
         </div>
     </section>
   )
