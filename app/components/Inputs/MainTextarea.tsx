@@ -7,7 +7,7 @@ import{
   
   interface Props{
       id:string
-      label:string
+      label?:string
       placeholder:string
       required?:boolean
       disabled?:boolean

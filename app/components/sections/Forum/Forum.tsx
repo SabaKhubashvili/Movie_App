@@ -6,8 +6,14 @@ import { SmallForumComponents } from './SmallForumComponents'
 import { CustomButton } from '../../Buttons'
 import { UseLoginModal } from '@/app/hooks/UseLoginModal'
 import { useSession } from 'next-auth/react'
+import { AddCommentComponent } from '../../Comment/AddComment'    
+import { safeTopic } from '@/app/types'
 
-export const Forum = () => {
+interface Props{
+  topics:safeTopic[]
+}
+
+export const Forum = ({topics}:Props) => {
   const loginModal = UseLoginModal()
   const userData = useSession()
 
@@ -16,11 +22,11 @@ export const Forum = () => {
           <h2 className='font-bold text-[24px] leading-[26px] text-white flex gap-[7px]'> <BsStar /> Popular Discussion</h2>
 
           <div className='w-full'>
-              <SmallForumComponents/>
-              <SmallForumComponents/>
-              <SmallForumComponents/>
-              <SmallForumComponents/>
-              <SmallForumComponents/>
+            {topics.map(topic=>(
+              <SmallForumComponents key={topic.id} {...topic}/>
+              ))
+}
+            
           </div>
           { !userData.data ?
 
@@ -29,9 +35,8 @@ export const Forum = () => {
             <CustomButton label='Login' onClick={()=>loginModal.onOpen()}  />
           </div>
           :
-          'Authorized' 
-          // Future Commment Post
-          }
+          <AddCommentComponent/>
+          } 
     </section>
   )
 }

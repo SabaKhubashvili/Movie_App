@@ -16,7 +16,7 @@ interface Props{
 
 export const FeaturedBanner = ({movies}:Props) => {
   const mainSwiperRef = useRef<SwiperRef>(null)
-  const [activeSlide,setActiveSlide] = useState<string>(movies[0].id)
+  const [activeSlide,setActiveSlide] = useState<string>(movies[0]?.id)
   const isAboveLargeScreens = useMediaQuery(largeScreens)
 
   const handleSlide = (id:string) =>{

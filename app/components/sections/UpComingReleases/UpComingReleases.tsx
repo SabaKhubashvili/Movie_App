@@ -20,9 +20,9 @@ export const UpComingReleases = () => {
 
             upcomingMovies.results.forEach((movie:any) => {
                 const releaseDate = new Date(movie.release_date);
-                const releaseMonth = new Date(movie.release_date).toLocaleString('en-US', { month: 'long' });
+                const releaseMonth = releaseDate.toLocaleString('en-US', { month: 'long' });
                 const releaseMonthKey = releaseDate.toLocaleString('en-US', { year: 'numeric', month: '2-digit' });
-                const releaseYear = new Date(movie.release_date).toLocaleString('en-US',{year:'numeric'})
+                const releaseYear = releaseDate.toLocaleString('en-US',{year:'numeric'})
                 const currentYear = new Date().toLocaleString('en-US',{year:'numeric'})
                 if(releaseYear === currentYear){
 
@@ -69,7 +69,7 @@ export const UpComingReleases = () => {
                   November: 11,
                   December: 12,
                 };
-          
+
                 return monthOrder[a.month] - monthOrder[b.month]
               })
             .map((byMonth: any,index) => (

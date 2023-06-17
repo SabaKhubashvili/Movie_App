@@ -1,43 +1,37 @@
-import { Container } from '@/app/Container'
-import { CustomIconButton } from '@/app/components/Buttons'
-import { SingleForumComponent } from '@/app/components/sections/Forum/SingleForumComponent'
-import Link from 'next/link'
-import React from 'react'
+import { Container } from "@/app/Container";
+import { getSingleTopic } from "@/app/actions/getSingleTopic";
+import { CustomIconButton } from "@/app/components/Buttons";
+import { SingleForumComponent } from "@/app/components/sections/Forum/SingleForumComponent";
+import Link from "next/link";
+import React from "react";
 
-interface Iparams{
-    TopicId:string
+interface Iparams {
+  TopicId: string;
 }
 
+export async function generateMetadata({ params }: { params: Iparams }) {
+  return {
+    title: "Form Topic",
+    description: "Description",
+  };
+}
 
-export async function generateMetadata({ params }:{params:Iparams}){
-    
-    return {
-      title: 'Form Topic',
-      description: 'Description',
-    };
-  }
-  
-const page = ({params}:{params:Iparams}) => {
-    
-    
+const page = async ({ params }: { params: Iparams }) => {
+  const topic = await getSingleTopic(params.TopicId);
   return (
     <React.Fragment>
-        <Container>
-
-        <section className='pt-[150px] w-full'>
-            <Link
-            href={'/forum'}
-            className='w-[4rem] inline-block'
-            >
-                <CustomIconButton showAll label='Back' transparent/>
-            </Link>
-          <div className='pt-[40px]'>
-            <SingleForumComponent/>
+      <Container>
+        <section className="pt-[150px] w-full">
+          <Link href={"/forum"} className="w-[4rem] inline-block">
+            <CustomIconButton showAll label="Back" transparent />
+          </Link>
+          <div className="pt-[40px]">
+            <SingleForumComponent />
           </div>
         </section>
-        </Container>
+      </Container>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default page
+export default page;

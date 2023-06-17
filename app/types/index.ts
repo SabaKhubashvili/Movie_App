@@ -1,4 +1,4 @@
-import { movie, movieTags, serials, series } from "@prisma/client";
+import { Topic, movie, movieTags, serials, series } from "@prisma/client";
 import { DefaultSession } from "next-auth";
 
 
@@ -59,4 +59,17 @@ export interface ImbdCast{
 export interface MoviesByMonth{
   month:string,
   movies:any
+}
+
+export interface safeTopic extends Topic{
+  likes:{
+     user: { id: string };
+  }[],
+  dislikes:{
+    user:{ id:string }
+  }[]
+  publisher:{
+    id:string,
+    name:string
+  }
 }

@@ -1,8 +1,9 @@
-import React from 'react'
+  import React from 'react'
 import { NormalBanner } from '../components/Banners/NormalBanner'
 import { Forum } from '../components/sections/Forum/Forum'
 import { HotMovieTopics } from '../components/sections/Forum/HotMovieTopics'
 import { Container } from '../Container'
+import { getForumTopics } from '../actions/getForumTopics'
 
 
 export const metadata = {
@@ -11,7 +12,9 @@ export const metadata = {
     image:''
 }
 
-const Page = () => {
+const Page = async() => {
+  const topics = await getForumTopics()
+
   return (
     <React.Fragment>
         <NormalBanner 
@@ -22,7 +25,7 @@ const Page = () => {
       
             <Container>
                 <HotMovieTopics/>
-                <Forum/>
+                <Forum topics={topics}/>
             </Container>
    
     </React.Fragment>

@@ -21,6 +21,10 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Topics     Topic[]
+  likedTopics TopicLikes[]
+  dislikedTopics TopicDislikes[]
 }
 
 model movie {
@@ -33,7 +37,7 @@ model movie {
   movieBannerBig   String
   imbdRating       Int
   imbdId           String
-  clickCount       Int @default(0)
+  clickCount       Int     @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -63,14 +67,14 @@ model serials {
   serialBannerSmall String
   serialBannerBig   String
   imbdRating        Int
-  imbdId           String
-  clickCount       Int @default(0)
-  
-    series    series[]
-    serieTags serieTags[]
+  imbdId            String
+  clickCount        Int    @default(0)
 
-   createdAt DateTime @default(now())
-   updatedAt DateTime @updatedAt
+  series    series[]
+  serieTags serieTags[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model series {
@@ -89,7 +93,7 @@ model serie {
   title       String
   description String?
 
-  series    series[]
+  series series[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -139,6 +143,49 @@ model movieTags {
 
   tagId String
   tag   tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Topic {
+  id String @id @default(cuid())
+
+  title       String
+  description String
+  image       String
+
+  authorId  String
+  publisher User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  dislikes  TopicDislikes[]
+  likes  TopicLikes[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TopicLikes{
+  id    String @id @default(cuid())
+
+  userId    String
+  user      User @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+  topicId   String 
+  topic     Topic @relation(fields: [topicId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TopicDislikes{
+   id    String @id @default(cuid())
+
+  userId    String
+  user      User @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+  topicId   String 
+  topic     Topic @relation(fields: [topicId],references: [id],onDelete: Cascade) 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
