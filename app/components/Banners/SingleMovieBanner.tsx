@@ -9,6 +9,7 @@ import { largeScreens } from '../MediaQueries'
 import useMediaQuery from '@/app/hooks/UseMediaQuery'
 import { safeMovie } from '@/app/types'
 import { MoviePlayerModal } from '../VideoPlayer/MoviePlayerModal'
+import { toast } from 'react-hot-toast'
 interface Props{
     links?:boolean
     movie:safeMovie
@@ -18,11 +19,29 @@ interface Props{
 export const SingleMovieBanner = ({links,movie,movieLink}:Props) => {
 
     const isAboveLargeScreens = useMediaQuery(largeScreens)
+    const [ogUrl, setOgUrl] = useState("");
+
     const [openSerieData,setOpenSerieData] = useState({
         isOpen:false,
         movieLink:movieLink
     })
+    React.useEffect(() => {
+        const host = window.location.href;
+        const baseUrl = `${host}`;
     
+        setOgUrl(`${baseUrl}`);
+      }, []);
+ 
+    const handleCopy = async () => {
+        try {
+          await navigator.clipboard.writeText(`${ogUrl}`);
+          toast.success('Link Copied')
+        } catch (error) {
+          toast.error('Failed to copy link')
+        }
+      };
+
+          
 
   return (
     <div className=" w-full h-full relative select-none">
@@ -77,8 +96,8 @@ export const SingleMovieBanner = ({links,movie,movieLink}:Props) => {
                     <a href={`${process.env.AWS_Cloudfront_Link}movies/${movie.id}.mp4`} target='_blank'>
                      <CustomIconButton label='Download' icon={<DownloadIcon/>} />
                     </a>
-                    <CustomIconButton label='Share' icon={<ShareIcon/>} />
-                    <CustomIconButton label='Like' icon={<LikeIcon/>} />
+                    <CustomIconButton label='Share' onClick={handleCopy} icon={<ShareIcon/>} />
+                    {/* <CustomIconButton label='Like' icon={<LikeIcon/>} /> */}
                 </div>
                 }
             </div>
@@ -88,6 +107,7 @@ export const SingleMovieBanner = ({links,movie,movieLink}:Props) => {
     movieLink={openSerieData.movieLink} 
     onClose={()=>setOpenSerieData(prev=>({...prev,isOpen:false}))}
     isOpen={openSerieData.isOpen}
+    banner={movie.movieBannerBig}
     />
       
 </div>

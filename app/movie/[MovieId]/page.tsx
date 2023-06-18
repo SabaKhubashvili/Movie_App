@@ -46,16 +46,7 @@ const page = async({params}:{params:IParams}) => {
       />
     }    
     const similarMovies = await getSimilarMovies(movie.movieTags,movie.id) as safeMovie[]
-    
-    await prisma.movie.update({
-      where:{
-        id:movie.id
-      },
-      data:{
-          clickCount: movie.clickCount + 1
-      }
-    })
- 
+
 
   return (
     <React.Fragment>

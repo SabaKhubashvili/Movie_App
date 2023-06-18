@@ -9,7 +9,7 @@ import { CustomSwiperSlide } from "../Sliders/CustomSwiperSlide";
 import { safeMovie } from "@/app/types";
 
 interface Props{
-  movies:safeMovie[]
+  movies:any[]
 }
 
 export  function MainBanner({movies}:Props) {
@@ -25,7 +25,7 @@ export  function MainBanner({movies}:Props) {
       }}      
       className="mySwiper w-full h-[810px] max-w-full">
         {movies.map(movie=>(          
-          <SwiperSlide>
+          <SwiperSlide key={movie.id}>
             <CustomSwiperSlide {...movie} />
           </SwiperSlide>
             ))

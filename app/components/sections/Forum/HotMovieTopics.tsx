@@ -8,22 +8,38 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-
-import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon'
-import { hotTopics } from '@/app/constants';
-import { smallMovieInterface } from '@/app/types';
 import useMediaQuery from '@/app/hooks/UseMediaQuery';
 import { smallScreens } from '../../MediaQueries';
+import { ArrowLeftIcon, ArrowRightIcon } from '@/public/svg/icons/Icon';
 
-export const HotMovieTopics = () => {
+interface Props {
+  topics: {
+    id: string
+    title: string
+    description: string
+    image: string
+    authorId: string
+    clickCount: number
+    createdAt: Date
+    updatedAt: Date
+    publisher: {
+      id: string;
+      name: string;
+    };
+  }[];
+}
+export const HotMovieTopics = ({topics}:Props) => {
+
+  
   const slicedForSlider:any[] = []
   const isAboveSmallScreens = useMediaQuery(smallScreens)
 
 
-  for(let i=0; i < hotTopics.length; i += isAboveSmallScreens ? 10 : 4){
-    const slicedChunk = hotTopics.slice(i,isAboveSmallScreens ? i+ 10 : i+4)
+  for(let i=0; i < topics.length; i += isAboveSmallScreens ? 10 : 4){
+    const slicedChunk = topics.slice(i,isAboveSmallScreens ? i+ 10 : i+4)
     slicedForSlider.push(slicedChunk)
   }
+
 
   return (
     <section className='w-full relative mt-[20px] pt-[56px] flex flex-col gap-[16px]'>
@@ -53,10 +69,9 @@ export const HotMovieTopics = () => {
             spaceBetween={150}
             className='mySwiper flex flex-wrap w-full'
         >
-          {slicedForSlider.map((slider:smallMovieInterface[],index)=>(
-
+          {slicedForSlider.map((slider:any,index)=>(
             
-            <SwiperSlide className='!w-full' key={index}>
+            <SwiperSlide className='!w-full' key={index} >
                 <HotMovieSlide movies={slider} />
             </SwiperSlide>
               ))

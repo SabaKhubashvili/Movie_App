@@ -91,7 +91,7 @@ export const SecondaryBanner = ({ movies, tags }: Props) => {
         slidesPerView="auto"
         freeMode={true}
         spaceBetween={30}
-        className="flex !absolute !bottom-4 z-[16] lg:!left-14 !left-6 w-[80%]"
+        className="flex !absolute !bottom-4 z-[16] lg:!left-14 !left-6 w-[90%]"
       >
         {filteredTags?.map((tag, index) => (
           <SwiperSlide key={tag} className="!w-[210px] !h-[99px]">

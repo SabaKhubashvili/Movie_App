@@ -39,5 +39,16 @@ export async function getSingleTopic(topicId:string){
         }
     })
 
+    if(topic){
+        await prisma.topic.update({
+            where:{
+                id:topicId
+            },
+            data:{
+                clickCount: topic.clickCount + 1
+            }
+        })
+    }
+
     return topic
 }

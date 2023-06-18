@@ -28,7 +28,7 @@ export const NormalBanner = ({title,description,image}:Props) => {
         <Container>
 
             <div className='pb-[40px] flex flex-col justify-end h-full relative bottom-0 gap-[20px]'>
-                <h1 className='font-bold text-[48px] leading-[40px] text-white'>{title}</h1>
+                <h1 className='font-bold md:text-[48px] text-[30px] leading-[40px] text-white'>{title}</h1>
                 <p className='text-[#9CA4AB] text-[14px] leading-[22px]'>{description}</p>
             </div>
         

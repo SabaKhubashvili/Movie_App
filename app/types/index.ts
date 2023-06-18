@@ -38,6 +38,7 @@ export interface smallMovieInterface{
 
 export interface safeMovie extends movie{
     movieTags:any
+    watchlisted?:any
 }
 
 export interface safeSerial extends serials{
@@ -76,4 +77,32 @@ export interface safeTopic extends Topic{
 }
 export interface safeComments extends Comment{
   user:User
+}
+
+export interface MoviesAndSerials{
+    id: string;
+    title: string;
+    duration?: string;
+    description: string;
+    movieBannerSmall?: string;
+    movieBannerBig?: string;
+    serialBannerSmall?: string;
+    serialBannerBig?: string;
+    movieTags?:{
+        tag:{
+          id:string,
+          name:string
+        }
+    }[]
+    serieTags?:{
+        tag:{
+          id:string,
+          name:string
+        }
+    }[]
+    imbdRating: number;
+    imbdId: string;
+    clickCount: number;
+    createdAt: Date;
+    updatedAt: Date;
 }

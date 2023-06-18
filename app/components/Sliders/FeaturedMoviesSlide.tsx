@@ -66,8 +66,8 @@ export const FeaturedMoviesSlide = ({
                             </p>
                         </div>
                         <p className='text-[#9CA4AB] text-[16px] font-medium leading-[24px]'>{description}.</p>
-                        <div className='flex gap-[20px]'>
-                            <Link href={`/movie/${id}`}>
+                        <div className='flex gap-[20px] !sm:flex-nowrap !flex-wrap'>
+                            <Link href={`/movie/${id}`} className='min-w-[8rem]'>
                                 <PlayButton label='Play now'/>
                             </Link>
                             <AddWatchlist label='Add Watchlist'/>

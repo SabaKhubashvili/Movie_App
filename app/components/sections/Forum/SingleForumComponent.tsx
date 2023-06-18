@@ -20,11 +20,9 @@ export const SingleForumComponent = ({
     likes,
     createdAt,
     publisher ,
-    comments
+    comments,
+    image
 }:safeTopic) => {
-  console.log(comments);
-  
-
   const {data} = useSession()
   const [isLiked,setIsLiked] = useState<boolean>()
   const [isDisliked,setIsDisliked] = useState<boolean>()
@@ -108,7 +106,7 @@ export const SingleForumComponent = ({
                 </div>
             </div>
             <Image
-                src={'/Image/movies/enolaholmes.webp'}
+                src={image}
                 alt='MovieImage'
                 width={400}
                 height={400}

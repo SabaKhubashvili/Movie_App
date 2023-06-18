@@ -10,10 +10,10 @@ import "swiper/css/free-mode";
 import { Navigation,FreeMode } from 'swiper';
 import { LatestReleaseComponent } from './LatestReleaseComponent';
 import { ArrowRightIcon } from '@/public/svg/icons/Icon';
-import { safeMovie } from '@/app/types';
+import { MoviesAndSerials } from '@/app/types';
 
 interface Props{
-    movies:safeMovie[]
+    movies:MoviesAndSerials[]
 }
 
 export  const LatestReleases = ({movies}:Props) => {

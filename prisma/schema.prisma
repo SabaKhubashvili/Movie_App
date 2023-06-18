@@ -22,16 +22,18 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Topics     Topic[]
-  likedTopics TopicLikes[]
-  dislikedTopics TopicDislikes[]
-  comments      Comment[]
+  Topics          Topic[]
+  likedTopics     TopicLikes[]
+  dislikedTopics  TopicDislikes[]
+  comments        Comment[]
+  watchlsitMovies WatchlistMovie[]
+  WatchlistSerial WatchlistSerial[]
 }
 
 model movie {
   id String @id @default(cuid())
 
-  title            String?
+  title            String
   duration         String
   description      String
   movieBannerSmall String
@@ -43,21 +45,8 @@ model movie {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  MovieCast moviecast[]
-  movieTags movieTags[]
-}
-
-model moviecast {
-  id String @id @default(cuid())
-
-  actorId String
-  actor   actor  @relation(fields: [actorId], references: [id], onDelete: Cascade)
-
-  movieId String
-  movie   movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  movieTags   movieTags[]
+  watchlisted WatchlistMovie[]
 }
 
 model serials {
@@ -71,8 +60,9 @@ model serials {
   imbdId            String
   clickCount        Int    @default(0)
 
-  series    series[]
-  serieTags serieTags[]
+  series      series[]
+  serieTags   serieTags[]
+  watchlisted WatchlistSerial[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -105,8 +95,6 @@ model actor {
 
   name  String
   image String
-
-  movies moviecast[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -159,50 +147,79 @@ model Topic {
   authorId  String
   publisher User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  dislikes  TopicDislikes[]
-  likes  TopicLikes[]
+  dislikes TopicDislikes[]
+  likes    TopicLikes[]
   comments Comment[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model TopicLikes{
-  id    String @id @default(cuid())
-
-  userId    String
-  user      User @relation(fields: [userId],references: [id],onDelete: Cascade)
-
-  topicId   String 
-  topic     Topic @relation(fields: [topicId],references: [id],onDelete: Cascade)
+  clickCount Int @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model TopicDislikes{
-   id    String @id @default(cuid())
+model TopicLikes {
+  id String @id @default(cuid())
 
-  userId    String
-  user      User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  topicId   String 
-  topic     Topic @relation(fields: [topicId],references: [id],onDelete: Cascade) 
+  topicId String
+  topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-model Comment{
-  id  String @id @default(cuid())
 
-  title String
-  description   String
+model TopicDislikes {
+  id String @id @default(cuid())
 
-  authorId    String
-  user      User @relation(fields: [authorId],references: [id],onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  topicId   String
-  topic     Topic @relation(fields: [topicId],references: [id],onDelete: Cascade)
+  topicId String
+  topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id String @id @default(cuid())
+
+  title       String
+  description String
+
+  authorId String
+  user     User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  topicId String
+  topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WatchlistMovie {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  movieId String
+  movie   movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WatchlistSerial {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  serialId String
+  serial   serials @relation(fields: [serialId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

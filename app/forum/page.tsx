@@ -4,6 +4,7 @@ import { Forum } from '../components/sections/Forum/Forum'
 import { HotMovieTopics } from '../components/sections/Forum/HotMovieTopics'
 import { Container } from '../Container'
 import { getForumTopics } from '../actions/getForumTopics'
+import { getPopularTopics } from '../actions/getPopularTopics'
 
 
 export const metadata = {
@@ -14,6 +15,7 @@ export const metadata = {
 
 const Page = async() => {
   const topics = await getForumTopics()
+  const popularTopics = await getPopularTopics()
 
   return (
     <React.Fragment>
@@ -24,7 +26,7 @@ const Page = async() => {
         />  
       
             <Container>
-                <HotMovieTopics/>
+                <HotMovieTopics topics={topics}/>
                 <Forum topics={topics}/>
             </Container>
    

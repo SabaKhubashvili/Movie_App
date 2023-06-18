@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Iparams }) {
 
 const page = async ({ params }: { params: Iparams }) => {
   const topic = await getSingleTopic(params.TopicId);
-
+  
   if(!topic){
     return <EmptyClient
       title="Topic not found"

@@ -9,12 +9,13 @@ interface Props{
     movieLink:string
     isOpen:boolean
     onClose:()=>void
+    banner:string
 }
 
-export const MoviePlayerModal = ({movieLink,isOpen,onClose}:Props) => {
+export const MoviePlayerModal = ({movieLink,isOpen,onClose,banner}:Props) => {
 
     let bodyContent = (
-        <MoviePlayer link={movieLink}/>
+        <MoviePlayer banner={banner} link={movieLink}/>
     )
   return (
     <Modal

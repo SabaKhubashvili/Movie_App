@@ -9,14 +9,17 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import {AnimatePresence,motion} from 'framer-motion'
 import { MainTextInput } from '../../Inputs/MainTextInput'
-import { FieldValues, useForm } from 'react-hook-form'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import useMediaQuery from '@/app/hooks/UseMediaQuery'
 import {smallScreens } from '../../MediaQueries'
 import { useSession } from 'next-auth/react'
+import queryString from 'query-string'
+import { useRouter } from 'next/navigation'
 
 export const Menu = () => {
   const user = useSession()
   const loginModal = UseLoginModal()
+  const router = useRouter()
   const registerModal = UseRegisterModal()
   const [isSearchOpen,setIsSearchOpen] = useState<boolean>(false)  
   const isAboveLargeScreens = useMediaQuery(smallScreens)
@@ -41,20 +44,32 @@ export const Menu = () => {
     formState:{
       errors
     },
+    reset,
     handleSubmit
   } = useForm<FieldValues>({
     defaultValues:{
-      search:''
+      searchTitle:''
     }
   })
 
+  const onSubmit:SubmitHandler<FieldValues> = (data) =>{
+    const query = data
+
+    const url = queryString.stringifyUrl({
+      query,
+      url:'/search'
+    })
+    setIsSearchOpen(false)
+    router.push(url)    
+    reset()
+  }
   
   return (
     <div className='flex gap-[23px] items-center justify-end outline-none'>  
     <div className='xs:inline hidden relative' ref={searchRef}>
       {
         isAboveLargeScreens ?
-      <div onClick={()=>setIsSearchOpen(prev=>!prev)} className='cursor-pointer ' >
+      <div onClick={()=>setIsSearchOpen(prev=>!prev)} className='cursor-pointer'  >
         <SearchIcon/>
       </div>
       :
@@ -72,7 +87,8 @@ export const Menu = () => {
           transition={{duration:0.2}}
           className='absolute right-0 w-[12rem]'>
               <MainTextInput
-                id='search'
+                onSubmit={handleSubmit(onSubmit)}
+                id='searchTitle'
                 placeholder='Search'
                 required
                 register={register}

@@ -14,7 +14,7 @@ interface Props{
     type?:string
     required?:boolean
     disabled?:boolean
-
+    onSubmit?:()=>void
     register:UseFormRegister<FieldValues>
     errors:FieldErrors
 
@@ -28,7 +28,8 @@ export const MainTextInput = ({
   register,
   errors,
   required,
-  disabled
+  disabled,
+  onSubmit
 }:Props) => {
 
   const [currentType,setCurrentType] = useState<string>(type)
@@ -44,20 +45,26 @@ export const MainTextInput = ({
             {label}
         </label>
         <div className='relative w-full h-full'>
-          <input type={currentType} placeholder={placeholder} id={id} 
-          disabled={disabled}
-          className={`py-4 px-2 border-[1px] w-full
-          bg-neutral-950 rounded-xl outline-none text-white 
-          ${errors[id] ? ' border-rose-400 placeholder:text-rose-400' : 'border-[#FFFFFF1A] placeholder:text-[#FFFFFF1A]' }
-          disabled:cursor-not-allowed
-          `}
-          {...register(id,{
-            required,
-            pattern: type === 'email'
-            ? /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-            : undefined
-          })}
-          />
+          <form 
+          onSubmit={onSubmit}
+          >
+            <input type={currentType} 
+            placeholder={placeholder} 
+            id={id} 
+            disabled={disabled}
+            className={`py-4 px-2 border-[1px] w-full
+            bg-neutral-950 rounded-xl outline-none text-white 
+            ${errors[id] ? ' border-rose-400 placeholder:text-rose-400' : 'border-[#FFFFFF1A] placeholder:text-[#FFFFFF1A]' }
+            disabled:cursor-not-allowed
+            `}
+            {...register(id,{
+              required,
+              pattern: type === 'email'
+              ? /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+              : undefined
+            })}
+            />
+          </form>
           { type === 'password' &&
 
           <div className='absolute right-3 h-full flex justify-center items-center top-0 '>

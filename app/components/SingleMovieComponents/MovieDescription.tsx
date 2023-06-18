@@ -28,7 +28,6 @@ export const MovieDescription = ({description,imbdId,isSeries}:Props) => {
           
         }).catch(error=>{})
       },[])
-      console.log('rerendered');
       
     return (
     <section className='flex flex-col gap-[24px] pt-[20px] pb-[40px]'>

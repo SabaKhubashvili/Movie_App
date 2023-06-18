@@ -58,8 +58,8 @@ export const SecondaryBannerComponent = ({
               </p>
             </div>
           </div>
-          <div className="flex gap-[24px]">
-            <Link href={`/movie/${id}`}>
+          <div className="flex gap-[24px] sm:flex-nowrap flex-wrap">
+            <Link href={`/movie/${id}`} className="min-w-[8rem]">
               <PlayButton label="Play Now" />
             </Link>
             <AddWatchlist label="Add Watchlist" />
