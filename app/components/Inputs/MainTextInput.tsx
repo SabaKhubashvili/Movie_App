@@ -14,7 +14,6 @@ interface Props{
     type?:string
     required?:boolean
     disabled?:boolean
-    onSubmit?:()=>void
     register:UseFormRegister<FieldValues>
     errors:FieldErrors
 
@@ -29,7 +28,6 @@ export const MainTextInput = ({
   errors,
   required,
   disabled,
-  onSubmit
 }:Props) => {
 
   const [currentType,setCurrentType] = useState<string>(type)
@@ -45,9 +43,8 @@ export const MainTextInput = ({
             {label}
         </label>
         <div className='relative w-full h-full'>
-          <form 
-          onSubmit={onSubmit}
-          >
+
+
             <input type={currentType} 
             placeholder={placeholder} 
             id={id} 
@@ -64,7 +61,6 @@ export const MainTextInput = ({
               : undefined
             })}
             />
-          </form>
           { type === 'password' &&
 
           <div className='absolute right-3 h-full flex justify-center items-center top-0 '>

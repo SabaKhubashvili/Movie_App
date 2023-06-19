@@ -62,9 +62,7 @@ export  async function POST(request:Request){
         })
         
         return NextResponse.json({id:movie.id,message:'Sucesfully created movie'},{status:201})
-    }catch(error){
-        console.log(error);
-        
+    }catch(error){        
         return NextResponse.json({message:'Something wrong happened api',error},{status:500})
     }
 }

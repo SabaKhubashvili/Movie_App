@@ -7,9 +7,15 @@ export async function middleware(request: NextRequest) {
     req: request,
     secret: process.env.JWT_SECRET,
   });
+  if (request.nextUrl.pathname.startsWith('/profile')) {
+    if(!token){
+      return NextResponse.redirect(new URL('/',request.url));
+    }
+  }
+
+
   const url = new URL(process.env.BASE_URL + '/api/auth/isAdmin').toString();
   if (!token?.email) {
-    console.log(token?.email);
     return NextResponse.redirect(new URL('/',request.url));
   }
 
@@ -29,11 +35,11 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/', request.url));
     }
   } else {
-    console.log('Request failed:', response.status);
     return NextResponse.redirect(new URL('/', request.url));
   }
+  
 }
 
 export const config = {
-  matcher: '/admin/:path*',
+  matcher: ['/admin/:path*','/profile/:path'],
 };

@@ -26,8 +26,7 @@ export const ImageUpload = ({
     const handleUpload = useCallback((result:any)=>{
         onChange(result.info.secure_url)
     },[onChange])
-
-
+    
   return (
     <CldUploadWidget
     onUpload={handleUpload}

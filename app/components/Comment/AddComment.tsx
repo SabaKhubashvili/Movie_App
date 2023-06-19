@@ -8,6 +8,7 @@ import { MainTextArea } from '../Inputs/MainTextarea'
 import { ImageUpload } from '../Upload/ImageUpload'
 import { toast } from 'react-hot-toast'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 interface Props{
     isComment?:boolean
@@ -16,7 +17,7 @@ interface Props{
 
 export const AddCommentComponent = ({isComment,topicId}:Props) => {
     const [isLoading,setIsLoading] = useState<boolean>(false)
-
+    const router = useRouter()
     const{
         register,
         formState:{
@@ -53,6 +54,7 @@ export const AddCommentComponent = ({isComment,topicId}:Props) => {
             .then(res=>{
                 reset()
                 toast.success(res.data.message)
+                router.refresh()
             }).catch(error=>(
                 toast.error(error.response.data.message)
             )).finally(()=>{

@@ -2,15 +2,21 @@
 
 import React from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import { MainTextInput } from '../Inputs/MainTextInput'
-import { CustomButton, PlayButton } from '../Buttons'
+import { CustomButton } from '../Buttons'
 import queryString from 'query-string'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { MainSearchInput } from '../Inputs/MenuSearchInput'
 
-export const Search = () => {
+
+interface Props{
+    targetUrl?:string
+}
+
+export const Search = ({targetUrl}:Props) => {
     const router = useRouter()
     const params = useSearchParams()
-
+    const pathname = usePathname()
+    
     const {
         register,
         formState:{
@@ -22,26 +28,27 @@ export const Search = () => {
             searchTitle: params && queryString.parse(params.toString()).searchTitle
         }
     })
-    
+
     const onSubmit:SubmitHandler<FieldValues> = (data) =>{
         
         const url = queryString.stringifyUrl({
             query:data,
-            url:'/search'
+            url: targetUrl ?  `/${targetUrl}` : pathname || ''
         })
+
         router.push(url)
     }
 
   return (
-    <section className='pt-[10rem] mb-[5rem] text-white w-full'>
+    <section className='pt-[10rem] mb-[5rem] text-white w-full flex flex-col gap-[10px]'>
         <div className='flex items-center gap-[10px]'>
-            <MainTextInput
+            <MainSearchInput
                 id='searchTitle'
                 placeholder='...Search'
                 required
-                onSubmit={handleSubmit(onSubmit)}
                 register={register}
                 errors={errors}
+                onSubmit={handleSubmit(onSubmit)}
             />
             <CustomButton
                 label='Search'
@@ -49,6 +56,11 @@ export const Search = () => {
                 onClick={handleSubmit(onSubmit)}
             />
         </div>
+            <CustomButton
+                label='Reset'
+                fitContent
+                onClick={()=>router.push(targetUrl || pathname || '/')}
+            />
     </section>
   )
 }

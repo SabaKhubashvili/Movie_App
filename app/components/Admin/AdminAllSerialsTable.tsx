@@ -4,7 +4,9 @@ import { serials } from '@prisma/client'
 import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import queryString from 'query-string'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { AiFillEdit } from 'react-icons/ai'
 
@@ -15,6 +17,7 @@ interface Props{
 export const AdminAllSerialsTable = ({serials}:Props) => {
     const [serialList, setSerialList] = useState<serials[]>(serials);
     const [isLoading,setIsLoading] = useState<boolean>(false)
+    const params = useSearchParams()
 
     const onDelete = (id:string) =>{
       if(!isLoading){
@@ -25,12 +28,29 @@ export const AdminAllSerialsTable = ({serials}:Props) => {
           toast.success(res.data.message)
           setSerialList(serialList.filter(movie=>movie.id !== id))
         }).catch(error=>{
-          console.log(error)
         }).finally(()=>{
           setIsLoading(false)
         })
       }
     }
+
+    useEffect(()=>{
+      if(params){
+        const filteredBy = queryString.parse(params.toString())
+        const {
+          searchTitle
+        } = filteredBy
+        if (
+          typeof searchTitle === "string" &&
+          searchTitle !== null &&
+          searchTitle !== undefined
+        ) {
+          setSerialList(prev=>prev.filter(serial=>serial.title.includes(searchTitle)))
+        }else{
+          setSerialList(serials)   
+        }
+      }
+    },[params])
 
   return (
     <table className={`w-full ${isLoading && 'opacity-80'} `}>

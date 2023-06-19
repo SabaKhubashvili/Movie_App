@@ -93,7 +93,6 @@ export const AdminEditSerial = ({ tags,serial }: Props) => {
         return toast.error("At least one tag is required");
       }
       if (data.serialBannerBig.length <= 0) {
-        console.log(imageBig);
 
         return toast.error("Big Banner is required");
       }
@@ -133,11 +132,9 @@ export const AdminEditSerial = ({ tags,serial }: Props) => {
             reset();
           } catch (err) {
             toast.error("Something wrong happened");
-            console.log(err);
           }
         })
         .catch((error) => {
-          console.log(error);
           toast.error(error.response.data.messge);
         })
         .finally(() => {

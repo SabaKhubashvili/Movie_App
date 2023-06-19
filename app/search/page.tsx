@@ -15,7 +15,7 @@ const Page = async() => {
   return (
     <React.Fragment>
       <Container>
-        <Search/>
+        <Search targetUrl='search'/>
         <SearchItems moviesAndSerials={moviesAndSerials} />
       </Container>
     </React.Fragment>

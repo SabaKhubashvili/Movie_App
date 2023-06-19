@@ -62,7 +62,6 @@ export const Series = ({series}:Props) => {
                             <Serie {...serial.serie} 
                             onClick={(link:string)=>{
                                 setOpenSerieData(prev=>({...prev,isOpen:true,serieLink:link}))
-                                console.log(link);
                             }}/>
                         </SwiperSlide>
                         )

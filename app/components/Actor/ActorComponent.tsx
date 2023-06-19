@@ -2,6 +2,7 @@ import { ImbdCast } from '@/app/types'
 import axios from 'axios'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 
 
 
@@ -18,7 +19,7 @@ export const ActorComponent = ({actor,role}:ImbdCast) => {
             setImage(res.data.results.image_url)
             
         }).catch(error=>{
-            console.log(error);
+            toast.error('Something went wrong getting actor image')
         })
     },[])
   return (

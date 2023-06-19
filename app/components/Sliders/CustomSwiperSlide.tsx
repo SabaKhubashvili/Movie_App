@@ -41,7 +41,6 @@ export const CustomSwiperSlide = ({
       axios
         .post(`/api/watchlist/${movieBannerBig ? 'addToWatchlist' :'addToWatchlistSerial' }`, {id})
         .then((res) => {
-          console.log(res);
           setISWatchlisted(res.data.watchlisted);
         })
         .catch((error) => {

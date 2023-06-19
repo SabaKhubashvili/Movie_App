@@ -37,6 +37,7 @@ export const SearchItems = ({ moviesAndSerials }: Props) => {
     return <EmptyClient
         title="Movie or serial not found"
         description="Maybe we didn't upload movie yet"
+        smallPaddings
     />
   }
   return (

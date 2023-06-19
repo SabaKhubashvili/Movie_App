@@ -1,7 +1,7 @@
 import { Container } from '@/app/Container'
 import { getAllMovies } from '@/app/actions'
 import { AdminAllMoviesTable } from '@/app/components/Admin/AdminAllMoviesTable'
-import Image from 'next/image'
+import { Search } from '@/app/components/Search/Search'
 import React from 'react'
 
 
@@ -14,9 +14,10 @@ const Page = async() => {
   const movies = await getAllMovies()
 
   return (
-    <section className='pt-[150px]'>
+    <section className='pt-[50px]'>
 
       <Container>
+          <Search />
         <div className='overflow-x-auto'>
           <AdminAllMoviesTable movies={movies}/>
         </div>

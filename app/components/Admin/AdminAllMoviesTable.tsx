@@ -3,7 +3,9 @@
 import { movie } from '@prisma/client'
 import axios from 'axios'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import queryString from 'query-string'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 interface Props{
@@ -13,7 +15,7 @@ interface Props{
 export const AdminAllMoviesTable = ({movies}:Props) => {
     const [movieList, setMovieList] = useState<movie[]>(movies);
     const [isLoading,setIsLoading] = useState<boolean>(false)
-
+    const params = useSearchParams()
     const onDelete = (id:string) =>{
       if(!isLoading){
         setIsLoading(true)
@@ -23,12 +25,31 @@ export const AdminAllMoviesTable = ({movies}:Props) => {
           toast.success(res.data.message)
           setMovieList(movieList.filter(movie=>movie.id !== id))
         }).catch(error=>{
-          console.log(error)
+          return toast.error('Can not remove movie')
         }).finally(()=>{
           setIsLoading(false)
         })
       }
     }
+
+    useEffect(()=>{
+      if(params){
+        const filteredBy = queryString.parse(params.toString())
+        const {
+          searchTitle
+        } = filteredBy
+        if (
+          typeof searchTitle === "string" &&
+          searchTitle !== null &&
+          searchTitle !== undefined
+        ) {
+        setMovieList(prev=>prev.filter(movie=>movie.title.includes(searchTitle)))
+        }else{
+          setMovieList(movies)
+   
+        }
+      }
+    },[params])
 
   return (
     <table className={`w-full ${isLoading && 'opacity-80'} `}>

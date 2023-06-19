@@ -15,6 +15,7 @@ import {smallScreens } from '../../MediaQueries'
 import { useSession } from 'next-auth/react'
 import queryString from 'query-string'
 import { useRouter } from 'next/navigation'
+import { MainSearchInput } from '../../Inputs/MenuSearchInput'
 
 export const Menu = () => {
   const user = useSession()
@@ -86,7 +87,7 @@ export const Menu = () => {
           exit={{y:'-100%',x:'0',opacity:0}}
           transition={{duration:0.2}}
           className='absolute right-0 w-[12rem]'>
-              <MainTextInput
+              <MainSearchInput
                 onSubmit={handleSubmit(onSubmit)}
                 id='searchTitle'
                 placeholder='Search'

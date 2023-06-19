@@ -11,9 +11,9 @@ import { redirect } from 'next/navigation'
 export async function generateMetadata(){
   const currentUser =  await getServerSession(authOptions)
 
-  if(!currentUser){
-    redirect('/')
-  }
+  // if(!currentUser){
+  //   redirect('/')
+  // }
 
   return {
     title: `${currentUser?.user.name} Profile`,
@@ -22,11 +22,12 @@ export async function generateMetadata(){
   };
 }
 
-const page = () => {
+const page = async() => {
+  const currentUser =  await getServerSession(authOptions)
   return (
     <React.Fragment>
         <Container>
-            <Profile/>
+            <Profile />
         </Container>
     </React.Fragment>
   )
