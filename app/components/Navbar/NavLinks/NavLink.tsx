@@ -7,19 +7,16 @@ import React, { useMemo } from 'react'
 interface Props{
     label:string,
     to:string,
-    smallScreen?:boolean
+    smallScreen?:boolean,
+    onClick?:(value:boolean)=>void
 }
 
-export const NavLink = ({label,to,smallScreen}:Props) => {
+export const NavLink = ({label,to,smallScreen,onClick}:Props) => {
   const pathname = usePathname();
- 
-  
-  const isActive = useMemo(()=>{
-    
-  },[])
 
   return (
     <Link href={`${to}`}
+    onClick={()=>onClick && onClick(false)}
     className={`
     ${pathname === to && ' font-extrabold'}
     ${smallScreen && 'text-[22px]'}

@@ -37,11 +37,11 @@ export const SecondaryBannerComponent = ({
       />
       <Container>
         <div className="flex flex-col justify-end h-full w-full gap-[20px] relative z-[8] pb-[250px]">
-          <div className="px-[16px] py-[8px] rounded-[16px] bg-[#000000] text-white w-fit">
+          <div className="px-[16px] py-[8px] rounded-[16px] bg-[#000000] text-white w-fit md:text-[15px] text-[13px]">
             Explore by the genre
           </div>
           <div className="flex flex-col gap-[8px]">
-            <h1 className="font-bold text-[48px] leading-[54px] text-white">
+            <h1 className="font-bold md:text-[48px] text-[30px] leading-[54px] text-white">
               {title}
             </h1>
             <div className="flex gap-[3px]">

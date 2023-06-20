@@ -21,7 +21,7 @@ export const ActorComponent = ({actor,role}:ImbdCast) => {
         }).catch(error=>{
             toast.error('Something went wrong getting actor image')
         })
-    },[])
+    },[actor.imdb_id])
   return (
     <React.Fragment>
                 { image &&

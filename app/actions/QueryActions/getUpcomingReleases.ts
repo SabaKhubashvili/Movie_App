@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {useQuery} from 'react-query'
 
-export default function getUpcomingReleases(){
+export default function GetUpcomingReleases(){
     return useQuery(['upcomingReleases'],async()=>{
         const resposne = await axios.get('https://api.themoviedb.org/3/movie/upcoming',{
             params: {language: 'en-US', page: '1'},

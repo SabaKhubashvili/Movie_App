@@ -32,7 +32,7 @@ export const SearchItems = ({ moviesAndSerials }: Props) => {
         setFilteredMoviesAndSerials(filteredMoviesAndComponents);
       }
     }
-  }, [params]);
+  }, [params,moviesAndSerials]);
   if(filteredMoviesAndSerials && filteredMoviesAndSerials?.length < 1){
     return <EmptyClient
         title="Movie or serial not found"

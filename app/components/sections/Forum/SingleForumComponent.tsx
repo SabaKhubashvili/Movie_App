@@ -35,7 +35,7 @@ export const SingleForumComponent = ({
     setIsLiked(isLiked)
     setIsDisliked(isDisliked)
     
-  },[data?.user])
+  },[data?.user,dislikes,likes])
 
   const createDate = new Date(createdAt)
   const currentDate = new Date();

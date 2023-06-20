@@ -1,8 +1,7 @@
 'use client'
 
-import getUpcomingReleases from '@/app/actions/QueryActions/getUpcomingReleases'
-import { movieReleases } from '@/app/constants'
-import { MoviesByMonth } from '@/app/types'
+import GetUpcomingReleases from '@/app/actions/QueryActions/getUpcomingReleases'
+
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
@@ -11,7 +10,7 @@ export const UpComingReleases = () => {
     const {
         data:upcomingMovies,
         isLoading
-    } = getUpcomingReleases()
+    } = GetUpcomingReleases()
     const [moviesByMonth,setMoviesByMonth] = useState<any>()
 
     useEffect(()=>{
@@ -41,7 +40,7 @@ export const UpComingReleases = () => {
             setMoviesByMonth(updatedMoviesByMonth)
         }
         
-    },[isLoading])
+    },[isLoading,upcomingMovies])
 
     if(!moviesByMonth){
         return <h1>Loading</h1>

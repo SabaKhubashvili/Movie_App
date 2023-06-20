@@ -1,12 +1,17 @@
 import { safeMovie } from "@/app/types";
 import prisma from "@/app/Libs/prismadb";
+import { differentMoviesTags } from "../constants";
 
 export async function getDifferentTagMovies(): Promise<safeMovie[]> {
   const movies: safeMovie[] = [];
   const uniqueMovieIds = new Set<string>();
 
   const gotTags = await prisma.tag.findMany({
-    take:5
+    where:{
+      name:{
+        in:differentMoviesTags
+      }
+    }
   })
 
   for (const tag of gotTags) {
@@ -39,6 +44,6 @@ export async function getDifferentTagMovies(): Promise<safeMovie[]> {
       movies.push(movie);
     }
   }
-
+  
   return movies;
 }

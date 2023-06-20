@@ -49,7 +49,7 @@ export const AdminAllMoviesTable = ({movies}:Props) => {
    
         }
       }
-    },[params])
+    },[params,movies])
 
   return (
     <table className={`w-full ${isLoading && 'opacity-80'} `}>

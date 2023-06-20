@@ -21,7 +21,7 @@ export const SecondaryBanner = ({ movies, tags }: Props) => {
   const seenTags = new Set();
 
   
-  
+    
   useEffect(()=>{
     movies.forEach(movie => {
       movie.movieTags.map((singleTag:any) => {
@@ -35,7 +35,7 @@ export const SecondaryBanner = ({ movies, tags }: Props) => {
         }
       });
     });
-  },[])
+  },[movies,tags])
 
   
   const handleClick = (index: number) => {

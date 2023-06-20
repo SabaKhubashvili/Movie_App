@@ -15,7 +15,7 @@ export const Parnters:string[] =  [
     'paramount'
 ]
 
-export const differentMoviesTags = ['Action','Fantasy','Horror','Romance','Comedy']
+export const differentMoviesTags = ['Action','Fantasy','Horror','Romance','Comedy','Adventure']
 
 
 // export const secondaryBannerTags:SecondaryBannerTagsInterface[] = [

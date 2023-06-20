@@ -16,6 +16,7 @@ import { useSession } from 'next-auth/react'
 import queryString from 'query-string'
 import { useRouter } from 'next/navigation'
 import { MainSearchInput } from '../../Inputs/MenuSearchInput'
+import Image from 'next/image'
 
 export const Menu = () => {
   const user = useSession()
@@ -103,8 +104,19 @@ export const Menu = () => {
           { user.status !== 'loading' ?
 
             user.data ?
-              
-              <Link className='w-[32px] select-none' href={'/profile'} >
+              user.data.user.image
+              ?
+              <Link className='w-[32px] h-[32px] select-none' href={'/profile'} >
+              <Image
+              src={user.data.user.image}
+              alt='userPlaceholder'
+              width={100}
+              height={100}
+              className='w-full h-full object-cover rounded-full p-1 border-[1px] '
+            />
+          </Link>
+              :
+            <Link className='w-[32px] select-none' href={'/profile'} >
                 <UserPlaceholder/>
             </Link>
             :

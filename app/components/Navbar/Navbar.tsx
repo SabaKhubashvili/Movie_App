@@ -10,7 +10,6 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { SmallScreenNavLinks } from "./NavLinks/SmallScreenNavLinks";
 import { NavContact } from "../Contact/NavContact";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 
 export const Navbar = () => {
   const isAboveLargeScrens = useMediaQuery(largeScreens);
@@ -75,7 +74,7 @@ export const Navbar = () => {
               <AiOutlineClose size={28} />
             </div>
           </div>
-          <SmallScreenNavLinks />
+          <SmallScreenNavLinks onClick={(value:boolean)=>setMenuToggled(value)} />
           <NavContact />
         </div>
       )}

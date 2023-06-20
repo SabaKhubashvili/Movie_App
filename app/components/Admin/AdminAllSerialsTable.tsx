@@ -50,7 +50,7 @@ export const AdminAllSerialsTable = ({serials}:Props) => {
           setSerialList(serials)   
         }
       }
-    },[params])
+    },[params,serials])
 
   return (
     <table className={`w-full ${isLoading && 'opacity-80'} `}>

@@ -43,7 +43,7 @@ export const Modal = ({footer, header,isOpen, onClose, body,paddings,small,darkB
       window.removeEventListener('click', handleOutsideClick);
     };
 }
-  }, [onClose,showModal]);
+  }, [onClose,showModal,disabled]);
 
  
 

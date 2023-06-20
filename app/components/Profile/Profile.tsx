@@ -42,14 +42,6 @@ export const Profile = () => {
         }
     })
     const gender = watch('gender')
-    console.log(userData);
-    
-    React.useEffect(() => {
-        if (userData) {
-          setCustomValue('name', userData.user.name);
-          setUserImage(userData.user.image)
-        }
-      }, [userData]);
     
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -58,6 +50,14 @@ export const Profile = () => {
           shouldValidate: true,
         });
       };
+
+    
+    React.useEffect(() => {
+        if (userData) {
+          setCustomValue('name', userData.user.name);
+          setUserImage(userData.user.image)
+        }
+      }, [userData]);
 
       const handleUpload = useCallback((result:any)=>{
         setUserImage(result.info.secure_url)
