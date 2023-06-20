@@ -17,10 +17,11 @@ export const Series = ({series}:Props) => {
 
     const [openSerieData,setOpenSerieData] = useState({
         isOpen:false,
-        serieLink:''
+        serieLink:'',
+        serieBanner:''
     })
     let bodyContent = (
-        <MoviePlayer link={openSerieData.serieLink}/>
+        <MoviePlayer banner={openSerieData.serieBanner} link={openSerieData.serieLink}/>
     )
 
   return (
@@ -55,13 +56,13 @@ export const Series = ({series}:Props) => {
                 className='!pt-[24px] !w-full'
                 >
                     {
-                        series.map((serial:any)=>
+                        series.map((serie:any)=>
                             
                             (
-                            <SwiperSlide key={serial.serie.id} className='!w-[301px] !h-[197px]'>
-                            <Serie {...serial.serie} 
+                            <SwiperSlide key={serie.serie.id} className='!w-[301px] !h-[197px]'>
+                            <Serie {...serie.serie} 
                             onClick={(link:string)=>{
-                                setOpenSerieData(prev=>({...prev,isOpen:true,serieLink:link}))
+                                setOpenSerieData(prev=>({...prev,isOpen:true,serieLink:link,serieBanner:serie.serialBannerBig}))
                             }}/>
                         </SwiperSlide>
                         )

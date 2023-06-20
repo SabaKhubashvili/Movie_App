@@ -12,7 +12,7 @@ export const LatestReleaseComponent = ({
     movieTags,
     imbdRating,
     serialBannerSmall,
-    serialTags
+    serieTags
 }:MoviesAndSerials) => {
     return (
     <Link href={`/movie/${id}`} className='h-full w-full relative rounded-xl'>
@@ -36,7 +36,7 @@ export const LatestReleaseComponent = ({
                            <p key={singleTag.tag.id}>{singleTag.tag.name} | </p>      
                         ))
                         :
-                        serialTags?.map((singleTag:any)=>(
+                        serieTags?.map((singleTag:any)=>(
                             <p key={singleTag.tag.id}>{singleTag.tag.name} | </p>      
                          ))
                     }

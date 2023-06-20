@@ -101,7 +101,7 @@ export const LoginModal = () => {
     const footer = (
         <div className='flex flex-col gap-[10px] w-full'>
             <CustomButton alternative label='Login' full onClick={handleSubmit(onSubmit)}/>
-            <p className='text-[#78828A] text-center'>Don &rsquo; t have accaunt? 
+            <p className='text-[#78828A] text-center'>Don&rsquo;t have accaunt? 
             <span className='text-white cursor-pointer' onClick={handleToRegister}> Sign up</span> </p>
         </div>
     )
