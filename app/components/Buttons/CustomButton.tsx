@@ -13,7 +13,7 @@ export const CustomButton = ({label,onClick,alternative,full,disabled,fitContent
   return (
     <button 
     className={`
-    ${alternative ? 'bg-white text-[#d4d4d4]' : 'bg-[#00925D] text-white '}
+    ${alternative ? 'bg-white text-[#a28585]' : 'bg-[#00925D] text-white '}
     ${full ? 'w-full py-4' : 'lg:w-fit w-full'}
     ${fitContent && '!w-fit !h-fit'}
     disabled:cursor-not-allowed
