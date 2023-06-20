@@ -14,7 +14,8 @@ export async function middleware(request: NextRequest) {
   }
 
 
-  const url = new URL(process.env.BASE_URL + '/api/auth/isAdmin').toString();
+  const url = new URL(request.nextUrl.origin+ '/api/auth/isAdmin').toString();
+  
   if (!token?.email) {
     return NextResponse.redirect(new URL('/',request.url));
   }
