@@ -32,7 +32,7 @@ const Page = async() => {
   const differentTagsMovies = await getDifferentTagMovies()
   const serials = await getAllSerials()
   const popularMovies = await getPopularMovies()
-  
+
   return (
     <React.Fragment>
 

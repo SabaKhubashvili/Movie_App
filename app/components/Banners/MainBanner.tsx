@@ -13,6 +13,8 @@ interface Props{
 }
 
 export  function MainBanner({movies}:Props) {
+  console.log(movies);
+  
   return (
     <>
       <Swiper pagination={{

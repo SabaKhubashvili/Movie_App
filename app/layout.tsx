@@ -22,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* <div className='w-full bg-yellow-500 fixed top-0 z-[51] text-center py-[2px]'>
+          Website is for testing purposes only movies placed here aren't real and are just placeholders
+        </div> */}
         <NextAuthProvider>
           <ReactQueryProvider >
-
               <ClientOnly>
                 <Toaster/>
                 <LoginModal/>
