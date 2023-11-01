@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination,Autoplay } from "swiper";
 import { CustomSwiperSlide } from "../Sliders/CustomSwiperSlide";
-import { safeMovie } from "@/app/types";
+
 
 interface Props{
   movies:any[]
