@@ -20,7 +20,6 @@ import { getMainBannerContent } from './actions/getMainBannerContent'
 export const metadata = {
   title: 'Home',
   description: 'Free movie website, watch and enjoy all movies for fully free and that will never cost you cent',
-  Image:'/Image/main/Logo.webp'
 }
 
 const Page = async() => {
