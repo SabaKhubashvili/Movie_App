@@ -17,6 +17,15 @@ export async function getMovieById(id: string) {
             },
           },
         },
+        watchlisted:{
+          select:{
+            user:{
+              select:{
+                id:true
+              }
+            }
+          }
+        }
       },
     });
     if(movie){

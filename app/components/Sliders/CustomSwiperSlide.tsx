@@ -31,9 +31,10 @@ export const CustomSwiperSlide = ({
   const isAboveLargeScreens = useMediaQuery(largeScreens);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { data } = useSession();
-  const [isWachlisted, setISWatchlisted] = useState<boolean>(
+  const [isWatchlisted, setISWatchlisted] = useState<boolean>(
     watchlisted.some((watchlist: any) => watchlist.user.id === data?.user.id)
   );
+
 
   const handleWatchlist = () => {
     if (!isLoading) {
@@ -128,7 +129,7 @@ export const CustomSwiperSlide = ({
             )}
             <AddWatchlist
               onClick={handleWatchlist}
-              label={isWachlisted ? "Remove Watchlist" : `Add Watchlist`}
+              label={isWatchlisted ? "Remove Watchlist" : `Add Watchlist`}
             />
           </div>
         </div>

@@ -10,6 +10,8 @@ import useMediaQuery from '@/app/hooks/UseMediaQuery'
 import { safeMovie } from '@/app/types'
 import { MoviePlayerModal } from '../VideoPlayer/MoviePlayerModal'
 import { toast } from 'react-hot-toast'
+import { useSession } from 'next-auth/react'
+import axios from 'axios'
 interface Props{
     links?:boolean
     movie:safeMovie
@@ -20,11 +22,17 @@ export const SingleMovieBanner = ({links,movie,movieLink}:Props) => {
 
     const isAboveLargeScreens = useMediaQuery(largeScreens)
     const [ogUrl, setOgUrl] = useState("");
-
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [openSerieData,setOpenSerieData] = useState({
         isOpen:false,
         movieLink:movieLink
     })
+    const { data } = useSession();
+    const [isWatchlisted, setISWatchlisted] = useState<boolean>(
+        movie.watchlisted.some((watchlist: any) => watchlist.user.id === data?.user.id)
+      );
+
+    
     React.useEffect(() => {
         const host = window.location.href;
         const baseUrl = `${host}`;
@@ -40,7 +48,22 @@ export const SingleMovieBanner = ({links,movie,movieLink}:Props) => {
           toast.error('Failed to copy link')
         }
       };
-
+      const handleWatchlist = () => {
+        if (!isLoading) {
+          setIsLoading(true);
+          axios
+            .post(`/api/watchlist/${movie.movieBannerBig ? 'addToWatchlist' :'addToWatchlistSerial' }`, {id:movie.id})
+            .then((res) => {
+              setISWatchlisted(res.data.watchlisted);
+            })
+            .catch((error) => {
+              toast.error("Something went wrong");
+            })
+            .finally(() => {
+              setIsLoading(false);
+            });
+        }
+      };
           
 
   return (
@@ -87,7 +110,7 @@ export const SingleMovieBanner = ({links,movie,movieLink}:Props) => {
                     <PlayButton  label="Play Now" onClick={()=>setOpenSerieData(prev=>({...prev,isOpen:true}))}/>
                     {isAboveLargeScreens &&
 
-                        <AddWatchlist label="Add Watchlist"/>
+                        <AddWatchlist label={isWatchlisted ? "Remove Watchlist" : "Add Watchlist"} onClick={handleWatchlist}/>
                     }
                 </div>
                 { links &&
